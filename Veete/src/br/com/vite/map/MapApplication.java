@@ -14,7 +14,7 @@ import br.com.vite.tile.IsometricTile;
 
 public class MapApplication extends Application {
 
-	private List<IsometricTile> tiles;
+	private IsometricTile[][] tiles;
 
 	private final int tileSize = 64;
 
@@ -25,24 +25,27 @@ public class MapApplication extends Application {
 		// TODO Auto-generated constructor stub
 	}
 
+	final int columns = 32;
+	final int lines = 13;
+
 	@Override
 	public void load() {
 
-		tiles = new ArrayList<IsometricTile>();
+		tiles = new IsometricTile[lines][columns];
 
 		int offsetX = 0;
 
-		for(int j=0;j<32;j++){
+		for(int j=0;j<lines;j++){
 
 			offsetX = (tileSize/2)*(j%2);
 
-			for(int i=0;i<13;i++){
+			for(int i=0;i<columns;i++){
 
-				tiles.add(new IsometricTile(offsetX+i*tileSize, 50+(tileSize/4)*j, tileSize));	
+				tiles[j][i] = new IsometricTile(offsetX+i*tileSize, 50+(tileSize/4)*j, tileSize);	
 			}
 		}
 
-		lastTile = tiles.get(0);
+		lastTile = tiles[0][0];
 
 		loading = 100;
 	}
@@ -52,21 +55,26 @@ public class MapApplication extends Application {
 
 		if(event.getState()==PointerState.MOVE){
 
-			for(IsometricTile tile: tiles){
+			for(int j=0;j<lines;j++){
 
-				if(tile.colideIsometric(event.getX(), event.getY())){
+				for(int i=0;i<columns;i++){
 
-					if(lastTile!=tile){
+					IsometricTile tile = tiles[j][i];
 
-						tile.setColor(Color.GREEN);
-						lastTile.setColor(Color.BLACK);
-						lastTile = tile;
-						
+					if(tile.colideIsometric(event.getX(), event.getY())){
+
+						if(lastTile!=tile){
+
+							tile.setColor(Color.GREEN);
+							lastTile.setColor(Color.BLACK);
+							lastTile = tile;
+
+						}
+
+						return null;
 					}
 
-					return null;
 				}
-
 			}
 
 		}
@@ -84,10 +92,15 @@ public class MapApplication extends Application {
 	@Override
 	public void draw(Graphic g) {
 
-		for(IsometricTile tile: tiles){
-			tile.draw(g);
+		for(int j=0;j<lines;j++){
+
+			for(int i=0;i<columns;i++){
+
+				IsometricTile tile = tiles[j][i];
+				tile.draw(g);
+			}
 		}
-		
+
 	}
 
 }
