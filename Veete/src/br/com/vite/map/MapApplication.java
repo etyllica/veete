@@ -1,8 +1,9 @@
 package br.com.vite.map;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.image.BufferedImage;
 
 import br.com.etyllica.core.application.Application;
 import br.com.etyllica.core.event.GUIEvent;
@@ -19,45 +20,99 @@ public class MapApplication extends Application {
 	private final int tileSize = 64;
 
 	private IsometricTile lastTile;
+	
+	private BufferedImage tileBorder;
+	private BufferedImage tileFill;
 
 	public MapApplication(float w, float h) {
 		super(w, h);
 		// TODO Auto-generated constructor stub
 	}
 
-	final int columns = 32;
-	final int lines = 13;
+	final int columns = 13;
+	final int lines = 32;
+	
+	int offsetY = 50;
+	int offsetX = 0;
 
 	@Override
 	public void load() {
 
 		tiles = new IsometricTile[lines][columns];
 
-		int offsetX = 0;
+		int oddOffsetX = 0;
 
 		for(int j=0;j<lines;j++){
 
-			offsetX = (tileSize/2)*(j%2);
+			oddOffsetX = (tileSize/2)*(j%2);
 
 			for(int i=0;i<columns;i++){
 
-				tiles[j][i] = new IsometricTile(offsetX+i*tileSize, 50+(tileSize/4)*j, tileSize);	
+				tiles[j][i] = new IsometricTile(oddOffsetX+i*tileSize, offsetY+(tileSize/4)*j, tileSize);	
 			}
 		}
 
 		lastTile = tiles[0][0];
-
+		
+		//create buffer
+		int x = 0;
+		int y = 0;
+		
+		int w = tileSize;
+		int h = tileSize/2;
+		
+		createTileBorder(x,y,w,h);
+		
 		loading = 100;
+	}
+	
+	private void createTileBorder(int x, int y, int w, int h){
+		
+		tileBorder = new BufferedImage(w, h+1, BufferedImage.TYPE_INT_ARGB);
+		tileFill = new BufferedImage(w, h+1, BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics2D g = tileBorder.createGraphics();
+        g.setColor(Color.BLACK);
+        				
+		Polygon polygon = new Polygon();
+		
+		polygon.addPoint(x, y+h/2);
+		polygon.addPoint(x+w/2, y);
+		polygon.addPoint(x+w, y+h/2);
+		polygon.addPoint(x+w/2, y+h);
+		
+		g.drawPolygon(polygon);
+		
+		//Create Fill
+		g = tileFill.createGraphics();
+		g.setColor(Color.GREEN);
+		g.fillPolygon(polygon);
 	}
 
 	@Override
 	public GUIEvent updateMouse(PointerEvent event) {
-
+		
 		if(event.getState()==PointerState.MOVE){
+			
+			int column = (int)(event.getX()-offsetX)/tileSize;
+			
+			int line = (int)(event.getY()-offsetY)/(tileSize/4);
 
-			for(int j=0;j<lines;j++){
+			if(line<=0){
+				line = 1;
+			}else if (line>=lines){
+				line = lines-1;
+			}
+			
+			if(column<=0){
+				column = 1;
+			}else if (column>=columns){
+				column = columns-1;
+			}
+			
+			for(int j=line-1;j<line+1;j++){
 
-				for(int i=0;i<columns;i++){
+				for(int i=column-1;i<column+1;i++){
 
 					IsometricTile tile = tiles[j][i];
 
@@ -97,9 +152,12 @@ public class MapApplication extends Application {
 			for(int i=0;i<columns;i++){
 
 				IsometricTile tile = tiles[j][i];
-				tile.draw(g);
+				
+				g.drawImage(tileBorder, tile.getX(),tile.getY());
 			}
 		}
+		
+		g.drawImage(tileFill, lastTile.getX(), lastTile.getY());
 
 	}
 
