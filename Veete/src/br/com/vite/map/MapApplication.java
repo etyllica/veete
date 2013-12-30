@@ -10,17 +10,31 @@ import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.event.PointerState;
+import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.etyllica.core.video.Graphic;
+import br.com.etyllica.util.SVGColor;
+import br.com.vite.grassland.Grass1;
+import br.com.vite.grassland.Marble1;
+import br.com.vite.tile.ImageTileLayer;
 import br.com.vite.tile.IsometricTile;
 
 public class MapApplication extends Application {
+
+	int uniqueId = 0;
+
+	//TileLayers
+	
+	private ImageTileLayer selectedTile;
+	
+	private Grass1 grass;
+	private Marble1 marble;
 
 	private IsometricTile[][] tiles;
 
 	private final int tileSize = 64;
 
 	private IsometricTile lastTile;
-	
+
 	private BufferedImage tileBorder;
 	private BufferedImage tileFill;
 
@@ -31,7 +45,7 @@ public class MapApplication extends Application {
 
 	final int columns = 13;
 	final int lines = 32;
-	
+
 	int offsetY = 50;
 	int offsetX = 0;
 
@@ -53,93 +67,125 @@ public class MapApplication extends Application {
 		}
 
 		lastTile = tiles[0][0];
-		
+
 		//create buffer
 		int x = 0;
 		int y = 0;
-		
+
 		int w = tileSize;
 		int h = tileSize/2;
-		
+
 		createTileBorder(x,y,w,h);
-		
+
+		createImageTiles();
+
 		loading = 100;
 	}
-	
+
 	private void createTileBorder(int x, int y, int w, int h){
-		
+
 		tileBorder = new BufferedImage(w, h+1, BufferedImage.TYPE_INT_ARGB);
 		tileFill = new BufferedImage(w, h+1, BufferedImage.TYPE_INT_ARGB);
-		
+
 		Graphics2D g = tileBorder.createGraphics();
-        g.setColor(Color.BLACK);
-        				
+		g.setColor(Color.BLACK);
+
 		Polygon polygon = new Polygon();
-		
+
 		polygon.addPoint(x, y+h/2);
 		polygon.addPoint(x+w/2, y);
 		polygon.addPoint(x+w, y+h/2);
 		polygon.addPoint(x+w/2, y+h);
-		
+
 		g.drawPolygon(polygon);
-		
+
 		//Create Fill
 		g = tileFill.createGraphics();
 		g.setColor(Color.GREEN);
 		g.fillPolygon(polygon);
 	}
 
+	private void createImageTiles(){
+		grass = new Grass1(genereateUniqueId());
+		marble = new Marble1(genereateUniqueId());
+		
+		selectedTile = marble;
+		
+	}
+
+	private int genereateUniqueId(){
+		return uniqueId++;
+	}
+
 	@Override
 	public GUIEvent updateMouse(PointerEvent event) {
-		
-		if(event.getState()==PointerState.MOVE){
-			
-			int column = (int)(event.getX()-offsetX)/tileSize;
-			
-			int line = (int)(event.getY()-offsetY)/(tileSize/4);
 
-			if(line<=0){
-				line = 1;
-			}else if (line>=lines){
-				line = lines-1;
-			}
-			
-			if(column<=0){
-				column = 1;
-			}else if (column>=columns){
-				column = columns-1;
-			}
-			
-			for(int j=line-1;j<line+1;j++){
+		IsometricTile tile = getClicked(event.getX(), event.getY());
 
-				for(int i=column-1;i<column+1;i++){
+		if(lastTile!=tile){
 
-					IsometricTile tile = tiles[j][i];
-
-					if(tile.colideIsometric(event.getX(), event.getY())){
-
-						if(lastTile!=tile){
-
-							tile.setColor(Color.GREEN);
-							lastTile.setColor(Color.BLACK);
-							lastTile = tile;
-
-						}
-
-						return null;
-					}
-
-				}
-			}
+			tile.setColor(SVGColor.GREEN);
+			lastTile.setColor(Color.BLACK);
+			lastTile = tile;
 
 		}
+		
+		if(event.isKey(MouseButton.MOUSE_BUTTON_LEFT)){
+			
+			tile.setLayer(selectedTile);
+			
+		}
+		
 
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	private IsometricTile getClicked(float mouseX, float mouseY){
+
+		int column = (int)(mouseX-offsetX)/tileSize;
+
+		int line = (int)(mouseY-offsetY)/(tileSize/4);
+
+		if(line<=0){
+			line = 1;
+		}else if (line>=lines){
+			line = lines-1;
+		}
+
+		if(column<=0){
+			column = 1;
+		}else if (column>=columns){
+			column = columns-1;
+		}
+
+		for(int j=line-1;j<line+1;j++){
+
+			for(int i=column-1;i<column+1;i++){
+
+				if(tiles[j][i].colideIsometric(mouseX, mouseY)){
+
+					return tiles[j][i];
+				}
+
+			}
+		}
+
+		return lastTile;
+
+	}
+
 	@Override
 	public GUIEvent updateKeyboard(KeyEvent event) {
+		
+		if(event.isKeyDown(KeyEvent.TSK_1)){
+			selectedTile = grass;
+		}
+		
+		if(event.isKeyDown(KeyEvent.TSK_2)){
+			selectedTile = marble;
+		}
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -152,13 +198,19 @@ public class MapApplication extends Application {
 			for(int i=0;i<columns;i++){
 
 				IsometricTile tile = tiles[j][i];
+
+				tile.draw(g);
 				
+				//Draw Grid
 				g.drawImage(tileBorder, tile.getX(),tile.getY());
+				
 			}
 		}
-		
-		g.drawImage(tileFill, lastTile.getX(), lastTile.getY());
 
+		g.setAlpha(50);
+		g.drawImage(tileFill, lastTile.getX(), lastTile.getY());
+		g.setAlpha(100);
+		
 	}
 
 }
