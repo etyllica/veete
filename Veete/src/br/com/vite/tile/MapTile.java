@@ -10,6 +10,8 @@ public class MapTile extends GeometricLayer implements Drawable{
 
 	protected ImageTileLayer layer;
 	
+	protected ImageTileLayer objectLayer;
+	
 	private Color color;
 	
 	public MapTile(int x, int y, int w, int h){
@@ -32,11 +34,29 @@ public class MapTile extends GeometricLayer implements Drawable{
 		this.layer = layer;
 	}
 	
+	public void setObjectLayer(ImageTileLayer layer) {
+		this.objectLayer = layer;
+	}
+	
 	public void draw(Graphic g){
+		
+		drawLayer(g);
+		
+		drawObject(g);
+		
+	}
+	
+	private void drawLayer(Graphic g){
 		if(layer!=null){
 			layer.setCoordinates(x, y);
 			layer.draw(g);
-		}
+		}	
 	}
 	
+	private void drawObject(Graphic g){
+		if(objectLayer!=null){
+			objectLayer.setCoordinates(x+w/2-objectLayer.layer.getW()/2, y-objectLayer.layer.getH()+w/2);
+			objectLayer.draw(g);
+		}
+	}
 }

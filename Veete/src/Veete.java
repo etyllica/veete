@@ -10,6 +10,8 @@ public class Veete extends EtyllicaFrame{
 	
 	public static void main(String[] args){
 		Veete map = new Veete();
+		map.updateDelay = 40;
+		map.drawDelay = 40;
 		map.init();
 	}
 

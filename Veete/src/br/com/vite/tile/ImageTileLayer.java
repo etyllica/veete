@@ -19,7 +19,7 @@ public class ImageTileLayer extends TileLayer{
 		layer.setH(h);
 	}
 	
-	public void setCoordinates(float x, float y){
+	public void setCoordinates(int x, int y){
 		this.layer.setCoordinates(x, y);
 	}
 	
