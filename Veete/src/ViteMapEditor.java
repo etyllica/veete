@@ -2,14 +2,14 @@ import br.com.etyllica.EtyllicaFrame;
 import br.com.vite.map.MapApplication;
 
 
-public class Veete extends EtyllicaFrame{
+public class ViteMapEditor extends EtyllicaFrame{
 
-	public Veete() {
+	public ViteMapEditor() {
 		super(800, 600);
 	}
 	
 	public static void main(String[] args){
-		Veete map = new Veete();
+		ViteMapEditor map = new ViteMapEditor();
 		map.updateDelay = 40;
 		map.drawDelay = 40;
 		map.init();
