@@ -5,7 +5,7 @@ import br.com.etyllica.layer.ImageLayer;
 
 public class ImageTileLayer extends TileLayer{
 	
-	private ImageLayer layer;
+	protected ImageLayer layer;
 	
 	public ImageTileLayer(long uniqueId, String path){
 		super(uniqueId);

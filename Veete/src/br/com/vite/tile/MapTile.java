@@ -4,11 +4,11 @@ import java.awt.Color;
 
 import br.com.etyllica.core.Drawable;
 import br.com.etyllica.core.video.Graphic;
-import br.com.etyllica.layer.Layer;
+import br.com.etyllica.layer.GeometricLayer;
 
-public class MapTile extends Layer implements Drawable{
+public class MapTile extends GeometricLayer implements Drawable{
 
-	private ImageTileLayer layer;
+	protected ImageTileLayer layer;
 	
 	private Color color;
 	

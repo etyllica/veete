@@ -15,6 +15,8 @@ import br.com.vite.grassland.Grass1;
 import br.com.vite.grassland.Marble1;
 import br.com.vite.tile.ImageTileLayer;
 import br.com.vite.tile.IsometricTile;
+import br.com.vite.tile.ObjectTile;
+import br.com.vite.tree.PalmTree1;
 
 public class MapApplication extends Application {
 
@@ -24,20 +26,29 @@ public class MapApplication extends Application {
 	
 	private ImageTileLayer selectedTile;
 	
+	private ImageTileLayer selectedObject;
+	
 	private Grass1 grass;
 	private Marble1 marble;
+	private PalmTree1 tree;
 
 	private IsometricTile[][] tiles;
+	
+	private ObjectTile[][] objects;
 
 	private final int tileSize = 64;
 
 	private IsometricTile lastTile;
+	private ObjectTile lastObject;
 
 	private BufferedImage tileBorder;
 	private BufferedImage tileFill;
 	
 	private boolean leftPressed = false;
 	private boolean rightPressed = false;
+	private boolean middlePressed = false;
+	
+	private int[] target = new int[2];
 
 	public MapApplication(float w, float h) {
 		super(w, h);
@@ -53,7 +64,13 @@ public class MapApplication extends Application {
 	@Override
 	public void load() {
 
+		target[0] = 0;
+		target[1] = 0;
+		
 		tiles = new IsometricTile[lines][columns];
+		objects = new ObjectTile[lines][columns];
+		
+		loading = 10;
 
 		int oddOffsetX = 0;
 
@@ -63,12 +80,19 @@ public class MapApplication extends Application {
 
 			for(int i=0;i<columns;i++){
 
-				tiles[j][i] = new IsometricTile(oddOffsetX+i*tileSize, offsetY+(tileSize/4)*j, tileSize);	
+				tiles[j][i] = new IsometricTile(oddOffsetX+i*tileSize, offsetY+(tileSize/4)*j, tileSize);
+				
+				objects[j][i] = new ObjectTile(oddOffsetX+i*tileSize, offsetY+(tileSize/4)*j, tileSize);
 			}
 		}
+		
+		loading = 20;
 
-		lastTile = tiles[0][0];
+		lastTile = tiles[target[0]][target[1]];
+		lastObject = objects[target[0]][target[1]];
 
+		loading = 30;
+		
 		//create buffer
 		int x = 0;
 		int y = 0;
@@ -109,8 +133,11 @@ public class MapApplication extends Application {
 	private void createImageTiles(){
 		grass = new Grass1(genereateUniqueId());
 		marble = new Marble1(genereateUniqueId());
+		tree = new PalmTree1(genereateUniqueId());
 		
 		selectedTile = marble;
+		
+		selectedObject = tree;
 		
 	}
 
@@ -121,7 +148,10 @@ public class MapApplication extends Application {
 	@Override
 	public GUIEvent updateMouse(PointerEvent event) {
 
-		lastTile = getClicked(event.getX(), event.getY());
+		getClicked(event.getX(), event.getY());
+		
+		lastTile = tiles[target[0]][target[1]];
+		lastObject = objects[target[0]][target[1]];
 				
 		if(event.onButtonDown(MouseButton.MOUSE_BUTTON_LEFT)){
 			leftPressed = true;
@@ -134,6 +164,12 @@ public class MapApplication extends Application {
 		}else if(event.onButtonUp(MouseButton.MOUSE_BUTTON_RIGHT)){
 			rightPressed = false;
 		}
+		
+		if(event.onButtonDown(MouseButton.MOUSE_BUTTON_MIDDLE)){
+			middlePressed = true;
+		}else if(event.onButtonUp(MouseButton.MOUSE_BUTTON_MIDDLE)){
+			middlePressed = false;
+		}
 				
 		return GUIEvent.NONE;
 	}
@@ -144,12 +180,14 @@ public class MapApplication extends Application {
 		if(leftPressed){
 			lastTile.setLayer(selectedTile);
 		}else if(rightPressed){
+			lastObject.setLayer(selectedObject);
+		}else if(middlePressed){			
 			lastTile.setLayer(null);
 		}
 		
 	}
 
-	private IsometricTile getClicked(float mouseX, float mouseY){
+	private int[] getClicked(float mouseX, float mouseY){
 		
 		int column = (int)(mouseX-offsetX)/tileSize;
 
@@ -173,13 +211,14 @@ public class MapApplication extends Application {
 
 				if(tiles[j][i].colideIsometric(mouseX, mouseY)){
 					
-					return tiles[j][i];
+					target[0] = j;
+					target[1] = i;
 				}
 
 			}
 		}
-
-		return lastTile;
+		
+		return target;
 
 	}
 
@@ -207,6 +246,9 @@ public class MapApplication extends Application {
 				IsometricTile tile = tiles[j][i];
 
 				tile.draw(g);
+				
+				//Draw Objects
+				objects[j][i].draw(g);
 				
 				//Draw Grid
 				g.drawImage(tileBorder, tile.getX(),tile.getY());
