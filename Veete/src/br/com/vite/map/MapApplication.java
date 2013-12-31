@@ -9,10 +9,8 @@ import br.com.etyllica.core.application.Application;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
-import br.com.etyllica.core.event.PointerState;
 import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.etyllica.core.video.Graphic;
-import br.com.etyllica.util.SVGColor;
 import br.com.vite.grassland.Grass1;
 import br.com.vite.grassland.Marble1;
 import br.com.vite.tile.ImageTileLayer;
@@ -37,6 +35,9 @@ public class MapApplication extends Application {
 
 	private BufferedImage tileBorder;
 	private BufferedImage tileFill;
+	
+	private boolean leftPressed = false;
+	private boolean rightPressed = false;
 
 	public MapApplication(float w, float h) {
 		super(w, h);
@@ -116,33 +117,40 @@ public class MapApplication extends Application {
 	private int genereateUniqueId(){
 		return uniqueId++;
 	}
-
+	
 	@Override
 	public GUIEvent updateMouse(PointerEvent event) {
 
-		IsometricTile tile = getClicked(event.getX(), event.getY());
-
-		if(lastTile!=tile){
-
-			tile.setColor(SVGColor.GREEN);
-			lastTile.setColor(Color.BLACK);
-			lastTile = tile;
-
+		lastTile = getClicked(event.getX(), event.getY());
+				
+		if(event.onButtonDown(MouseButton.MOUSE_BUTTON_LEFT)){
+			leftPressed = true;
+		}else if(event.onButtonUp(MouseButton.MOUSE_BUTTON_LEFT)){
+			leftPressed = false;
 		}
 		
-		if(event.isKey(MouseButton.MOUSE_BUTTON_LEFT)){
-			
-			tile.setLayer(selectedTile);
-			
+		if(event.onButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)){
+			rightPressed = true;
+		}else if(event.onButtonUp(MouseButton.MOUSE_BUTTON_RIGHT)){
+			rightPressed = false;
+		}
+				
+		return GUIEvent.NONE;
+	}
+	
+	@Override
+	public void update(long now){
+		
+		if(leftPressed){
+			lastTile.setLayer(selectedTile);
+		}else if(rightPressed){
+			lastTile.setLayer(null);
 		}
 		
-
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	private IsometricTile getClicked(float mouseX, float mouseY){
-
+		
 		int column = (int)(mouseX-offsetX)/tileSize;
 
 		int line = (int)(mouseY-offsetY)/(tileSize/4);
@@ -164,7 +172,7 @@ public class MapApplication extends Application {
 			for(int i=column-1;i<column+1;i++){
 
 				if(tiles[j][i].colideIsometric(mouseX, mouseY)){
-
+					
 					return tiles[j][i];
 				}
 
@@ -186,8 +194,7 @@ public class MapApplication extends Application {
 			selectedTile = marble;
 		}
 		
-		// TODO Auto-generated method stub
-		return null;
+		return GUIEvent.NONE;
 	}
 
 	@Override
