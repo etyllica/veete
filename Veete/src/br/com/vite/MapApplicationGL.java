@@ -99,6 +99,9 @@ public class MapApplicationGL extends ApplicationGL {
 		tiles[3][3].setObjectLayer(selectedObject);
 		tiles[4][4].setObjectLayer(grasslandObjects.get(1));
 		tiles[3][5].setObjectLayer(grasslandObjects.get(2));
+		tiles[3][6].setObjectLayer(grasslandObjects.get(3));
+		tiles[3][7].setObjectLayer(grasslandObjects.get(4));
+		tiles[3][8].setObjectLayer(grasslandObjects.get(5));
 
 		loading = 20;
 

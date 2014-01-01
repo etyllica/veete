@@ -10,6 +10,10 @@ import br.com.vite.collection.grassland.floor.GrassWithBricks;
 import br.com.vite.collection.grassland.floor.Marble;
 import br.com.vite.collection.grassland.objects.GraveNE;
 import br.com.vite.collection.grassland.objects.GraveNW;
+import br.com.vite.collection.grassland.objects.crate.CrateClosedNE;
+import br.com.vite.collection.grassland.objects.crate.CrateClosedNW;
+import br.com.vite.collection.grassland.objects.crate.CrateOpenedNE;
+import br.com.vite.collection.grassland.objects.crate.CrateOpenedNW;
 import br.com.vite.tile.ImageTileLayer;
 
 public class GrasslandCollection implements TileCollection, ObjectCollection{
@@ -56,6 +60,11 @@ public class GrasslandCollection implements TileCollection, ObjectCollection{
 		objects.add(new GraveNE(genereateUniqueId()));
 		
 		objects.add(new GraveNW(genereateUniqueId()));
+		
+		objects.add(new CrateClosedNW(genereateUniqueId()));
+		objects.add(new CrateOpenedNW(genereateUniqueId()));
+		objects.add(new CrateClosedNE(genereateUniqueId()));
+		objects.add(new CrateOpenedNE(genereateUniqueId()));
 		
 	}
 
