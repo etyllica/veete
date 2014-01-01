@@ -2,11 +2,10 @@ package br.com.vite.tile;
 
 import java.awt.Color;
 
-import br.com.etyllica.core.Drawable;
 import br.com.etyllica.core.video.Graphic;
 import br.com.etyllica.layer.GeometricLayer;
 
-public class MapTile extends GeometricLayer implements Drawable{
+public class MapTile extends GeometricLayer{
 
 	protected ImageTileLayer layer;
 	
@@ -38,22 +37,14 @@ public class MapTile extends GeometricLayer implements Drawable{
 		this.objectLayer = layer;
 	}
 	
-	public void draw(Graphic g){
-		
-		drawLayer(g);
-		
-		drawObject(g);
-		
-	}
-	
-	private void drawLayer(Graphic g){
+	public void drawTile(Graphic g){
 		if(layer!=null){
 			layer.setCoordinates(x, y);
 			layer.draw(g);
 		}	
 	}
 	
-	private void drawObject(Graphic g){
+	public void drawObject(Graphic g){
 		if(objectLayer!=null){
 			objectLayer.setCoordinates(x+w/2-objectLayer.layer.getW()/2, y-objectLayer.layer.getH()+w/2);
 			objectLayer.draw(g);
