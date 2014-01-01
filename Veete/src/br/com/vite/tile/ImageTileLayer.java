@@ -10,7 +10,7 @@ public class ImageTileLayer extends TileLayer{
 	public ImageTileLayer(long uniqueId, String path){
 		super(uniqueId);
 		
-		layer = new ImageLayer(path);		
+		layer = new ImageLayer(path);
 	}
 	
 	public void setLayerBounds(int xImage, int yImage, int w, int h){
@@ -25,6 +25,10 @@ public class ImageTileLayer extends TileLayer{
 	
 	public void draw(Graphic g){		
 		layer.simpleDraw(g);
+	}
+	
+	public void draw(Graphic g, int x, int y){		
+		layer.simpleDraw(g, x, y);
 	}
 
 }

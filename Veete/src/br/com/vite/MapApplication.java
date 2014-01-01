@@ -11,11 +11,11 @@ import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.etyllica.core.video.Graphic;
-import br.com.vite.grassland.Grass1;
-import br.com.vite.grassland.Marble1;
+import br.com.vite.collection.grassland.floor.Grass;
+import br.com.vite.collection.grassland.floor.Marble;
+import br.com.vite.collection.tree.PalmTree1;
 import br.com.vite.tile.ImageTileLayer;
 import br.com.vite.tile.IsometricTile;
-import br.com.vite.tree.PalmTree1;
 
 public class MapApplication extends Application {
 
@@ -27,8 +27,8 @@ public class MapApplication extends Application {
 	
 	private ImageTileLayer selectedObject;
 	
-	private Grass1 grass;
-	private Marble1 marble;
+	private Grass grass;
+	private Marble marble;
 	private PalmTree1 tree;
 
 	private IsometricTile[][] tiles;
@@ -127,8 +127,8 @@ public class MapApplication extends Application {
 	}
 
 	private void createImageTiles(){
-		grass = new Grass1(genereateUniqueId());
-		marble = new Marble1(genereateUniqueId());
+		grass = new Grass(genereateUniqueId(), 0);
+		marble = new Marble(genereateUniqueId(), 0);
 		tree = new PalmTree1(genereateUniqueId());
 		
 		selectedTile = grass;

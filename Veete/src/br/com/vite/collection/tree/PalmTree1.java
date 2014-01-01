@@ -1,4 +1,4 @@
-package br.com.vite.tree;
+package br.com.vite.collection.tree;
 
 import br.com.vite.tile.ImageTileLayer;
 
