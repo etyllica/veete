@@ -247,10 +247,12 @@ public class MapApplication extends Application {
 
 				IsometricTile tile = tiles[j][i];
 
-				tile.draw(g);
+				tile.drawTile(g);
 								
 				//Draw Grid
 				g.drawImage(tileBorder, tile.getX(),tile.getY());
+				
+				tile.drawObject(g);
 				
 			}
 		}

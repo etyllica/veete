@@ -21,7 +21,6 @@ import br.com.vite.tile.IsometricTile;
 public class MapApplicationGL extends ApplicationGL {
 
 	//TileLayers
-
 	private ImageTileLayer selectedTile;
 
 	private ImageTileLayer selectedObject;
@@ -102,6 +101,11 @@ public class MapApplicationGL extends ApplicationGL {
 		tiles[3][6].setObjectLayer(grasslandObjects.get(3));
 		tiles[3][7].setObjectLayer(grasslandObjects.get(4));
 		tiles[3][8].setObjectLayer(grasslandObjects.get(5));
+		
+		tiles[5][7].setObjectLayer(grasslandObjects.get(6));
+		tiles[5][8].setObjectLayer(grasslandObjects.get(7));
+		tiles[5][9].setObjectLayer(grasslandObjects.get(8));
+		tiles[5][10].setObjectLayer(grasslandObjects.get(9));
 
 		loading = 20;
 
@@ -262,10 +266,12 @@ public class MapApplicationGL extends ApplicationGL {
 
 				IsometricTile tile = tiles[j][i];
 
-				tile.draw(g);
-
+				tile.drawTile(g);
+				
 				//Draw Grid
 				g.drawImage(tileBorder, tile.getX(),tile.getY());
+				
+				tile.drawObject(g);
 
 			}
 		}		

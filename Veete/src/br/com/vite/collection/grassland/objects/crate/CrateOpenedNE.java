@@ -7,7 +7,7 @@ public class CrateOpenedNE extends ImageTileLayer {
 	public CrateOpenedNE(long uniqueId) {
 		super(uniqueId, "grassland/grassland.png");
 
-		this.setLayerBounds(4*64, 8*32, 64, 64);
+		this.setLayerBounds(3*64, 8*32, 64, 64);
 	}
 	
 }
