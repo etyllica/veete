@@ -1,5 +1,5 @@
 import br.com.etyllica.EtyllicaFrame;
-import br.com.vite.map.MapApplication;
+import br.com.vite.MapApplication;
 
 
 public class ViteMapEditor extends EtyllicaFrame{

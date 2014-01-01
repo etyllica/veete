@@ -24,7 +24,7 @@ public class ImageTileLayer extends TileLayer{
 	}
 	
 	public void draw(Graphic g){		
-		layer.draw(g);
+		layer.simpleDraw(g);
 	}
 
 }

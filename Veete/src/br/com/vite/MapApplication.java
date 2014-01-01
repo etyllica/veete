@@ -1,4 +1,4 @@
-package br.com.vite.map;
+package br.com.vite;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
