@@ -45,6 +45,8 @@ public class MapApplicationGL extends ApplicationGL {
 
 	public MapApplicationGL(int w, int h) {
 		super(w, h);
+		
+		updateAtFixedRate(40);
 	}
 
 	final int columns = 13;

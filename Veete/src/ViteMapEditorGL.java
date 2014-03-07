@@ -1,4 +1,5 @@
 import br.com.luvia.Luvia;
+import br.com.luvia.core.ApplicationGL;
 import br.com.vite.MapApplicationGL;
 
 
@@ -16,8 +17,8 @@ public class ViteMapEditorGL extends Luvia{
 	}
 
 	@Override
-	public void startGame() {
-		setMainApplication(new MapApplicationGL(w, h));
+	public ApplicationGL startApplication() {
+		return new MapApplicationGL(w, h);
 	}
 	
 }

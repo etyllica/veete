@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 
-import br.com.etyllica.core.application.Application;
+import br.com.etyllica.context.Application;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
@@ -22,7 +22,6 @@ public class MapApplication extends Application {
 	int uniqueId = 0;
 
 	//TileLayers
-	
 	private ImageTileLayer selectedTile;
 	
 	private ImageTileLayer selectedObject;
@@ -48,6 +47,8 @@ public class MapApplication extends Application {
 
 	public MapApplication(int w, int h) {
 		super(w, h);
+		
+		updateAtFixedRate(40);
 	}
 
 	final int columns = 13;
@@ -88,6 +89,7 @@ public class MapApplication extends Application {
 				tiles[j][i] = new IsometricTile(oddOffsetX+i*tileSize, offsetY+(tileSize/4)*j, tileSize);
 
 				tiles[j][i].setLayer(selectedTile);
+				tiles[j][i].setObjectLayer(selectedObject);
 				
 			}
 		}
@@ -99,7 +101,7 @@ public class MapApplication extends Application {
 		loading = 30;
 
 		updateAtFixedRate(80);
-		
+				
 		loading = 100;
 	}
 
@@ -173,7 +175,6 @@ public class MapApplication extends Application {
 	
 	@Override
 	public void timeUpdate(long now){
-
 
 		getClicked(mx, my);
 		
