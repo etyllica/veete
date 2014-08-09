@@ -30,20 +30,4 @@ public abstract class TileDrawer extends TileHelper {
 	
 	protected abstract void drawObject(Tile tile, Graphic g);
 
-	public int getOffsetX() {
-		return offsetX;
-	}
-
-	public void setOffsetX(int offsetX) {
-		this.offsetX = offsetX;
-	}
-
-	public int getOffsetY() {
-		return offsetY;
-	}
-
-	public void setOffsetY(int offsetY) {
-		this.offsetY = offsetY;
-	}
-		
 }

@@ -84,7 +84,7 @@ public class MapApplicationGL extends ApplicationGL {
 
 			for(int i=0;i<columns;i++){
 
-				tiles[j][i] = new IsometricTile(oddOffsetX+i*tileSize, offsetY+(tileSize/4)*j, tileSize);
+				tiles[j][i] = new IsometricTile(oddOffsetX+i*tileSize, offsetY+(tileSize/4)*j, tileSize, tileSize/2);
 
 				//tiles[j][i].setLayer(selectedTile);
 				if(i+j<30){
