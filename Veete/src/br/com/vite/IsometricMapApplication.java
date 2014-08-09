@@ -15,7 +15,10 @@ import br.com.vite.collection.isometric.grassland.floor.Marble;
 import br.com.vite.collection.isometric.tree.PalmTree1;
 import br.com.vite.tile.ImageTileLayer;
 import br.com.vite.tile.Tile;
+import br.com.vite.tile.colider.IsometricTileColider;
+import br.com.vite.tile.colider.TileColider;
 import br.com.vite.tile.generator.IsometricTileCreator;
+import br.com.vite.tile.generator.TileCreator;
 
 public class IsometricMapApplication extends MapApplication {
 
@@ -36,6 +39,11 @@ public class IsometricMapApplication extends MapApplication {
 	private ImageTileLayer selectedTile;
 
 	private ImageTileLayer selectedObject;
+	
+	//Isometric
+	private TileCreator creator = new IsometricTileCreator(tileSize);
+	
+	private TileColider colider = new IsometricTileColider(tileSize, tileSize/2);
 
 	public IsometricMapApplication(int w, int h) {
 		super(w, h);
@@ -56,7 +64,7 @@ public class IsometricMapApplication extends MapApplication {
 
 		createIsometricTileBorder(x,y,w,h);
 
-		generateMap(lines, columns, new IsometricTileCreator(tileSize));
+		generateMap(lines, columns, creator);
 
 		createImageTiles();
 
@@ -149,7 +157,7 @@ public class IsometricMapApplication extends MapApplication {
 
 			for(int i=column-1;i<column+1;i++) {
 
-				if(tiles[j][i].colideIsometric(mouseX, mouseY)) {
+				if(colider.colideTile(tiles[j][i],mouseX, mouseY)) {
 
 					target.setLocation(i, j);
 				}
@@ -157,8 +165,6 @@ public class IsometricMapApplication extends MapApplication {
 			}
 		}
 		
-		System.out.println("tx: "+target.getX()+" ty: "+target.getY());
-
 		return target;
 
 	}
