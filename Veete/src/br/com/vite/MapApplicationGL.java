@@ -11,10 +11,10 @@ import javax.media.opengl.GLAutoDrawable;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
+import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.core.input.mouse.MouseButton;
-import br.com.etyllica.core.video.Graphic;
 import br.com.luvia.core.ApplicationGL;
-import br.com.vite.collection.grassland.GrasslandCollection;
+import br.com.vite.collection.isometric.grassland.GrasslandCollection;
 import br.com.vite.tile.ImageTileLayer;
 import br.com.vite.tile.IsometricTile;
 
@@ -169,21 +169,21 @@ public class MapApplicationGL extends ApplicationGL {
 		my = event.getY();
 		mx = event.getX();
 
-		if(event.onButtonDown(MouseButton.MOUSE_BUTTON_LEFT)){
+		if(event.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)){
 			leftPressed = true;
-		}else if(event.onButtonUp(MouseButton.MOUSE_BUTTON_LEFT)){
+		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_LEFT)){
 			leftPressed = false;
 		}
 
-		if(event.onButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)){
+		if(event.isButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)){
 			rightPressed = true;
-		}else if(event.onButtonUp(MouseButton.MOUSE_BUTTON_RIGHT)){
+		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_RIGHT)){
 			rightPressed = false;
 		}
 
-		if(event.onButtonDown(MouseButton.MOUSE_BUTTON_MIDDLE)){
+		if(event.isButtonDown(MouseButton.MOUSE_BUTTON_MIDDLE)){
 			middlePressed = true;
-		}else if(event.onButtonUp(MouseButton.MOUSE_BUTTON_MIDDLE)){
+		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_MIDDLE)){
 			middlePressed = false;
 		}
 

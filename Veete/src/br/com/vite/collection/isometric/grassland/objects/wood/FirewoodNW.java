@@ -1,4 +1,4 @@
-package br.com.vite.collection.grassland.objects.wood;
+package br.com.vite.collection.isometric.grassland.objects.wood;
 
 import br.com.vite.tile.ImageTileLayer;
 
