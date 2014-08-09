@@ -17,6 +17,8 @@ import br.com.vite.tile.ImageTileLayer;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.IsometricTileColider;
 import br.com.vite.tile.colider.TileColider;
+import br.com.vite.tile.drawer.IsometricTileDrawer;
+import br.com.vite.tile.drawer.TileDrawer;
 import br.com.vite.tile.generator.IsometricTileCreator;
 import br.com.vite.tile.generator.TileCreator;
 
@@ -31,8 +33,7 @@ public class IsometricMapApplication extends MapApplication {
 	private final int tileSize = 64;
 
 	private BufferedImage tileFill;
-	private BufferedImage tileBorder;	
-
+	
 	private Point2D target = new Point2D();
 
 	//TileLayers
@@ -44,13 +45,15 @@ public class IsometricMapApplication extends MapApplication {
 	private TileCreator creator = new IsometricTileCreator(tileSize);
 	
 	private TileColider colider = new IsometricTileColider(tileSize, tileSize/2);
+	
+	private TileDrawer drawer = new IsometricTileDrawer(tileSize, tileSize/2);
 
 	public IsometricMapApplication(int w, int h) {
 		super(w, h);
 	}
 
 	final int columns = 13;
-	final int lines = 32;
+	final int lines = 2;
 
 	@Override
 	public void load() {
@@ -76,18 +79,21 @@ public class IsometricMapApplication extends MapApplication {
 		
 		loading = 30;
 
+		drawer.setOffsetY(120);
+		colider.setOffsetY(120);
+		
 		updateAtFixedRate(80);
 
 		loading = 100;
 	}
-	
+		
 	private void createIsometricTileBorder(int x, int y, int w, int h) {
 
-		tileBorder = new BufferedImage(w, h+1, BufferedImage.TYPE_INT_ARGB);
 		tileFill = new BufferedImage(w, h+1, BufferedImage.TYPE_INT_ARGB);
 
-		Graphics2D g = tileBorder.createGraphics();
-		g.setColor(Color.BLACK);
+		//Create Fill
+		Graphics2D g = tileFill.createGraphics();
+		g.setColor(Color.GREEN);
 
 		Polygon polygon = new Polygon();
 
@@ -96,11 +102,6 @@ public class IsometricMapApplication extends MapApplication {
 		polygon.addPoint(x+w, y+h/2);
 		polygon.addPoint(x+w/2, y+h);
 
-		g.drawPolygon(polygon);
-
-		//Create Fill
-		g = tileFill.createGraphics();
-		g.setColor(Color.GREEN);
 		g.fillPolygon(polygon);
 	}
 
@@ -192,18 +193,13 @@ public class IsometricMapApplication extends MapApplication {
 
 				Tile tile = tiles[j][i];
 
-				tile.drawTile(g);
-
-				//Draw Grid
-				g.drawImage(tileBorder, tile.getX(),tile.getY());
-
-				tile.drawObject(g);
+				drawer.drawTile(tile, g);
 
 			}
 		}
 
 		g.setAlpha(50);
-		g.drawImage(tileFill, lastTile.getX(), lastTile.getY());
+		g.drawImage(tileFill, lastTile.getX(), lastTile.getY()+drawer.getOffsetY());
 		g.setAlpha(100);
 
 	}
