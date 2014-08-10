@@ -1,12 +1,11 @@
 package br.com.vite.tile;
 
-import br.com.etyllica.core.Drawable;
 
-public abstract class TileLayer implements Drawable{
+public abstract class TileLayer implements DrawableOffset {
 
 	private long uniqueId;
 	
-	public TileLayer(long uniqueId){
+	public TileLayer(long uniqueId) {
 		super();
 		
 		this.uniqueId = uniqueId;

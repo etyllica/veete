@@ -2,7 +2,6 @@ package br.com.vite.tile;
 
 import java.awt.Color;
 
-import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.layer.GeometricLayer;
 
 public class Tile extends GeometricLayer {
@@ -41,17 +40,4 @@ public class Tile extends GeometricLayer {
 		this.objectLayer = layer;
 	}
 	
-	public void drawTile(Graphic g) {
-		if(layer!=null){
-			layer.setCoordinates(x, y);
-			layer.draw(g);
-		}	
-	}
-	
-	public void drawObject(Graphic g) {
-		if(objectLayer!=null){
-			objectLayer.setCoordinates(x+w/2-objectLayer.layer.getW()/2, y-objectLayer.layer.getH()+w/2);
-			objectLayer.draw(g);
-		}
-	}
 }

@@ -268,12 +268,14 @@ public class MapApplicationGL extends ApplicationGL {
 
 				IsometricTile tile = tiles[j][i];
 
-				tile.drawTile(g);
+				if(tile.getLayer()!=null)
+					tile.getLayer().draw(g, tile.getX(),tile.getY());
 				
 				//Draw Grid
 				g.drawImage(tileBorder, tile.getX(),tile.getY());
 				
-				tile.drawObject(g);
+				if(tile.getObjectLayer()!=null)
+					tile.getObjectLayer().draw(g, tile.getX(),tile.getY());
 
 			}
 		}		
