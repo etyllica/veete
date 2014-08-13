@@ -3,7 +3,6 @@ package br.com.vite;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.linear.Point2D;
-import br.com.vite.collection.MapApplication;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
 import br.com.vite.collection.isometric.grassland.floor.Marble;
 import br.com.vite.collection.isometric.tree.PalmTree1;
@@ -14,7 +13,7 @@ import br.com.vite.tile.drawer.IsometricTileDrawer;
 import br.com.vite.tile.filler.IsometricTileFiller;
 import br.com.vite.tile.generator.IsometricTileCreator;
 
-public class IsometricMapApplication extends MapApplication {
+public class IsometricMap extends MapApplication {
 
 	private Grass grass;
 	private Marble marble;
@@ -27,7 +26,7 @@ public class IsometricMapApplication extends MapApplication {
 
 	private ImageTileLayer selectedObject;
 	
-	public IsometricMapApplication(int w, int h) {
+	public IsometricMap(int w, int h) {
 		super(w, h);
 	}
 
@@ -36,15 +35,16 @@ public class IsometricMapApplication extends MapApplication {
 		
 		columns = 13;
 		lines = 16;
-		tileSize = 64;
+		tileWidth = 64;
+		tileHeight = tileWidth/2;
 		
-		creator = new IsometricTileCreator(tileSize, tileSize/2);
+		creator = new IsometricTileCreator(tileWidth, tileHeight);
 		
-		colider = new IsometricTileColider(tileSize, tileSize/2);
+		colider = new IsometricTileColider(tileWidth, tileHeight);
 		
-		drawer = new IsometricTileDrawer(tileSize, tileSize/2);
+		drawer = new IsometricTileDrawer(tileWidth, tileHeight);
 		
-		filler = new IsometricTileFiller(tileSize, tileSize/2);
+		filler = new IsometricTileFiller(tileWidth, tileHeight);
 		
 		generateMap(lines, columns, creator);
 
@@ -56,14 +56,12 @@ public class IsometricMapApplication extends MapApplication {
 		
 		loading = 30;
 
-		offsetMap(0, 32);
-				
+		translateMap(0, 32);
+						
 		updateAtFixedRate(80);
 
 		loading = 100;
 	}
-	
-	
 
 	private void createImageTiles() {
 		grass = new Grass(genereateUniqueId(), 0);
@@ -98,9 +96,9 @@ public class IsometricMapApplication extends MapApplication {
 
 	private Point2D getClicked(int mouseX, int mouseY) {
 
-		int column = (int)(mouseX-drawer.getOffsetX())/tileSize;
+		int column = (int)(mouseX-offsetX)/tileWidth;
 
-		int line = (int)(mouseY-drawer.getOffsetY())/(tileSize/4);
+		int line = (int)(mouseY-offsetY)/(tileHeight/2);
 
 		if(line<=0) {
 			line = 1;

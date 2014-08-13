@@ -40,10 +40,8 @@ public class IsometricTileFiller extends TileFiller {
 
 		int tx = tile.getX()+offsetX;
 		int ty = tile.getY()+offsetY;
-		
-		g.setAlpha(45);
+
 		g.drawImage(fillCell, tx, ty);
-		g.setAlpha(100);
 	}
 	
 }

@@ -16,19 +16,19 @@ public class IsometricTileColider extends TileColider {
 	
 	public boolean colideIsometric(Tile tile, int px, int py) {
 
+		int x = px-tile.getX()-offsetX;
+		int y = py-tile.getY()-offsetY;
+		
 		int my = tile.getH()/2;
 		int mx = tile.getW()/2;
 
-		int x = px-tile.getX()-offsetX;
-		int y = py-tile.getY()-offsetY;
+		if(y > my)
+			y = my-(y-my);
 
-		if(y>+my)
-			y=my-(y-my);
-
-		if((x>mx+1+(2*y))||(x<mx-1-(2*y)))
+		if((x > mx+1+(2*y)) || (x < mx-1-(2*y)))
 			return false;
-		else
-			return true;
+		
+		return true;
 
 	}
 

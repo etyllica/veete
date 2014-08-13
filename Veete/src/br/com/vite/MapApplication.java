@@ -1,4 +1,4 @@
-package br.com.vite.collection;
+package br.com.vite;
 
 import br.com.etyllica.context.Application;
 import br.com.etyllica.core.event.GUIEvent;
@@ -17,7 +17,8 @@ public abstract class MapApplication extends Application {
 
 	private int uniqueId = 0;
 	
-	protected int tileSize = 64;
+	protected int tileWidth = 64;
+	protected int tileHeight = 64;
 	
 	protected int columns = 10;
 	
@@ -60,7 +61,14 @@ public abstract class MapApplication extends Application {
 		super(w, h);
 	}
 
-	protected void offsetMap(int offsetX, int offsetY) {
+	protected void translateMap(int x, int y) {
+		offsetX = -x;
+		offsetY = -y;
+		
+		offsetTiles(offsetX, offsetY);
+	}
+	
+	private void offsetTiles(int offsetX, int offsetY) {
 		
 		drawer.setOffsetX(offsetX);
 		drawer.setOffsetY(offsetY);
@@ -162,7 +170,7 @@ public abstract class MapApplication extends Application {
 		}
 		
 		if(needUpdate)
-			offsetMap(offsetX, offsetY);
+			offsetTiles(offsetX, offsetY);
 	}
 	
 	@Override
@@ -179,7 +187,9 @@ public abstract class MapApplication extends Application {
 			}
 		}
 
+		g.setAlpha(45);
 		filler.drawFiller(lastTile, g);
+		g.setAlpha(100);
 	}
 	
 }
