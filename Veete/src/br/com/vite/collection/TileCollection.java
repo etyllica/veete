@@ -2,10 +2,10 @@ package br.com.vite.collection;
 
 import java.util.List;
 
-import br.com.vite.tile.ImageTileLayer;
+import br.com.vite.tile.layer.ImageTileFloor;
 
 public interface TileCollection {
 	
-	public List<ImageTileLayer> getTiles();
+	public List<ImageTileFloor> getTiles();
 
 }

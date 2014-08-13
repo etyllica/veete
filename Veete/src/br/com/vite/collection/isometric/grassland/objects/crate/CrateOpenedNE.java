@@ -1,8 +1,8 @@
 package br.com.vite.collection.isometric.grassland.objects.crate;
 
-import br.com.vite.tile.ImageTileLayer;
+import br.com.vite.tile.layer.ImageTileFloor;
 
-public class CrateOpenedNE extends ImageTileLayer {
+public class CrateOpenedNE extends ImageTileFloor {
 
 	public CrateOpenedNE(long uniqueId) {
 		super(uniqueId, "grassland/grassland.png");

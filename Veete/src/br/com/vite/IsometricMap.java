@@ -6,12 +6,13 @@ import br.com.etyllica.linear.Point2D;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
 import br.com.vite.collection.isometric.grassland.floor.Marble;
 import br.com.vite.collection.isometric.tree.PalmTree1;
-import br.com.vite.tile.ImageTileLayer;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.IsometricTileColider;
 import br.com.vite.tile.drawer.IsometricTileDrawer;
 import br.com.vite.tile.filler.IsometricTileFiller;
 import br.com.vite.tile.generator.IsometricTileCreator;
+import br.com.vite.tile.layer.ImageTileFloor;
+import br.com.vite.tile.layer.ImageTileObject;
 
 public class IsometricMap extends MapApplication {
 
@@ -22,9 +23,9 @@ public class IsometricMap extends MapApplication {
 	private Point2D target = new Point2D();
 
 	//TileLayers
-	private ImageTileLayer selectedTile;
+	private ImageTileFloor selectedTile;
 
-	private ImageTileLayer selectedObject;
+	private ImageTileObject selectedObject;
 	
 	public IsometricMap(int w, int h) {
 		super(w, h);

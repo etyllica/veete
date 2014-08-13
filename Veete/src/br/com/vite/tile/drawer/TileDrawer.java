@@ -10,7 +10,6 @@ public abstract class TileDrawer extends TileHelper {
 
 	public TileDrawer(int tileSizeX, int tileSizeY) {
 		super(tileSizeX, tileSizeY);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void drawTile(Tile tile, Graphic g) {
@@ -20,14 +19,31 @@ public abstract class TileDrawer extends TileHelper {
 		if(drawGrid)
 			drawGrid(tile, g);
 		
-		drawObject(tile, g);
-		
+		drawObject(tile, g);		
 	}
-	
-	protected abstract void drawFloor(Tile tile, Graphic g);
 	
 	protected abstract void drawGrid(Tile tile, Graphic g);
 	
-	protected abstract void drawObject(Tile tile, Graphic g);
+	private void drawFloor(Tile tile, Graphic g) {
+		
+		if(tile.getLayer() == null)
+			return;
+	
+		int tx = tile.getX()+offsetX;
+		int ty = tile.getY()+offsetY;
+		
+		tile.getLayer().draw(g, tx, ty);		
+	}
+	
+	private void drawObject(Tile tile, Graphic g) {
+		
+		if(tile.getObjectLayer() == null)
+			return;
+			
+		int tx = tile.getX()+offsetX;
+		int ty = tile.getY()+offsetY;		
+		
+		tile.getObjectLayer().draw(g, tx, ty, tile.getW(), tile.getH());		
+	}
 
 }

@@ -3,12 +3,14 @@ package br.com.vite.tile;
 import java.awt.Color;
 
 import br.com.etyllica.layer.GeometricLayer;
+import br.com.vite.tile.layer.ImageTileFloor;
+import br.com.vite.tile.layer.ImageTileObject;
 
 public class Tile extends GeometricLayer {
 
-	protected ImageTileLayer layer;
+	protected ImageTileFloor layer;
 	
-	protected ImageTileLayer objectLayer;
+	protected ImageTileObject objectLayer;
 	
 	private Color color;
 	
@@ -24,19 +26,19 @@ public class Tile extends GeometricLayer {
 		this.color = color;
 	}
 
-	public ImageTileLayer getLayer() {
+	public ImageTileFloor getLayer() {
 		return layer;
 	}
 
-	public void setLayer(ImageTileLayer layer) {
+	public void setLayer(ImageTileFloor layer) {
 		this.layer = layer;
 	}
 		
-	public ImageTileLayer getObjectLayer() {
+	public ImageTileObject getObjectLayer() {
 		return objectLayer;
 	}
 
-	public void setObjectLayer(ImageTileLayer layer) {
+	public void setObjectLayer(ImageTileObject layer) {
 		this.objectLayer = layer;
 	}
 	

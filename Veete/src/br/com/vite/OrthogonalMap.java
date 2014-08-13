@@ -6,12 +6,13 @@ import br.com.etyllica.linear.Point2D;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
 import br.com.vite.collection.isometric.grassland.floor.Marble;
 import br.com.vite.collection.isometric.tree.PalmTree1;
-import br.com.vite.tile.ImageTileLayer;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.OrthogonalTileColider;
 import br.com.vite.tile.drawer.OrthogonalTileDrawer;
 import br.com.vite.tile.filler.OrthogonalTileFiller;
 import br.com.vite.tile.generator.OrthogonalTileCreator;
+import br.com.vite.tile.layer.ImageTileFloor;
+import br.com.vite.tile.layer.ImageTileObject;
 
 public class OrthogonalMap extends MapApplication {
 
@@ -22,9 +23,9 @@ public class OrthogonalMap extends MapApplication {
 	private Point2D target = new Point2D();
 
 	//TileLayers
-	private ImageTileLayer selectedTile;
+	private ImageTileFloor selectedTile;
 
-	private ImageTileLayer selectedObject;
+	private ImageTileObject selectedObject;
 
 	public OrthogonalMap(int w, int h) {
 		super(w, h);

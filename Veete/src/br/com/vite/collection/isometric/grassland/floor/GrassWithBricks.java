@@ -1,8 +1,8 @@
 package br.com.vite.collection.isometric.grassland.floor;
 
-import br.com.vite.tile.ImageTileLayer;
+import br.com.vite.tile.layer.ImageTileFloor;
 
-public class GrassWithBricks extends ImageTileLayer{
+public class GrassWithBricks extends ImageTileFloor{
 
 	public GrassWithBricks(long uniqueId, int offsetTileX) {
 		super(uniqueId, "grassland/grassland.png");

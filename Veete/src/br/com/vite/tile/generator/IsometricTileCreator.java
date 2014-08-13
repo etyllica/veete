@@ -1,6 +1,5 @@
 package br.com.vite.tile.generator;
 
-import br.com.vite.tile.IsometricTile;
 import br.com.vite.tile.Tile;
 
 public class IsometricTileCreator extends TileCreator {
@@ -14,7 +13,7 @@ public class IsometricTileCreator extends TileCreator {
 
 		int oddOffsetX = (tileSizeX/2)*(j%2);
 
-		return new IsometricTile(oddOffsetX+i*tileSizeX, (tileSizeY/2)*j, tileSizeX, tileSizeY);
+		return new Tile(oddOffsetX+i*tileSizeX, (tileSizeY/2)*j, tileSizeX, tileSizeY);
 
 	}
 

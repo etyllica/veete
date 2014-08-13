@@ -1,13 +1,17 @@
-package br.com.vite.tile;
+package br.com.vite.tile.layer;
 
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.layer.ImageLayer;
 
-public class ImageTileLayer extends TileLayer {
+public class ImageTileObject extends TileLayer implements DrawableObject {
 	
 	protected ImageLayer layer;
 	
-	public ImageTileLayer(long uniqueId, String path) {
+	protected int offsetX = 0;
+	
+	protected int offsetY = 0;
+	
+	public ImageTileObject(long uniqueId, String path) {
 		super(uniqueId);
 		
 		layer = new ImageLayer(path);
@@ -23,8 +27,8 @@ public class ImageTileLayer extends TileLayer {
 		this.layer.setCoordinates(x, y);
 	}
 		
-	public void draw(Graphic g, int x, int y) {		
-		layer.simpleDraw(g, x, y);
+	public void draw(Graphic g, int x, int y, int tileWidth, int tileHeight) {		
+		layer.simpleDraw(g, offsetX+x-tileWidth/2, offsetY+y-layer.getH()+tileHeight);
 	}
 
 }

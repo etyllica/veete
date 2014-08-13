@@ -1,8 +1,8 @@
 package br.com.vite.collection.isometric.grassland.objects;
 
-import br.com.vite.tile.ImageTileLayer;
+import br.com.vite.tile.layer.ImageTileFloor;
 
-public class Anvil extends ImageTileLayer {
+public class Anvil extends ImageTileFloor {
 
 	public Anvil(long uniqueId) {
 		super(uniqueId, "grassland/grassland.png");

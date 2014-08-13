@@ -36,19 +36,6 @@ public class IsometricTileDrawer extends TileDrawer {
 	}
 
 	@Override
-	protected void drawFloor(Tile tile, Graphic g) {
-		
-		if(tile.getLayer() == null)
-			return;
-	
-		int tx = tile.getX()+offsetX;
-		int ty = tile.getY()+offsetY;
-		
-		tile.getLayer().draw(g, tx, ty);
-		
-	}
-
-	@Override
 	protected void drawGrid(Tile tile, Graphic g) {
 		
 		int tx = tile.getX()+offsetX;
@@ -56,20 +43,5 @@ public class IsometricTileDrawer extends TileDrawer {
 		
 		g.drawImage(gridCell, tx, ty);		
 	}
-
-	@Override
-	protected void drawObject(Tile tile, Graphic g) {
-		
-		if(tile.getObjectLayer() == null)
-			return;
-	
-		int tx = tile.getX()+offsetX;
-		int ty = tile.getY()+offsetY;
-		
-		tile.getObjectLayer().draw(g, tx, ty);		
-		
-	}
-
-	
 	
 }

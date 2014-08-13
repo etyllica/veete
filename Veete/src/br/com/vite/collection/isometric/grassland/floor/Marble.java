@@ -1,8 +1,8 @@
 package br.com.vite.collection.isometric.grassland.floor;
 
-import br.com.vite.tile.ImageTileLayer;
+import br.com.vite.tile.layer.ImageTileFloor;
 
-public class Marble extends ImageTileLayer{
+public class Marble extends ImageTileFloor{
 
 	public Marble(long uniqueId, int offsetTileX) {
 		super(uniqueId, "grassland/grassland.png");

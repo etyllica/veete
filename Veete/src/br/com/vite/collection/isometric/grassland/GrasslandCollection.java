@@ -18,24 +18,24 @@ import br.com.vite.collection.isometric.grassland.objects.crate.CrateOpenedNW;
 import br.com.vite.collection.isometric.grassland.objects.wood.Fireplace;
 import br.com.vite.collection.isometric.grassland.objects.wood.FirewoodNE;
 import br.com.vite.collection.isometric.grassland.objects.wood.FirewoodNW;
-import br.com.vite.tile.ImageTileLayer;
+import br.com.vite.tile.layer.ImageTileFloor;
 
 public class GrasslandCollection implements TileCollection, ObjectCollection{
 
 	private int uniqueId = 0;
 
-	private List<ImageTileLayer> tiles;
+	private List<ImageTileFloor> tiles;
 
-	private List<ImageTileLayer> objects;
+	private List<ImageTileFloor> objects;
 
 	public GrasslandCollection(){
 		super();
 
-		tiles = new ArrayList<ImageTileLayer>();
+		tiles = new ArrayList<ImageTileFloor>();
 		
 		loadTiles();
 
-		objects = new ArrayList<ImageTileLayer>();
+		objects = new ArrayList<ImageTileFloor>();
 		
 		loadObjects();
 
@@ -84,13 +84,13 @@ public class GrasslandCollection implements TileCollection, ObjectCollection{
 	}
 
 	@Override
-	public List<ImageTileLayer> getTiles() {
+	public List<ImageTileFloor> getTiles() {
 
 		return tiles;
 	}
 
 	@Override
-	public List<ImageTileLayer> getObjects() {
+	public List<ImageTileFloor> getObjects() {
 		// TODO Auto-generated method stub
 		return objects;
 	}

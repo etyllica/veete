@@ -1,8 +1,8 @@
 package br.com.vite.collection.isometric.grassland.objects.wood;
 
-import br.com.vite.tile.ImageTileLayer;
+import br.com.vite.tile.layer.ImageTileFloor;
 
-public class FirewoodNE extends ImageTileLayer {
+public class FirewoodNE extends ImageTileFloor {
 
 	public FirewoodNE(long uniqueId) {
 		super(uniqueId, "grassland/grassland.png");

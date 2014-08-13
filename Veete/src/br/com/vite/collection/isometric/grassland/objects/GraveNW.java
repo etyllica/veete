@@ -1,8 +1,8 @@
 package br.com.vite.collection.isometric.grassland.objects;
 
-import br.com.vite.tile.ImageTileLayer;
+import br.com.vite.tile.layer.ImageTileFloor;
 
-public class GraveNW extends ImageTileLayer {
+public class GraveNW extends ImageTileFloor {
 
 	public GraveNW(long uniqueId) {
 		super(uniqueId, "grassland/grassland.png");

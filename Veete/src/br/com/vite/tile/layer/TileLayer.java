@@ -1,7 +1,7 @@
-package br.com.vite.tile;
+package br.com.vite.tile.layer;
 
 
-public abstract class TileLayer implements DrawableOffset {
+public abstract class TileLayer {
 
 	private long uniqueId;
 	
