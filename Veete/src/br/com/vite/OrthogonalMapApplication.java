@@ -44,7 +44,7 @@ public class OrthogonalMapApplication extends MapApplication {
 	@Override
 	public void load() {
 
-		columns = 13;
+		columns = 48;
 		lines = 16;
 
 		tileWidth = 16;
@@ -60,7 +60,7 @@ public class OrthogonalMapApplication extends MapApplication {
 
 		loading = 30;
 
-		translateMap(0, 32);
+		translateMap(0, 40);
 
 		updateAtFixedRate(80);
 
@@ -69,7 +69,7 @@ public class OrthogonalMapApplication extends MapApplication {
 
 	private void createSelectionMap() {
 
-		selectionMap = new OrthogonalMap(10, 10, tileWidth, tileHeight);
+		selectionMap = new OrthogonalMap(12, 9, tileWidth, tileHeight);
 		selectionMap.createTiles();
 
 		selectionMap.setOffsetY(tileSetOffsetY);
@@ -96,19 +96,21 @@ public class OrthogonalMapApplication extends MapApplication {
 
 		Tile lastSelectedTile = map.getTargetTile(mx, my);
 
-		if(leftPressed) {
-			
-			ImageTileFloor floor = new ImageTileFloor(selectedTile);
-						
-			lastSelectedTile.setLayer(floor);
-			
-		} else if(rightPressed) {
-			lastSelectedTile.setObjectLayer(selectedObject);
-		} else if(middlePressed) {
-			lastSelectedTile.setLayer(null);
-		}
+		if(my<tileSetOffsetY) {
 
-		if(my>tileSetOffsetY) {
+			if(leftPressed) {
+
+				ImageTileFloor floor = new ImageTileFloor(selectedTile);
+
+				lastSelectedTile.setLayer(floor);
+
+			} else if(rightPressed) {
+				lastSelectedTile.setObjectLayer(selectedObject);
+			} else if(middlePressed) {
+				lastSelectedTile.setLayer(null);
+			}
+
+		} else {
 
 			Tile lastSelectionTile = selectionMap.getTargetTile(mx, my);
 

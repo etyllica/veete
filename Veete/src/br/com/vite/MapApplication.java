@@ -52,7 +52,7 @@ public abstract class MapApplication extends Application {
 	}
 
 	protected void translateMap(int x, int y) {
-		map.setOffset(-x, -y);		
+		map.setOffset(x, y);	
 	}	
 
 	protected int genereateUniqueId() {
