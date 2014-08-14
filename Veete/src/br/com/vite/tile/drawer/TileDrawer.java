@@ -12,19 +12,19 @@ public abstract class TileDrawer extends TileHelper {
 		super(tileSizeX, tileSizeY);
 	}
 	
-	public void drawTile(Tile tile, Graphic g) {
+	public void drawTile(Tile tile, Graphic g, int offsetX, int offsetY) {
 		
-		drawFloor(tile, g);
+		drawFloor(tile, g, offsetX, offsetY);
 
 		if(drawGrid)
-			drawGrid(tile, g);
+			drawGrid(tile, g, offsetX, offsetY);
 		
-		drawObject(tile, g);		
+		drawObject(tile, g, offsetX, offsetY);
 	}
 	
-	protected abstract void drawGrid(Tile tile, Graphic g);
+	protected abstract void drawGrid(Tile tile, Graphic g, int offsetX, int offsetY);
 	
-	private void drawFloor(Tile tile, Graphic g) {
+	private void drawFloor(Tile tile, Graphic g, int offsetX, int offsetY) {
 		
 		if(tile.getLayer() == null)
 			return;
@@ -35,7 +35,7 @@ public abstract class TileDrawer extends TileHelper {
 		tile.getLayer().draw(g, tx, ty);		
 	}
 	
-	private void drawObject(Tile tile, Graphic g) {
+	private void drawObject(Tile tile, Graphic g, int offsetX, int offsetY) {
 		
 		if(tile.getObjectLayer() == null)
 			return;

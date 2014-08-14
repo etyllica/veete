@@ -6,6 +6,7 @@ import br.com.etyllica.linear.Point2D;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
 import br.com.vite.collection.isometric.grassland.floor.Marble;
 import br.com.vite.collection.isometric.tree.PalmTree1;
+import br.com.vite.map.Map;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.IsometricTileColider;
 import br.com.vite.tile.drawer.IsometricTileDrawer;
@@ -32,15 +33,17 @@ public class IsometricMap extends MapApplication {
 		tileWidth = 64;
 		tileHeight = tileWidth/2;
 		
-		creator = new IsometricTileCreator(tileWidth, tileHeight);
+		map = new Map(lines, columns);
 		
-		colider = new IsometricTileColider(tileWidth, tileHeight);
+		map.setCreator(new IsometricTileCreator(tileWidth, tileHeight));
 		
-		drawer = new IsometricTileDrawer(tileWidth, tileHeight);
+		map.setColider(new IsometricTileColider(tileWidth, tileHeight));
 		
-		filler = new IsometricTileFiller(tileWidth, tileHeight);
+		map.setDrawer(new IsometricTileDrawer(tileWidth, tileHeight));
 		
-		generateMap(lines, columns, creator);
+		map.setFiller(new IsometricTileFiller(tileWidth, tileHeight));
+		
+		tiles = map.createTiles();
 
 		createImageTiles();
 
@@ -90,9 +93,9 @@ public class IsometricMap extends MapApplication {
 
 	private Point2D getClicked(int mouseX, int mouseY) {
 
-		int column = (int)(mouseX-offsetX)/tileWidth;
+		int column = (int)(mouseX-map.getOffsetX())/tileWidth;
 
-		int line = (int)(mouseY-offsetY)/(tileHeight/2);
+		int line = (int)(mouseY-map.getOffsetY())/(tileHeight/2);
 
 		if(line<=0) {
 			line = 1;
@@ -110,7 +113,7 @@ public class IsometricMap extends MapApplication {
 
 			for(int i=column-1;i<column+1;i++) {
 
-				if(colider.colideTile(tiles[j][i],mouseX, mouseY)) {
+				if(map.getColider().colideTile(tiles[j][i],mouseX, mouseY, map.getOffsetX(), map.getOffsetY())) {
 
 					target.setLocation(i, j);
 				}

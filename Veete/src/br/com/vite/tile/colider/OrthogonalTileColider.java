@@ -9,12 +9,12 @@ public class OrthogonalTileColider extends TileColider {
 	}
 
 	@Override
-	public boolean colideTile(Tile tile, int mx, int my) {
+	public boolean colideTile(Tile tile, int mx, int my, int offsetX, int offsetY) {
 
-		return colideRectangular(tile, mx, my);
+		return colideRectangular(tile, mx, my, offsetX, offsetY);
 	}
 
-	public boolean colideRectangular(Tile tile, int px, int py) {
+	public boolean colideRectangular(Tile tile, int px, int py, int offsetX, int offsetY) {
 
 		int x = px-tile.getX()-offsetX;
 		int y = py-tile.getY()-offsetY;

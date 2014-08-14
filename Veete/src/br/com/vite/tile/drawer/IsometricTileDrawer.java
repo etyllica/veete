@@ -36,7 +36,7 @@ public class IsometricTileDrawer extends TileDrawer {
 	}
 
 	@Override
-	protected void drawGrid(Tile tile, Graphic g) {
+	protected void drawGrid(Tile tile, Graphic g, int offsetX, int offsetY) {
 		
 		int tx = tile.getX()+offsetX;
 		int ty = tile.getY()+offsetY;

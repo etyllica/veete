@@ -8,10 +8,6 @@ import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.vite.map.Map;
 import br.com.vite.tile.Tile;
-import br.com.vite.tile.colider.TileColider;
-import br.com.vite.tile.drawer.TileDrawer;
-import br.com.vite.tile.filler.TileFiller;
-import br.com.vite.tile.generator.TileCreator;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.layer.ImageTileObject;
 
@@ -27,23 +23,11 @@ public abstract class MapApplication extends Application {
 	protected int lines = 10;
 	
 	protected Map map;
-	
+		
 	protected Tile[][] tiles;
-	
-	protected TileCreator creator;
-	
-	protected TileColider colider;
-	
-	protected TileDrawer drawer;
-	
-	protected TileFiller filler;
-	
+		
 	protected Tile lastTile;
-	
-	protected int offsetX;
-	
-	protected int offsetY;
-	
+		
 	private int offsetSpeed = 6;
 	
 	//Input
@@ -69,30 +53,8 @@ public abstract class MapApplication extends Application {
 	}
 
 	protected void translateMap(int x, int y) {
-		offsetX = -x;
-		offsetY = -y;
-		
-		offsetTiles(offsetX, offsetY);
-	}
-	
-	private void offsetTiles(int offsetX, int offsetY) {
-		
-		drawer.setOffsetX(offsetX);
-		drawer.setOffsetY(offsetY);
-		
-		colider.setOffsetX(offsetX);
-		colider.setOffsetY(offsetY);
-		
-		filler.setOffsetX(offsetX);
-		filler.setOffsetY(offsetY);		
-	}
-	
-	protected void generateMap(int lines, int columns, TileCreator creator) {
-		
-		map = new Map(lines, columns);
-		
-		tiles = map.createTiles(creator);
-	}
+		map.setOffset(-x, -y);		
+	}	
 
 	protected int genereateUniqueId() {
 		return uniqueId++;
@@ -161,41 +123,27 @@ public abstract class MapApplication extends Application {
 		boolean needUpdate = false;
 		
 		if(upArrowPressed) {
-			offsetY+=offsetSpeed;
-			needUpdate = true;
+			map.setOffsetY(map.getOffsetY()+offsetSpeed);
 		} else if(downArrowPressed) {
-			offsetY-=offsetSpeed;
-			needUpdate = true;
+			map.setOffsetY(map.getOffsetY()-offsetSpeed);
 		}
 		
 		if(leftArrowPressed) {
-			offsetX+=offsetSpeed;
-			needUpdate = true;
+			map.setOffsetX(map.getOffsetX()+offsetSpeed);
+
 		} else if(rightArrowPressed) {
-			offsetX-=offsetSpeed;
-			needUpdate = true;
+			map.setOffsetX(map.getOffsetX()-offsetSpeed);
 		}
 		
-		if(needUpdate)
-			offsetTiles(offsetX, offsetY);
 	}
 	
 	@Override
 	public void draw(Graphic g) {
 
-		for(int j=0;j<lines;j++) {
-
-			for(int i=0;i<columns;i++) {
-
-				Tile tile = tiles[j][i];
-
-				drawer.drawTile(tile, g);
-
-			}
-		}
-
+		map.draw(g, 0, 0);
+		
 		g.setAlpha(45);
-		filler.drawFiller(lastTile, g);
+		map.getFiller().drawFiller(lastTile, g, map.getOffsetX(), map.getOffsetY());
 		g.setAlpha(100);
 	}
 	

@@ -36,7 +36,7 @@ public class IsometricTileFiller extends TileFiller {
 	}
 
 	@Override
-	public void drawFiller(Tile tile, Graphic g) {
+	public void drawFiller(Tile tile, Graphic g, int offsetX, int offsetY) {
 
 		int tx = tile.getX()+offsetX;
 		int ty = tile.getY()+offsetY;

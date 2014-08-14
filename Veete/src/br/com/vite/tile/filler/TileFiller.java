@@ -11,6 +11,6 @@ public abstract class TileFiller extends TileHelper {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public abstract void drawFiller(Tile tile, Graphic g);
+	public abstract void drawFiller(Tile tile, Graphic g, int offsetX, int offsetY);
 			
 }
