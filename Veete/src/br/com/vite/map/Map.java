@@ -8,7 +8,7 @@ public class Map {
 	private int lines;
 	
 	private int columns;
-	
+		
 	public Map(int lines, int columns) {
 		super();
 		
