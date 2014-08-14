@@ -4,16 +4,16 @@ import br.com.vite.tile.Tile;
 
 public class IsometricTileCreator extends TileCreator {
 
-	public IsometricTileCreator(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);
+	public IsometricTileCreator(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 	}
 
 	@Override
 	public Tile createTile(int j, int i) {
 
-		int oddOffsetX = (tileSizeX/2)*(j%2);
+		int oddOffsetX = (tileWidth/2)*(j%2);
 
-		return new Tile(oddOffsetX+i*tileSizeX, (tileSizeY/2)*j, tileSizeX, tileSizeY);
+		return new Tile(oddOffsetX+i*tileWidth, (tileHeight/2)*j, tileWidth, tileHeight);
 
 	}
 

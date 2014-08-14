@@ -8,8 +8,8 @@ public abstract class TileDrawer extends TileHelper {
 	
 	protected boolean drawGrid = true;
 
-	public TileDrawer(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);
+	public TileDrawer(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 	}
 	
 	public void drawTile(Tile tile, Graphic g, int offsetX, int offsetY) {

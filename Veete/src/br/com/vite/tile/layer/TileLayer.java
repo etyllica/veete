@@ -3,7 +3,7 @@ package br.com.vite.tile.layer;
 
 public abstract class TileLayer {
 
-	private long uniqueId;
+	protected long uniqueId;
 	
 	public TileLayer(long uniqueId) {
 		super();

@@ -7,8 +7,8 @@ import br.com.vite.tile.Tile;
 
 public class OrthogonalTileFiller extends TileFiller {
 	
-	public OrthogonalTileFiller(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);
+	public OrthogonalTileFiller(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 	}
 
 	@Override

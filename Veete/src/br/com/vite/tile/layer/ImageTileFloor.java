@@ -22,7 +22,7 @@ public class ImageTileFloor extends TileLayer implements DrawableLayer {
 	public void setCoordinates(int x, int y) {
 		this.layer.setCoordinates(x, y);
 	}
-		
+			
 	public void draw(Graphic g, int x, int y) {		
 		layer.simpleDraw(g, x, y);
 	}

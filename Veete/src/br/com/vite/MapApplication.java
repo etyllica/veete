@@ -25,8 +25,7 @@ public abstract class MapApplication extends Application {
 	protected Map map;
 		
 	protected Tile[][] tiles;
-		
-	protected Tile lastTile;
+	
 		
 	private int offsetSpeed = 6;
 	
@@ -119,9 +118,7 @@ public abstract class MapApplication extends Application {
 	
 	@Override
 	public void timeUpdate(long now) {
-		
-		boolean needUpdate = false;
-		
+				
 		if(upArrowPressed) {
 			map.setOffsetY(map.getOffsetY()+offsetSpeed);
 		} else if(downArrowPressed) {
@@ -142,9 +139,6 @@ public abstract class MapApplication extends Application {
 
 		map.draw(g, 0, 0);
 		
-		g.setAlpha(45);
-		map.getFiller().drawFiller(lastTile, g, map.getOffsetX(), map.getOffsetY());
-		g.setAlpha(100);
 	}
 	
 }

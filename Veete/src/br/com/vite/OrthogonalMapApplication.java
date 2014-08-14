@@ -10,6 +10,7 @@ import br.com.vite.collection.isometric.grassland.floor.Marble;
 import br.com.vite.collection.orthogonal.gothic.Column;
 import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.map.Map;
+import br.com.vite.map.OrthogonalMap;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.OrthogonalTileColider;
 import br.com.vite.tile.drawer.OrthogonalTileDrawer;
@@ -17,7 +18,7 @@ import br.com.vite.tile.filler.OrthogonalTileFiller;
 import br.com.vite.tile.generator.OrthogonalTileCreator;
 import br.com.vite.tile.layer.ImageTileFloor;
 
-public class OrthogonalMap extends MapApplication {
+public class OrthogonalMapApplication extends MapApplication {
 
 	private Grass grass;
 	private Marble marble;
@@ -26,17 +27,17 @@ public class OrthogonalMap extends MapApplication {
 	private Point2D target = new Point2D();
 
 	protected Map selectionMap;
-	
+
 	private CastleTileSet tileSet;
 
 	private int tileSetOffsetY = 300;
-	
+
 	private ImageTileFloor tileSelection;
-	
+
 	private int selectionX = 0;	
 	private int selectionY = 0;
 
-	public OrthogonalMap(int w, int h) {
+	public OrthogonalMapApplication(int w, int h) {
 		super(w, h);
 	}
 
@@ -48,26 +49,14 @@ public class OrthogonalMap extends MapApplication {
 
 		tileWidth = 16;
 		tileHeight = 16;
-		
-		map = new Map(lines, columns);
-		
-		map.setCreator(new OrthogonalTileCreator(tileWidth, tileHeight));
 
-		map.setColider(new OrthogonalTileColider(tileWidth, tileHeight));
-
-		map.setDrawer(new OrthogonalTileDrawer(tileWidth, tileHeight));
-
-		map.setFiller(new OrthogonalTileFiller(tileWidth, tileHeight));
+		map = new OrthogonalMap(lines, columns, tileWidth, tileHeight);
 
 		tiles = map.createTiles();
 
 		createImageTiles();
-		
+
 		createSelectionMap();
-
-		loading = 10;
-
-		lastTile = getTargetTile();
 
 		loading = 30;
 
@@ -77,15 +66,13 @@ public class OrthogonalMap extends MapApplication {
 
 		loading = 100;
 	}
-	
+
 	private void createSelectionMap() {
-		
-		selectionMap = new Map(10, 10);
-		selectionMap.setCreator(map.getCreator());
-		selectionMap.setDrawer(map.getDrawer());
+
+		selectionMap = new OrthogonalMap(10, 10, tileWidth, tileHeight);
 		selectionMap.createTiles();
-		
-		selectionMap.setOffsetY(tileSetOffsetY);				
+
+		selectionMap.setOffsetY(tileSetOffsetY);
 	}
 
 	private void createImageTiles() {
@@ -95,8 +82,8 @@ public class OrthogonalMap extends MapApplication {
 
 		tileSet = new CastleTileSet();
 
-		tileSelection = new ImageTileFloor(-1, tileSet.getLayer().getPath());		
-		tileSelection.setLayerBounds(0, 300-tileSetOffsetY, tileWidth, tileHeight);
+		tileSelection = new ImageTileFloor(-1, tileSet.getLayer().getPath());
+		tileSelection.setLayerBounds(0, 0, tileWidth, tileHeight);
 
 		selectedTile = tileSelection;
 
@@ -107,53 +94,26 @@ public class OrthogonalMap extends MapApplication {
 	public void timeUpdate(long now) {
 		super.timeUpdate(now);
 
-		if(my<tileSetOffsetY) {
+		Tile lastSelectedTile = map.getTargetTile(mx, my);
 
-			getClicked(mx, my);
-
-			lastTile = getTargetTile();
-
-			if(leftPressed) {
-				lastTile.setLayer(selectedTile);
-			}else if(rightPressed) {
-				lastTile.setObjectLayer(selectedObject);
-			}else if(middlePressed) {
-				lastTile.setLayer(null);
-			}
-
-		} else {
-			
+		if(leftPressed) {
+			lastSelectedTile.setLayer(selectedTile);
+		}else if(rightPressed) {
+			lastSelectedTile.setObjectLayer(selectedObject);
+		}else if(middlePressed) {
+			lastSelectedTile.setLayer(null);
 		}
 
-	}
-
-	private Tile getTargetTile() {
-		return tiles[(int)target.getY()][(int)target.getX()];
-	}
-
-	private Point2D getClicked(int mouseX, int mouseY) {
-
-		int column = (int)((mouseX-map.getOffsetX())/tileWidth);
-
-		int line = (int)((mouseY-map.getOffsetY())/tileHeight);
-
-		if(line < 0)
-			line = 0;
-		else if(line >= tiles.length)
-			line = tiles.length-1; 
-
-		if(column < 0)
-			column = 0;
-		else if(column >= tiles[0].length)
-			column = tiles[0].length-1;
-
-		int j = line;
-		int i = column;
-
-		target.setLocation(i, j);
-
-		return target;
-
+		Tile lastSelectionTile = selectionMap.getTargetTile(mx, my);
+		
+		if(leftPressed) {
+			
+			int x = lastSelectionTile.getX();
+			int y = lastSelectionTile.getY();
+			
+			selectedTile.setLayerBounds(x, y, tileWidth, tileHeight);			
+		}
+				
 	}
 
 	@Override
@@ -174,18 +134,11 @@ public class OrthogonalMap extends MapApplication {
 	@Override
 	public void draw(Graphic g) {
 		super.draw(g);
-		
+
 		tileSet.getLayer().simpleDraw(g, 0, tileSetOffsetY);
-		
+
 		selectionMap.draw(g, 0, 0);
-		
-		//Draw selectionFiller
-		g.setColor(SVGColor.BLUE);
-		
-		g.setAlpha(45);
-		g.fillRect(selectionX*tileWidth, tileSetOffsetY+selectionY*tileHeight, tileWidth, tileHeight);
-		g.setAlpha(100);
-		
+
 	}
 
 }

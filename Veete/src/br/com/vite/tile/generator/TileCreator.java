@@ -5,9 +5,8 @@ import br.com.vite.tile.TileHelper;
 
 public abstract class TileCreator extends TileHelper {
 	
-	public TileCreator(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);
-		// TODO Auto-generated constructor stub
+	public TileCreator(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 	}
 
 	public abstract Tile createTile(int j, int i);

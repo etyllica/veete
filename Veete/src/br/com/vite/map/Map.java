@@ -1,23 +1,28 @@
 package br.com.vite.map;
 
 import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.linear.Point2D;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.TileColider;
 import br.com.vite.tile.drawer.TileDrawer;
 import br.com.vite.tile.filler.TileFiller;
 import br.com.vite.tile.generator.TileCreator;
 
-public class Map {
+public abstract class Map {
 	
-	private int lines;
+	protected int lines;
 	
-	private int columns;
+	protected int columns;
 	
 	protected int offsetX;
 	
 	protected int offsetY;
 	
-	private Tile[][] tiles;
+	protected int tileWidth;
+	
+	protected int tileHeight;
+	
+	protected Tile[][] tiles;
 	
 	//Helpers
 	protected TileCreator creator;
@@ -27,6 +32,11 @@ public class Map {
 	protected TileDrawer drawer;
 	
 	protected TileFiller filler;
+	
+	//Selection
+	protected Tile lastSelectedTile;
+	
+	protected Point2D target = new Point2D(0, 0);
 			
 	public Map(int lines, int columns) {
 		super();
@@ -34,6 +44,18 @@ public class Map {
 		this.lines = lines;
 		
 		this.columns = columns;
+	}
+	
+	public Map(int lines, int columns, int tileWidth, int tileHeight) {
+		super();
+		
+		this.lines = lines;
+		
+		this.columns = columns;
+		
+		this.tileWidth = tileWidth;
+		
+		this.tileHeight = tileHeight;
 	}
 		
 	public Tile[][] createTiles() {
@@ -47,6 +69,8 @@ public class Map {
 				tiles[j][i] = creator.createTile(j, i);
 			}
 		}
+		
+		lastSelectedTile = tiles[0][0];
 		
 		return tiles;
 	}
@@ -75,20 +99,7 @@ public class Map {
 		this.setOffsetX(offsetX);
 		this.setOffsetY(offsetY);
 	}
-	
-	public void draw(Graphic g, int x, int y) {
 		
-		for(int j=y;j<lines;j++) {
-
-			for(int i=x;i<columns;i++) {
-
-				Tile tile = tiles[j][i];
-
-				drawer.drawTile(tile, g, offsetX, offsetY);
-			}
-		}
-	}
-	
 	public TileCreator getCreator() {
 		return creator;
 	}
@@ -120,5 +131,37 @@ public class Map {
 	public void setFiller(TileFiller filler) {
 		this.filler = filler;
 	}
+	
+	public void draw(Graphic g, int x, int y) {
+		draw(g, x, y, columns, lines);
+	}
+	
+	public void draw(Graphic g, int x, int y, int w, int h) {
+
+		for(int j=y;j<h;j++) {
+
+			for(int i=x;i<w;i++) {
+
+				Tile tile = tiles[j][i];
+
+				drawer.drawTile(tile, g, offsetX, offsetY);
+			}
+		}
+
+		g.setAlpha(45);
+		filler.drawFiller(lastSelectedTile, g, offsetX, offsetY);
+		g.setAlpha(100);
+	}
+	
+	public Tile getTargetTile(int mx, int my) {
+		
+		updateTarget(mx, my);
+		
+		lastSelectedTile = tiles[(int)target.getY()][(int)target.getX()];
+		
+		return lastSelectedTile;
+	}
+	
+	protected abstract void updateTarget(int mx, int my);
 	
 }

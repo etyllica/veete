@@ -11,7 +11,7 @@ public class OrthogonalTileCreator extends TileCreator {
 	@Override
 	public Tile createTile(int j, int i) {
 
-		return new Tile(i*tileSizeX, j*tileSizeY, tileSizeX, tileSizeY);
+		return new Tile(i*tileWidth, j*tileHeight, tileWidth, tileHeight);
 	}
 
 }

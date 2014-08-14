@@ -2,36 +2,36 @@ package br.com.vite.tile;
 
 public class TileHelper {
 	
-	protected int tileSizeX = 0;
+	protected int tileWidth = 0;
 	
-	protected int tileSizeY = 0;
+	protected int tileHeight = 0;
 	
-	public TileHelper(int tileSizeX, int tileSizeY) {
+	public TileHelper(int tileWidth, int tileHeight) {
 		super();
-		this.tileSizeX = tileSizeX;
-		this.tileSizeY = tileSizeY;
+		this.tileWidth = tileWidth;
+		this.tileHeight = tileHeight;
 	}
 
-	public TileHelper(int tileSizeX, int tileSizeY, int offsetX, int offsetY) {
+	public TileHelper(int tileWidth, int tileHeight, int offsetX, int offsetY) {
 		super();
-		this.tileSizeX = tileSizeX;
-		this.tileSizeY = tileSizeY;
+		this.tileWidth = tileWidth;
+		this.tileHeight = tileHeight;
 	}
 
 	public int getTileSizeX() {
-		return tileSizeX;
+		return tileWidth;
 	}
 
 	public void setTileSizeX(int tileSizeX) {
-		this.tileSizeX = tileSizeX;
+		this.tileWidth = tileSizeX;
 	}
 
 	public int getTileSizeY() {
-		return tileSizeY;
+		return tileHeight;
 	}
 
 	public void setTileSizeY(int tileSizeY) {
-		this.tileSizeY = tileSizeY;
+		this.tileHeight = tileSizeY;
 	}	
 		
 }

@@ -33,7 +33,7 @@ public class Tile extends GeometricLayer {
 	public void setLayer(ImageTileFloor layer) {
 		this.layer = layer;
 	}
-		
+	
 	public ImageTileObject getObjectLayer() {
 		return objectLayer;
 	}

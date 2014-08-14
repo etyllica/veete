@@ -12,25 +12,25 @@ public class IsometricTileDrawer extends TileDrawer {
 
 	private BufferedImage gridCell;
 	
-	public IsometricTileDrawer(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);
+	public IsometricTileDrawer(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 		
 		createGridCell();
 	}
 	
 	private void createGridCell() {
 	
-		gridCell = new BufferedImage(tileSizeX, tileSizeY+1, BufferedImage.TYPE_INT_ARGB);
+		gridCell = new BufferedImage(tileWidth, tileHeight+1, BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D g = gridCell.createGraphics();
 		g.setColor(Color.BLACK);
 
 		Polygon polygon = new Polygon();
 
-		polygon.addPoint(0, tileSizeY/2);
-		polygon.addPoint(tileSizeX/2, 0);
-		polygon.addPoint(tileSizeX, tileSizeY/2);
-		polygon.addPoint(tileSizeX/2, tileSizeY);
+		polygon.addPoint(0, tileHeight/2);
+		polygon.addPoint(tileWidth/2, 0);
+		polygon.addPoint(tileWidth, tileHeight/2);
+		polygon.addPoint(tileWidth/2, tileHeight);
 
 		g.drawPolygon(polygon);
 	}

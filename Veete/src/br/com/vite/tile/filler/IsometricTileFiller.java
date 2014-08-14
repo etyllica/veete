@@ -12,25 +12,25 @@ public class IsometricTileFiller extends TileFiller {
 
 	private BufferedImage fillCell;
 	
-	public IsometricTileFiller(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);
+	public IsometricTileFiller(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 		
 		createGridCell();
 	}
 	
 	private void createGridCell() {
 	
-		fillCell = new BufferedImage(tileSizeX, tileSizeY+1, BufferedImage.TYPE_INT_ARGB);
+		fillCell = new BufferedImage(tileWidth, tileHeight+1, BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D g = fillCell.createGraphics();
 		g.setColor(Color.GREEN);		
 
 		Polygon polygon = new Polygon();
 
-		polygon.addPoint(0, tileSizeY/2);
-		polygon.addPoint(tileSizeX/2, 0);
-		polygon.addPoint(tileSizeX, tileSizeY/2);
-		polygon.addPoint(tileSizeX/2, tileSizeY);
+		polygon.addPoint(0, tileHeight/2);
+		polygon.addPoint(tileWidth/2, 0);
+		polygon.addPoint(tileWidth, tileHeight/2);
+		polygon.addPoint(tileWidth/2, tileHeight);
 
 		g.fillPolygon(polygon);
 	}

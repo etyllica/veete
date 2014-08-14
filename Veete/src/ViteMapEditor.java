@@ -1,7 +1,6 @@
 import br.com.etyllica.EtyllicaFrame;
 import br.com.etyllica.context.Application;
-import br.com.vite.IsometricMap;
-import br.com.vite.OrthogonalMap;
+import br.com.vite.OrthogonalMapApplication;
 
 
 public class ViteMapEditor extends EtyllicaFrame {
@@ -16,8 +15,8 @@ public class ViteMapEditor extends EtyllicaFrame {
 	}
 
 	public Application startApplication() {
-		//return new IsometricMap(w, h);
-		return new OrthogonalMap(w, h);
+		//return new IsometricMapApplication(w, h);
+		return new OrthogonalMapApplication(w, h);
 	}
 	
 }

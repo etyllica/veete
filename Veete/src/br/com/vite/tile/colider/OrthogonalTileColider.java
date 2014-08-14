@@ -4,8 +4,8 @@ import br.com.vite.tile.Tile;
 
 public class OrthogonalTileColider extends TileColider {
 
-	public OrthogonalTileColider(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);
+	public OrthogonalTileColider(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 	}
 
 	@Override

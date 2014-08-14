@@ -4,8 +4,8 @@ import br.com.vite.tile.Tile;
 
 public class IsometricTileColider extends TileColider {
 
-	public IsometricTileColider(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);
+	public IsometricTileColider(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 	}
 
 	@Override

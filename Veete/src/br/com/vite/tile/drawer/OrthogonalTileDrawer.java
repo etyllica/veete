@@ -7,8 +7,8 @@ import br.com.vite.tile.Tile;
 
 public class OrthogonalTileDrawer extends TileDrawer {
 	
-	public OrthogonalTileDrawer(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);		
+	public OrthogonalTileDrawer(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 	}
 	
 	@Override
@@ -19,6 +19,6 @@ public class OrthogonalTileDrawer extends TileDrawer {
 		
 		g.setColor(Color.BLACK);
 		g.drawRect(tx, ty, tile.getW(), tile.getH());
-	}
+	}	
 	
 }

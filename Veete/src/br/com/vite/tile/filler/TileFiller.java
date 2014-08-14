@@ -6,9 +6,8 @@ import br.com.vite.tile.TileHelper;
 
 public abstract class TileFiller extends TileHelper {
 
-	public TileFiller(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);
-		// TODO Auto-generated constructor stub
+	public TileFiller(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 	}
 	
 	public abstract void drawFiller(Tile tile, Graphic g, int offsetX, int offsetY);
