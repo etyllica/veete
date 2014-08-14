@@ -5,6 +5,10 @@ public abstract class TileLayer {
 
 	protected long uniqueId;
 	
+	public TileLayer() {
+		super();
+	}
+	
 	public TileLayer(long uniqueId) {
 		super();
 		

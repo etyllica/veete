@@ -97,23 +97,31 @@ public class OrthogonalMapApplication extends MapApplication {
 		Tile lastSelectedTile = map.getTargetTile(mx, my);
 
 		if(leftPressed) {
-			lastSelectedTile.setLayer(selectedTile);
-		}else if(rightPressed) {
+			
+			ImageTileFloor floor = new ImageTileFloor(selectedTile);
+						
+			lastSelectedTile.setLayer(floor);
+			
+		} else if(rightPressed) {
 			lastSelectedTile.setObjectLayer(selectedObject);
-		}else if(middlePressed) {
+		} else if(middlePressed) {
 			lastSelectedTile.setLayer(null);
 		}
 
-		Tile lastSelectionTile = selectionMap.getTargetTile(mx, my);
-		
-		if(leftPressed) {
-			
-			int x = lastSelectionTile.getX();
-			int y = lastSelectionTile.getY();
-			
-			selectedTile.setLayerBounds(x, y, tileWidth, tileHeight);			
+		if(my>tileSetOffsetY) {
+
+			Tile lastSelectionTile = selectionMap.getTargetTile(mx, my);
+
+			if(leftPressed) {
+
+				int x = lastSelectionTile.getX();
+				int y = lastSelectionTile.getY();
+
+				selectedTile.setLayerBounds(x, y, tileWidth, tileHeight);			
+			}
+
 		}
-				
+
 	}
 
 	@Override
