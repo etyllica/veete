@@ -16,8 +16,8 @@ public class ViteMapEditor extends EtyllicaFrame {
 	}
 
 	public Application startApplication() {
-		return new IsometricMap(w, h);
-		//return new OrthogonalMap(w, h);
+		//return new IsometricMap(w, h);
+		return new OrthogonalMap(w, h);
 	}
 	
 }

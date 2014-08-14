@@ -5,7 +5,8 @@ import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.linear.Point2D;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
 import br.com.vite.collection.isometric.grassland.floor.Marble;
-import br.com.vite.collection.isometric.tree.PalmTree1;
+import br.com.vite.collection.orthogonal.gothic.Column;
+import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.OrthogonalTileColider;
 import br.com.vite.tile.drawer.OrthogonalTileDrawer;
@@ -13,19 +14,19 @@ import br.com.vite.tile.filler.OrthogonalTileFiller;
 import br.com.vite.tile.generator.OrthogonalTileCreator;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.layer.ImageTileObject;
+import br.com.vite.tile.set.TileSet;
 
 public class OrthogonalMap extends MapApplication {
 
 	private Grass grass;
 	private Marble marble;
-	private PalmTree1 tree;
+	private Column column;
 
 	private Point2D target = new Point2D();
-
-	//TileLayers
-	private ImageTileFloor selectedTile;
-
-	private ImageTileObject selectedObject;
+	
+	private CastleTileSet tileSet;
+	
+	private ImageTileFloor tileSelection;
 
 	public OrthogonalMap(int w, int h) {
 		super(w, h);
@@ -36,8 +37,9 @@ public class OrthogonalMap extends MapApplication {
 
 		columns = 13;
 		lines = 16;
-		tileWidth = 64;
-		tileHeight = tileWidth/2;
+		
+		tileWidth = 16;
+		tileHeight = 16;
 
 		creator = new OrthogonalTileCreator(tileWidth, tileHeight);
 
@@ -64,16 +66,19 @@ public class OrthogonalMap extends MapApplication {
 		loading = 100;
 	}
 
-
-
 	private void createImageTiles() {
 		grass = new Grass(genereateUniqueId(), 0);
 		marble = new Marble(genereateUniqueId(), 0);
-		tree = new PalmTree1(genereateUniqueId());
+		column = new Column(genereateUniqueId());
 
-		selectedTile = grass;
+		tileSet = new CastleTileSet();
+						
+		tileSelection = new ImageTileFloor(-1, tileSet.getLayer().getPath());		
+		tileSelection.setLayerBounds(0, 0, tileWidth, tileHeight);
+		
+		selectedTile = tileSelection;
 
-		selectedObject = tree;		
+		selectedObject = column;
 	}
 
 	@Override

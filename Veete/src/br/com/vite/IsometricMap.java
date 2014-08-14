@@ -11,8 +11,6 @@ import br.com.vite.tile.colider.IsometricTileColider;
 import br.com.vite.tile.drawer.IsometricTileDrawer;
 import br.com.vite.tile.filler.IsometricTileFiller;
 import br.com.vite.tile.generator.IsometricTileCreator;
-import br.com.vite.tile.layer.ImageTileFloor;
-import br.com.vite.tile.layer.ImageTileObject;
 
 public class IsometricMap extends MapApplication {
 
@@ -22,11 +20,6 @@ public class IsometricMap extends MapApplication {
 
 	private Point2D target = new Point2D();
 
-	//TileLayers
-	private ImageTileFloor selectedTile;
-
-	private ImageTileObject selectedObject;
-	
 	public IsometricMap(int w, int h) {
 		super(w, h);
 	}

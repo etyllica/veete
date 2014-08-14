@@ -12,6 +12,8 @@ import br.com.vite.tile.colider.TileColider;
 import br.com.vite.tile.drawer.TileDrawer;
 import br.com.vite.tile.filler.TileFiller;
 import br.com.vite.tile.generator.TileCreator;
+import br.com.vite.tile.layer.ImageTileFloor;
+import br.com.vite.tile.layer.ImageTileObject;
 
 public abstract class MapApplication extends Application {
 
@@ -55,7 +57,12 @@ public abstract class MapApplication extends Application {
 	protected boolean upArrowPressed = false;
 	protected boolean leftArrowPressed = false;
 	protected boolean downArrowPressed = false;
-	protected boolean rightArrowPressed = false;	
+	protected boolean rightArrowPressed = false;
+	
+	//Selection
+	protected ImageTileFloor selectedTile;
+
+	protected ImageTileObject selectedObject;
 	
 	public MapApplication(int w, int h) {
 		super(w, h);
