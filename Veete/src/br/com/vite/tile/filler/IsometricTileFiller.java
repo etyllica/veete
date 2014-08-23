@@ -42,6 +42,10 @@ public class IsometricTileFiller extends TileFiller {
 		int ty = tile.getY()+offsetY;
 
 		g.drawImage(fillCell, tx, ty);
+		
+		if(floorTile!=null) {
+			floorTile.draw(g, tx, ty);
+		}
 	}
 	
 }

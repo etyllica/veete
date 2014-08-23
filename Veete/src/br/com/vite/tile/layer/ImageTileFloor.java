@@ -6,18 +6,33 @@ import br.com.etyllica.layer.ImageLayer;
 public class ImageTileFloor extends TileLayer implements DrawableLayer {
 	
 	protected ImageLayer layer;
+	
+	private String path;
+	
+	private int xImage = 0;
+	private int yImage = 0;
+	private int tileWidth = 0;
+	private int tileHeight = 0;
 		
 	public ImageTileFloor(long uniqueId, String path) {
 		super(uniqueId);
 		
 		layer = new ImageLayer(path);
+		
+		this.path = path;
 	}
 	
 	public ImageTileFloor(ImageTileFloor tile) {
 		super();
 		
-		layer = new ImageLayer(tile.layer.getPath());
-		setLayerBounds(tile.layer.getXImage(), tile.layer.getYImage(), tile.layer.getW(), tile.layer.getH());
+		this.path = tile.layer.getPath();
+		this.xImage = tile.layer.getXImage();
+		this.yImage = tile.layer.getYImage();
+		this.tileWidth = tile.layer.getW();
+		this.tileHeight = tile.layer.getH();
+		
+		layer = new ImageLayer(path);
+		setLayerBounds(xImage, yImage, tileWidth, tileHeight);
 	}
 	
 	public void setLayerBounds(int xImage, int yImage, int w, int h) {

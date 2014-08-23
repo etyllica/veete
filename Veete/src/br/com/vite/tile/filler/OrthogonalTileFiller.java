@@ -19,6 +19,10 @@ public class OrthogonalTileFiller extends TileFiller {
 		
 		g.setColor(Color.GREEN);
 		g.fillRect(tx, ty, tile.getW(), tile.getH());
+		
+		if(floorTile!=null) {
+			floorTile.draw(g, tx, ty);
+		}
 	}
 	
 }

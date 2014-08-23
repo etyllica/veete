@@ -3,7 +3,6 @@ package br.com.vite;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.etyllica.core.graphics.SVGColor;
 import br.com.etyllica.linear.Point2D;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
 import br.com.vite.collection.isometric.grassland.floor.Marble;
@@ -12,10 +11,6 @@ import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.map.Map;
 import br.com.vite.map.OrthogonalMap;
 import br.com.vite.tile.Tile;
-import br.com.vite.tile.colider.OrthogonalTileColider;
-import br.com.vite.tile.drawer.OrthogonalTileDrawer;
-import br.com.vite.tile.filler.OrthogonalTileFiller;
-import br.com.vite.tile.generator.OrthogonalTileCreator;
 import br.com.vite.tile.layer.ImageTileFloor;
 
 public class OrthogonalMapApplication extends MapApplication {
@@ -101,7 +96,7 @@ public class OrthogonalMapApplication extends MapApplication {
 			if(leftPressed) {
 
 				ImageTileFloor floor = new ImageTileFloor(selectedTile);
-
+				
 				lastSelectedTile.setLayer(floor);
 
 			} else if(rightPressed) {
@@ -119,13 +114,15 @@ public class OrthogonalMapApplication extends MapApplication {
 				int x = lastSelectionTile.getX();
 				int y = lastSelectionTile.getY();
 
-				selectedTile.setLayerBounds(x, y, tileWidth, tileHeight);			
+				selectedTile.setLayerBounds(x, y, tileWidth, tileHeight);
+
+				map.getFiller().setFloorTile(selectedTile);
 			}
 
 		}
 
 	}
-
+	
 	@Override
 	public GUIEvent updateKeyboard(KeyEvent event) {
 		super.updateKeyboard(event);
