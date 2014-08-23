@@ -22,18 +22,25 @@ public class IsometricMap extends Map {
 
 		int line = (int)(mouseY-offsetY)/(tileHeight/2);
 
-		if(line<=0) {
+		boolean overLine = false;
+		boolean overColumn = false;
+		
+		if(line<=0)
 			line = 1;
-		}else if (line>=lines) {
+		else if (line>=lines)
 			line = lines-1;
-		}
+		else
+			overLine = true;
 
-		if(column<=0) {
+		if(column<=0)
 			column = 1;
-		}else if (column>=columns) {
+		else if (column>=columns)
 			column = columns-1;
-		}
-
+		else
+			overColumn = true;
+		
+		onMouse = overLine&&overColumn;
+		
 		for(int j=line-1;j<line+1;j++) {
 
 			for(int i=column-1;i<column+1;i++) {
