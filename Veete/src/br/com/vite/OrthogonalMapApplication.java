@@ -1,15 +1,17 @@
 package br.com.vite;
 
+import java.util.HashMap;
+
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.etyllica.linear.Point2D;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
 import br.com.vite.collection.isometric.grassland.floor.Marble;
 import br.com.vite.collection.orthogonal.gothic.Column;
 import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.map.Map;
 import br.com.vite.map.OrthogonalMap;
+import br.com.vite.map.selection.SelectedTile;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.layer.ImageTileFloor;
 
@@ -19,18 +21,13 @@ public class OrthogonalMapApplication extends MapApplication {
 	private Marble marble;
 	private Column column;
 
-	private Point2D target = new Point2D();
-
 	protected Map selectionMap;
 
 	private CastleTileSet tileSet;
 
 	private int tileSetOffsetY = 300;
-
-	private ImageTileFloor tileSelection;
-
-	private int selectionX = 0;	
-	private int selectionY = 0;
+	
+	private java.util.Map<SelectedTile, ImageTileFloor> selectedTiles = new HashMap<SelectedTile, ImageTileFloor>();
 
 	public OrthogonalMapApplication(int w, int h) {
 		super(w, h);
@@ -77,11 +74,6 @@ public class OrthogonalMapApplication extends MapApplication {
 
 		tileSet = new CastleTileSet();
 
-		tileSelection = new ImageTileFloor(-1, tileSet.getLayer().getPath());
-		tileSelection.setLayerBounds(0, 0, tileWidth, tileHeight);
-
-		selectedTile = tileSelection;
-
 		selectedObject = column;
 	}
 
@@ -91,13 +83,11 @@ public class OrthogonalMapApplication extends MapApplication {
 
 		Tile lastSelectedTile = map.getTargetTile(mx, my);
 
-		if(my<tileSetOffsetY) {
+		if(map.isOnMouse()) {
 
 			if(leftPressed) {
 
-				ImageTileFloor floor = new ImageTileFloor(selectedTile);
-				
-				lastSelectedTile.setLayer(floor);
+				lastSelectedTile.setLayer(selectedTile);
 
 			} else if(rightPressed) {
 				lastSelectedTile.setObjectLayer(selectedObject);
@@ -105,22 +95,41 @@ public class OrthogonalMapApplication extends MapApplication {
 				lastSelectedTile.setLayer(null);
 			}
 
-		} else {
+		}
 
-			Tile lastSelectionTile = selectionMap.getTargetTile(mx, my);
+		Tile lastSelectionTile = selectionMap.getTargetTile(mx, my);
+		
+		if(selectionMap.isOnMouse()) {
 
 			if(leftPressed) {
 
 				int x = lastSelectionTile.getX();
 				int y = lastSelectionTile.getY();
-
-				selectedTile.setLayerBounds(x, y, tileWidth, tileHeight);
+				
+				selectedTile = getSelectedTile(tileSet.getLayer().getPath(), x, y, tileWidth, tileHeight);
 
 				map.getFiller().setFloorTile(selectedTile);
 			}
-
 		}
-
+	}
+		
+	private ImageTileFloor getSelectedTile(String path, int x, int y, int width, int height) {
+		
+		SelectedTile selectedTile = new SelectedTile(path, x, y, width, height);
+		
+		ImageTileFloor floor = selectedTiles.get(selectedTile);
+		
+		if(floor == null) {
+		
+			ImageTileFloor tileFloor = new ImageTileFloor(-1, path);
+			tileFloor.setLayerBounds(x, y, tileWidth, tileHeight);
+			
+			selectedTiles.put(selectedTile, tileFloor);
+			
+			return tileFloor;
+		}
+		
+		return floor;		
 	}
 	
 	@Override
@@ -145,7 +154,6 @@ public class OrthogonalMapApplication extends MapApplication {
 		tileSet.getLayer().simpleDraw(g, 0, tileSetOffsetY);
 
 		selectionMap.draw(g, 0, 0);
-
 	}
 
 }
