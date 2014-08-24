@@ -46,4 +46,16 @@ public abstract class TileDrawer extends TileHelper {
 		tile.getObjectLayer().draw(g, tx, ty, tile.getW(), tile.getH());		
 	}
 
+	public boolean isDrawGrid() {
+		return drawGrid;
+	}
+
+	public void setDrawGrid(boolean drawGrid) {
+		this.drawGrid = drawGrid;
+	}
+	
+	public void swapDrawGrid() {
+		drawGrid = !drawGrid;
+	}
+
 }
