@@ -6,25 +6,12 @@ import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.core.input.mouse.MouseButton;
-import br.com.vite.map.Map;
-import br.com.vite.tile.Tile;
-import br.com.vite.tile.layer.ImageTileFloor;
+import br.com.vite.editor.MapEditor;
 import br.com.vite.tile.layer.ImageTileObject;
 
 public abstract class MapApplication extends Application {
-
-	private int uniqueId = 0;
-	
-	protected int tileWidth = 64;
-	protected int tileHeight = 64;
-	
-	protected int columns = 10;
-	
-	protected int lines = 10;
-	
-	protected Map map;
 		
-	protected Tile[][] tiles;
+	protected MapEditor editor;
 	
 	private int offsetSpeed = 6;
 	
@@ -42,20 +29,10 @@ public abstract class MapApplication extends Application {
 	protected boolean rightArrowPressed = false;
 	
 	//Selection
-	protected ImageTileFloor selectedTile;
-
 	protected ImageTileObject selectedObject;
 	
 	public MapApplication(int w, int h) {
 		super(w, h);
-	}
-
-	protected void translateMap(int x, int y) {
-		map.setOffset(x, y);	
-	}	
-
-	protected int genereateUniqueId() {
-		return uniqueId++;
 	}
 	
 	@Override
@@ -84,6 +61,10 @@ public abstract class MapApplication extends Application {
 		} else if(event.isKeyUp(KeyEvent.TSK_RIGHT_ARROW)) {
 			rightArrowPressed = false;
 		}
+		
+		if(event.isKeyDown(KeyEvent.TSK_G)) {
+			editor.swapGridShow();
+		}
 
 		return GUIEvent.NONE;
 	}
@@ -91,6 +72,8 @@ public abstract class MapApplication extends Application {
 	@Override
 	public GUIEvent updateMouse(PointerEvent event) {
 				
+		editor.updateMouse(event);
+		
 		my = event.getY();
 		mx = event.getX();
 		
@@ -118,25 +101,25 @@ public abstract class MapApplication extends Application {
 	@Override
 	public void timeUpdate(long now) {
 		
+		editor.update(now);
+		
 		if(upArrowPressed) {
-			map.setOffsetY(map.getOffsetY()+offsetSpeed);
+			editor.offsetMap(0, offsetSpeed);
 		} else if(downArrowPressed) {
-			map.setOffsetY(map.getOffsetY()-offsetSpeed);
+			editor.offsetMap(0, -offsetSpeed);
 		}
 		
 		if(leftArrowPressed) {
-			map.setOffsetX(map.getOffsetX()+offsetSpeed);
-
+			editor.offsetMap(offsetSpeed, 0);			
 		} else if(rightArrowPressed) {
-			map.setOffsetX(map.getOffsetX()-offsetSpeed);
+			editor.offsetMap(-offsetSpeed, 0);
 		}
 		
 	}
 	
 	@Override
 	public void draw(Graphic g) {
-
-		map.draw(g, 0, 0);		
+		editor.draw(g);
 	}
 	
 }

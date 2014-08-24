@@ -7,8 +7,8 @@ import br.com.vite.tile.generator.OrthogonalTileCreator;
 
 public class OrthogonalMap extends Map {
 	
-	public OrthogonalMap(int lines, int columns, int tileWidth, int tileHeight) {
-		super(lines, columns, tileWidth, tileHeight);
+	public OrthogonalMap(int columns, int lines, int tileWidth, int tileHeight) {
+		super(columns, lines, tileWidth, tileHeight);
 
 		creator = new OrthogonalTileCreator(tileWidth, tileHeight);
 		colider = new OrthogonalTileColider(tileWidth, tileHeight);

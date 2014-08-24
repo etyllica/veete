@@ -40,7 +40,7 @@ public abstract class Map {
 
 	protected boolean onMouse = false;
 
-	public Map(int lines, int columns) {
+	public Map(int columns, int lines) {
 		super();
 
 		this.lines = lines;
@@ -48,7 +48,7 @@ public abstract class Map {
 		this.columns = columns;
 	}
 
-	public Map(int lines, int columns, int tileWidth, int tileHeight) {
+	public Map(int columns, int lines, int tileWidth, int tileHeight) {
 		super();
 
 		this.lines = lines;
@@ -151,7 +151,7 @@ public abstract class Map {
 		}
 
 		if(onMouse) {
-			g.setAlpha(45);
+			g.setAlpha(50);
 			filler.drawFiller(lastSelectedTile, g, offsetX, offsetY);
 			g.setAlpha(100);
 		}

@@ -5,14 +5,16 @@ import br.com.etyllica.core.event.KeyEvent;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
 import br.com.vite.collection.isometric.grassland.floor.Marble;
 import br.com.vite.collection.isometric.tree.PalmTree1;
-import br.com.vite.map.IsometricMap;
-import br.com.vite.tile.Tile;
+import br.com.vite.editor.IsometricMapEditor;
 
 public class IsometricMapApplication extends MapApplication {
 
 	private Grass grass;
 	private Marble marble;
 	private PalmTree1 tree;
+		
+	private final int tileWidth = 64;
+	private final int tileHeight = tileWidth/2;
 
 	public IsometricMapApplication(int w, int h) {
 		super(w, h);
@@ -21,14 +23,10 @@ public class IsometricMapApplication extends MapApplication {
 	@Override
 	public void load() {
 		
-		columns = 13;
-		lines = 16;
-		tileWidth = 64;
-		tileHeight = tileWidth/2;
-		
-		map = new IsometricMap(lines, columns, tileWidth, tileHeight);
+		final int columns = 13;
+		final int lines = 16;
 				
-		tiles = map.createTiles();
+		editor = new IsometricMapEditor(columns, lines, tileWidth, tileHeight);
 
 		createImageTiles();
 
@@ -36,7 +34,7 @@ public class IsometricMapApplication extends MapApplication {
 		
 		loading = 30;
 
-		translateMap(0, 32);
+		editor.translateMap(0, 32);
 						
 		updateAtFixedRate(80);
 
@@ -44,11 +42,14 @@ public class IsometricMapApplication extends MapApplication {
 	}
 
 	private void createImageTiles() {
-		grass = new Grass(genereateUniqueId(), 0);
-		marble = new Marble(genereateUniqueId(), 0);
-		tree = new PalmTree1(genereateUniqueId());
+		
+		final int uniqueId = 0;
+		
+		grass = new Grass(uniqueId, 0);
+		marble = new Marble(uniqueId+1, 0);
+		tree = new PalmTree1(uniqueId+2);
 
-		selectedTile = grass;
+		editor.setFloorTile(grass);
 
 		selectedObject = tree;		
 	}
@@ -57,16 +58,7 @@ public class IsometricMapApplication extends MapApplication {
 	public void timeUpdate(long now) {
 		super.timeUpdate(now);
 
-		Tile lastSelectedTile = map.getTargetTile(mx, my);
-
-		if(leftPressed) {
-			lastSelectedTile.setLayer(selectedTile);
-		}else if(rightPressed) {
-			lastSelectedTile.setObjectLayer(selectedObject);
-		}else if(middlePressed) {
-			lastSelectedTile.setLayer(null);
-		}
-
+		editor.update(now);		
 	}
 	
 	@Override
@@ -74,11 +66,11 @@ public class IsometricMapApplication extends MapApplication {
 		super.updateKeyboard(event);
 		
 		if(event.isKeyDown(KeyEvent.TSK_1)) {
-			selectedTile = grass;
+			editor.setFloorTile(grass);
 		}
 
 		if(event.isKeyDown(KeyEvent.TSK_2)) {
-			selectedTile = marble;
+			editor.setFloorTile(marble);
 		}
 
 		return GUIEvent.NONE;

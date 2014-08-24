@@ -5,10 +5,8 @@ import java.util.HashMap;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.vite.collection.isometric.grassland.floor.Grass;
-import br.com.vite.collection.isometric.grassland.floor.Marble;
-import br.com.vite.collection.orthogonal.gothic.Column;
 import br.com.vite.collection.tileset.CastleTileSet;
+import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.map.Map;
 import br.com.vite.map.OrthogonalMap;
 import br.com.vite.map.selection.SelectedTile;
@@ -16,10 +14,9 @@ import br.com.vite.tile.Tile;
 import br.com.vite.tile.layer.ImageTileFloor;
 
 public class OrthogonalMapApplication extends MapApplication {
-
-	private Grass grass;
-	private Marble marble;
-	private Column column;
+	
+	final int tileWidth = 16;
+	final int tileHeight = 16;
 
 	protected Map selectionMap;
 
@@ -36,23 +33,18 @@ public class OrthogonalMapApplication extends MapApplication {
 	@Override
 	public void load() {
 
-		columns = 48;
-		lines = 16;
+		final int columns = 48;
+		final int lines = 16;
 
-		tileWidth = 16;
-		tileHeight = 16;
+		editor = new OrthogonalMapEditor(columns, lines, tileWidth, tileHeight);
 
-		map = new OrthogonalMap(lines, columns, tileWidth, tileHeight);
-
-		tiles = map.createTiles();
-
-		createImageTiles();
+		createTileSets();
 
 		createSelectionMap();
 
 		loading = 30;
 
-		translateMap(0, 40);
+		editor.translateMap(0, 40);
 
 		updateAtFixedRate(80);
 
@@ -61,42 +53,23 @@ public class OrthogonalMapApplication extends MapApplication {
 
 	private void createSelectionMap() {
 
-		selectionMap = new OrthogonalMap(12, 9, tileWidth, tileHeight);
+		selectionMap = new OrthogonalMap(9, 12, tileWidth, tileHeight);
 		selectionMap.createTiles();
 
 		selectionMap.setOffsetY(tileSetOffsetY);
 	}
 
-	private void createImageTiles() {
-		grass = new Grass(genereateUniqueId(), 0);
-		marble = new Marble(genereateUniqueId(), 0);
-		column = new Column(genereateUniqueId());
-
+	private void createTileSets() {
+		
 		tileSet = new CastleTileSet();
-
-		selectedObject = column;
 	}
 
 	@Override
 	public void timeUpdate(long now) {
 		super.timeUpdate(now);
 
-		Tile lastSelectedTile = map.getTargetTile(mx, my);
-
-		if(map.isOnMouse()) {
-
-			if(leftPressed) {
-
-				lastSelectedTile.setLayer(selectedTile);
-
-			} else if(rightPressed) {
-				lastSelectedTile.setObjectLayer(selectedObject);
-			} else if(middlePressed) {
-				lastSelectedTile.setLayer(null);
-			}
-
-		}
-
+		editor.update(now);
+		
 		Tile lastSelectionTile = selectionMap.getTargetTile(mx, my);
 		
 		if(selectionMap.isOnMouse()) {
@@ -106,9 +79,9 @@ public class OrthogonalMapApplication extends MapApplication {
 				int x = lastSelectionTile.getX();
 				int y = lastSelectionTile.getY();
 				
-				selectedTile = getSelectedTile(tileSet.getLayer().getPath(), x, y, tileWidth, tileHeight);
+				ImageTileFloor selectedTile = getSelectedTile(tileSet.getLayer().getPath(), x, y, tileWidth, tileHeight);
 
-				map.getFiller().setFloorTile(selectedTile);
+				editor.setFloorTile(selectedTile);
 			}
 		}
 	}
@@ -129,20 +102,12 @@ public class OrthogonalMapApplication extends MapApplication {
 			return tileFloor;
 		}
 		
-		return floor;		
+		return floor;
 	}
 	
 	@Override
 	public GUIEvent updateKeyboard(KeyEvent event) {
 		super.updateKeyboard(event);
-
-		if(event.isKeyDown(KeyEvent.TSK_1)) {
-			selectedTile = grass;
-		}
-
-		if(event.isKeyDown(KeyEvent.TSK_2)) {
-			selectedTile = marble;
-		}
 
 		return GUIEvent.NONE;
 	}
