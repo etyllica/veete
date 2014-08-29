@@ -30,9 +30,7 @@ public abstract class MapEditor implements Drawable {
 	protected ImageTileObject selectedObject;
 	
 	//Input
-	private int mx;
-	
-	private int my;
+	protected int mx, my;	
 	
 	protected boolean leftPressed = false;
 	protected boolean rightPressed = false;
@@ -65,7 +63,7 @@ public abstract class MapEditor implements Drawable {
 	}
 
 	public void draw(Graphic g) {
-		map.draw(g, 0, 0);
+		map.draw(g, 0, 0);				
 	}
 	
 	public GUIEvent updateMouse(PointerEvent event) {

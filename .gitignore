@@ -2,9 +2,9 @@
 *.class
 !/bin/assets/*
 
-# SDK Projects
-
-sdk/
+# Eclipse Files
+.project
+.classpath
 
 # Automatic Generated Files #
 *.applet

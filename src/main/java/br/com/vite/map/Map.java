@@ -133,12 +133,16 @@ public abstract class Map {
 	public void setFiller(TileFiller filler) {
 		this.filler = filler;
 	}
-
+	
+	public void draw(Graphic g) {
+		draw(g, offsetX, offsetY, columns, lines);
+	}
+	
 	public void draw(Graphic g, int x, int y) {
 		draw(g, x, y, columns, lines);
 	}
 
-	public void draw(Graphic g, int x, int y, int w, int h) {
+	private void draw(Graphic g, int x, int y, int w, int h) {
 
 		for(int j=y;j<h;j++) {
 
