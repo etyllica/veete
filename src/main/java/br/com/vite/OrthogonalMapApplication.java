@@ -5,6 +5,7 @@ import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.vite.collection.tileset.CastleTileSet;
+import br.com.vite.collection.tileset.LandTileSet;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.map.selection.OrthogonalSelectionMap;
 
@@ -15,7 +16,9 @@ public class OrthogonalMapApplication extends MapApplication {
 
 	private int tileSetOffsetY = 300;
 	
-	private OrthogonalSelectionMap selectionMap;
+	private OrthogonalSelectionMap selectionCastleMap;
+	
+	private OrthogonalSelectionMap selectionPlatformMap;
 
 	public OrthogonalMapApplication(int w, int h) {
 		super(w, h);
@@ -32,13 +35,17 @@ public class OrthogonalMapApplication extends MapApplication {
 
 		loading = 30;
 		
-		selectionMap = new OrthogonalSelectionMap(9, 12, tileWidth, tileHeight);
-		selectionMap.translateMap(0, tileSetOffsetY);
-		selectionMap.setEditor(editor);
-		selectionMap.setTileSet(new CastleTileSet());
+		selectionCastleMap = new OrthogonalSelectionMap(9, 12, tileWidth, tileHeight);
+		selectionCastleMap.translateMap(0, tileSetOffsetY);
+		selectionCastleMap.setEditor(editor);
+		selectionCastleMap.setTileSet(new CastleTileSet());
 		
-		loading = 70;
+		selectionPlatformMap = new OrthogonalSelectionMap(10, 3, tileWidth, tileHeight);
+		selectionPlatformMap.translateMap(13*tileWidth, tileSetOffsetY);
+		selectionPlatformMap.setEditor(editor);
+		selectionPlatformMap.setTileSet(new LandTileSet());
 		
+		loading = 70;		
 
 		updateAtFixedRate(80);
 
@@ -49,7 +56,9 @@ public class OrthogonalMapApplication extends MapApplication {
 	public void timeUpdate(long now) {
 		super.timeUpdate(now);
 		
-		selectionMap.update(now);
+		selectionCastleMap.update(now);
+		
+		selectionPlatformMap.update(now);
 	}
 		
 	@Override
@@ -62,7 +71,9 @@ public class OrthogonalMapApplication extends MapApplication {
 	@Override
 	public GUIEvent updateMouse(PointerEvent event) {				
 		super.updateMouse(event);
-		selectionMap.updateMouse(event);
+		
+		selectionCastleMap.updateMouse(event);
+		selectionPlatformMap.updateMouse(event);
 		
 		return GUIEvent.NONE;
 	}
@@ -71,7 +82,8 @@ public class OrthogonalMapApplication extends MapApplication {
 	public void draw(Graphic g) {
 		super.draw(g);
 
-		selectionMap.draw(g);
+		selectionCastleMap.draw(g);
+		selectionPlatformMap.draw(g);
 	}
 
 }
