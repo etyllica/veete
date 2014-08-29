@@ -18,8 +18,8 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 	
 	private Map<SelectedTile, ImageTileFloor> selectedTiles = new HashMap<SelectedTile, ImageTileFloor>();
 	
-	public OrthogonalSelectionMap(int columns, int lines, int tileWidth, int tileHeight) {
-		super(columns, lines, tileWidth, tileHeight);		
+	public OrthogonalSelectionMap(int columns, int lines, MapEditor editor) {
+		super(columns, lines, editor.getTileWidth(), editor.getTileHeight());
 	}
 
 	public Map<SelectedTile, ImageTileFloor> getSelectedTiles() {
@@ -42,6 +42,9 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 				int x = lastSelectionTile.getX();
 				int y = lastSelectionTile.getY();
 				
+				int tileWidth = editor.getTileWidth();
+				int tileHeight = editor.getTileHeight();
+				
 				ImageTileFloor selectedTile = getSelectedTile(tileSet.getLayer().getPath(), x, y, tileWidth, tileHeight);
 
 				editor.setFloorTile(selectedTile);
@@ -58,7 +61,7 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 		if(floor == null) {
 		
 			ImageTileFloor tileFloor = new ImageTileFloor(-1, path);
-			tileFloor.setLayerBounds(x, y, tileWidth, tileHeight);
+			tileFloor.setLayerBounds(x, y, editor.getTileWidth(), editor.getTileHeight());
 			
 			selectedTiles.put(selectedTile, tileFloor);
 			

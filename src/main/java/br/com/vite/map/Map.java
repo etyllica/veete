@@ -176,4 +176,20 @@ public abstract class Map {
 		return onMouse;
 	}
 
+	public int getLines() {
+		return lines;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+
+	public int getTileWidth() {
+		return tileWidth;
+	}
+
+	public int getTileHeight() {
+		return tileHeight;
+	}
+	
 }

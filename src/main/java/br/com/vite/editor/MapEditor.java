@@ -12,14 +12,6 @@ import br.com.vite.tile.layer.ImageTileObject;
 
 public abstract class MapEditor implements Drawable {
 
-	protected int columns = 10;
-
-	protected int lines = 10;
-	
-	protected int tileWidth = 64;
-	
-	protected int tileHeight = 64;
-
 	protected Map map;
 
 	protected Tile[][] tiles;
@@ -42,11 +34,6 @@ public abstract class MapEditor implements Drawable {
 	
 	public MapEditor(int columns, int lines, int tileWidth, int tileHeight) {
 		super();
-		
-		this.columns = columns;
-		this.lines = lines;
-		this.tileWidth = tileWidth;
-		this.tileHeight = tileHeight;
 	}
 
 	public void offsetMap(int offsetX, int offsetY) {
@@ -112,4 +99,20 @@ public abstract class MapEditor implements Drawable {
 		map.getDrawer().swapDrawGrid();
 	}
 
+	public int getTileWidth() {
+		return map.getTileWidth();
+	}
+
+	public int getTileHeight() {
+		return map.getTileHeight();
+	}
+	
+	public int getColumns() {
+		return map.getColumns();
+	}
+	
+	public int getLines() {
+		return map.getLines();
+	}
+	
 }
