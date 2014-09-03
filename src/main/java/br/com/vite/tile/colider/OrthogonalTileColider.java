@@ -14,7 +14,7 @@ public class OrthogonalTileColider extends TileColider {
 		return colideRectangular(tile, mx, my, offsetX, offsetY);
 	}
 
-	public boolean colideRectangular(Tile tile, int px, int py, int offsetX, int offsetY) {
+	private boolean colideRectangular(Tile tile, int px, int py, int offsetX, int offsetY) {
 
 		int x = px-tile.getX()-offsetX;
 		int y = py-tile.getY()-offsetY;
