@@ -4,22 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.vite.editor.MapEditor;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.set.TileSet;
 
 public class OrthogonalSelectionMap extends OrthogonalMapEditor {
-
-	private MapEditor editor;
 	
 	private TileSet tileSet;
 	
+	private SelectionMapListener listener;
+	
 	private Map<SelectedTile, ImageTileFloor> selectedTiles = new HashMap<SelectedTile, ImageTileFloor>();
 	
-	public OrthogonalSelectionMap(int columns, int lines, MapEditor editor) {
-		super(columns, lines, editor.getTileWidth(), editor.getTileHeight());
+	public OrthogonalSelectionMap(int columns, int lines, int tileWidth, int tileHeight) {
+		super(columns, lines, tileWidth, tileHeight);
 	}
 
 	public Map<SelectedTile, ImageTileFloor> getSelectedTiles() {
@@ -42,14 +41,21 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 				int x = lastSelectionTile.getX();
 				int y = lastSelectionTile.getY();
 				
-				int tileWidth = editor.getTileWidth();
-				int tileHeight = editor.getTileHeight();
+				int tileWidth = map.getTileWidth();
+				int tileHeight = map.getTileHeight();
 				
 				ImageTileFloor selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, tileWidth, tileHeight);
 
-				editor.setFloorTile(selectedTile);
+				notifySelectedFloorTile(selectedTile);
 			}
 		}
+	}
+	
+	private void notifySelectedFloorTile(ImageTileFloor selectedTile) {
+		if(listener == null)
+			return;
+		
+		listener.setFloorTile(selectedTile);
 	}
 	
 	private ImageTileFloor createSelectedTile(String path, int x, int y, int width, int height) {
@@ -61,7 +67,7 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 		if(floor == null) {
 		
 			ImageTileFloor tileFloor = new ImageTileFloor(path);
-			tileFloor.setLayerBounds(x, y, editor.getTileWidth(), editor.getTileHeight());
+			tileFloor.setLayerBounds(x, y, map.getTileWidth(), map.getTileHeight());
 			
 			selectedTiles.put(selectedTile, tileFloor);
 			
@@ -71,18 +77,15 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 		return floor;
 	}
 	
+	@Override
 	public void draw(Graphic g) {
 		tileSet.getLayer().simpleDraw(g, map.getOffsetX(), map.getOffsetY());
 		
 		map.draw(g, 0, 0);
 	}
-
-	public MapEditor getEditor() {
-		return editor;
-	}
-
-	public void setEditor(MapEditor editor) {
-		this.editor = editor;
+	
+	public void setListener(SelectionMapListener listener) {
+		this.listener = listener;
 	}
 
 	public TileSet getTileSet() {

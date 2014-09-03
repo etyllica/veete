@@ -6,11 +6,12 @@ import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.vite.map.Map;
+import br.com.vite.map.selection.SelectionMapListener;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.layer.ImageTileObject;
 
-public abstract class MapEditor implements Drawable {
+public abstract class MapEditor implements Drawable, SelectionMapListener {
 
 	protected Map map;
 
@@ -47,6 +48,11 @@ public abstract class MapEditor implements Drawable {
 	public void setFloorTile(ImageTileFloor tile) {
 		selectedTile = tile;
 		map.getFiller().setFloorTile(tile);
+	}
+	
+	public void setObjectTile(ImageTileObject tile) {
+		selectedObject = tile;
+		map.getFiller().setObjectTile(tile);
 	}
 
 	public void draw(Graphic g) {
