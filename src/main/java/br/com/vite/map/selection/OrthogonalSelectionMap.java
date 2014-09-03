@@ -45,14 +45,14 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 				int tileWidth = editor.getTileWidth();
 				int tileHeight = editor.getTileHeight();
 				
-				ImageTileFloor selectedTile = getSelectedTile(tileSet.getLayer().getPath(), x, y, tileWidth, tileHeight);
+				ImageTileFloor selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, tileWidth, tileHeight);
 
 				editor.setFloorTile(selectedTile);
 			}
 		}
 	}
 	
-	private ImageTileFloor getSelectedTile(String path, int x, int y, int width, int height) {
+	private ImageTileFloor createSelectedTile(String path, int x, int y, int width, int height) {
 		
 		SelectedTile selectedTile = new SelectedTile(path, x, y, width, height);
 		
