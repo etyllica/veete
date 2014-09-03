@@ -4,8 +4,8 @@ import br.com.vite.tile.layer.ImageTileFloor;
 
 public class GraveNE extends ImageTileFloor {
 
-	public GraveNE(long uniqueId) {
-		super(uniqueId, "grassland/grassland.png");
+	public GraveNE() {
+		super("grassland/grassland.png");
 
 		this.setLayerBounds(12*64, 13*32, 64, 64);
 	}

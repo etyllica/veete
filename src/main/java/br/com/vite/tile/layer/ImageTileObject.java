@@ -11,8 +11,8 @@ public class ImageTileObject extends TileLayer implements DrawableObject {
 	
 	protected int offsetY = 0;
 	
-	public ImageTileObject(long uniqueId, String path) {
-		super(uniqueId);
+	public ImageTileObject(String path) {
+		super();
 		
 		layer = new ImageLayer(path);
 	}

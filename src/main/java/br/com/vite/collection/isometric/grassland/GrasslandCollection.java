@@ -22,8 +22,6 @@ import br.com.vite.tile.layer.ImageTileFloor;
 
 public class GrasslandCollection implements TileCollection, ObjectCollection{
 
-	private int uniqueId = 0;
-
 	private List<ImageTileFloor> tiles;
 
 	private List<ImageTileFloor> objects;
@@ -44,43 +42,39 @@ public class GrasslandCollection implements TileCollection, ObjectCollection{
 	private void loadTiles(){
 		
 		//Load Grass
-		for(int i=0;i<16;i++){
-			tiles.add(new Grass(genereateUniqueId(), i));	
+		for(int i = 0; i < 16; i++) {
+			tiles.add(new Grass(i));	
 		}
 
 		//Load Grass with Bricks
-		for(int i=0;i<16;i++){
-			tiles.add(new GrassWithBricks(genereateUniqueId(), i));	
+		for(int i = 0; i < 16; i++) {
+			tiles.add(new GrassWithBricks(i));	
 		}
 
 		//Load Marble
-		for(int i=0;i<16;i++){
-			tiles.add(new Marble(genereateUniqueId(), i));
+		for(int i = 0; i < 16; i++) {
+			tiles.add(new Marble(i));
 		}
 	}
 	
 	private void loadObjects(){
 		
 		//Graves
-		objects.add(new GraveNE(genereateUniqueId()));
+		objects.add(new GraveNE());
 		
-		objects.add(new GraveNW(genereateUniqueId()));
+		objects.add(new GraveNW());
 		
 		//Crates
-		objects.add(new CrateClosedNW(genereateUniqueId()));
-		objects.add(new CrateOpenedNW(genereateUniqueId()));
-		objects.add(new CrateClosedNE(genereateUniqueId()));
-		objects.add(new CrateOpenedNE(genereateUniqueId()));
+		objects.add(new CrateClosedNW());
+		objects.add(new CrateOpenedNW());
+		objects.add(new CrateClosedNE());
+		objects.add(new CrateOpenedNE());
 		
-		objects.add(new FirewoodNW(genereateUniqueId()));
-		objects.add(new FirewoodNE(genereateUniqueId()));	
-		objects.add(new Fireplace(genereateUniqueId()));
-		objects.add(new Anvil(genereateUniqueId()));
+		objects.add(new FirewoodNW());
+		objects.add(new FirewoodNE());	
+		objects.add(new Fireplace());
+		objects.add(new Anvil());
 		
-	}
-
-	private int genereateUniqueId(){
-		return uniqueId++;
 	}
 
 	@Override
@@ -94,13 +88,5 @@ public class GrasslandCollection implements TileCollection, ObjectCollection{
 		// TODO Auto-generated method stub
 		return objects;
 	}
-
-	public int getUniqueId() {
-		return uniqueId;
-	}
-
-	public void setUniqueId(int uniqueId) {
-		this.uniqueId = uniqueId;
-	}
-
+	
 }

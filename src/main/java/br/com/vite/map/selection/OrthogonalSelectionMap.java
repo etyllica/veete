@@ -60,7 +60,7 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 		
 		if(floor == null) {
 		
-			ImageTileFloor tileFloor = new ImageTileFloor(-1, path);
+			ImageTileFloor tileFloor = new ImageTileFloor(path);
 			tileFloor.setLayerBounds(x, y, editor.getTileWidth(), editor.getTileHeight());
 			
 			selectedTiles.put(selectedTile, tileFloor);

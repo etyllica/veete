@@ -42,12 +42,10 @@ public class IsometricMapApplication extends MapApplication {
 	}
 
 	private void createImageTiles() {
-		
-		final int uniqueId = 0;
-		
-		grass = new Grass(uniqueId, 0);
-		marble = new Marble(uniqueId+1, 0);
-		tree = new PalmTree1(uniqueId+2);
+				
+		grass = new Grass(0);
+		marble = new Marble(0);
+		tree = new PalmTree1();
 
 		editor.setFloorTile(grass);
 

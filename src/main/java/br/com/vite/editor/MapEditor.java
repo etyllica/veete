@@ -114,5 +114,9 @@ public abstract class MapEditor implements Drawable {
 	public int getLines() {
 		return map.getLines();
 	}
+
+	public Tile[][] getTiles() {
+		return tiles;
+	}	
 	
 }
