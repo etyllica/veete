@@ -22,28 +22,30 @@ public class IsometricMap extends Map {
 
 		int line = (int)(mouseY-offsetY)/(tileHeight/2);
 
+		int offset = 1;
+		
 		boolean overLine = false;
 		boolean overColumn = false;
 		
-		if(line<=0)
-			line = 1;
-		else if (line>=lines)
-			line = lines-1;
+		if(line < offset)
+			line = offset;
+		else if (line >= lines)
+			line = lines - offset;
 		else
 			overLine = true;
 
-		if(column<=0)
-			column = 1;
-		else if (column>=columns)
-			column = columns-1;
+		if(column < offset)
+			column = offset;
+		else if (column >= columns)
+			column = columns - offset;
 		else
 			overColumn = true;
 		
 		onMouse = overLine&&overColumn;
 		
-		for(int j=line-1;j<line+1;j++) {
+		for(int j = line - offset;j<line+offset; j++) {
 
-			for(int i=column-1;i<column+1;i++) {
+			for(int i = column - offset;i<column+offset; i++) {
 
 				if(colider.colideTile(tiles[j][i],mouseX, mouseY, offsetX, offsetY)) {
 
