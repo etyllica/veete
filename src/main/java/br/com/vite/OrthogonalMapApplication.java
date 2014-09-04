@@ -43,7 +43,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		selectionCastleMap.setListener(editor);
 		selectionCastleMap.setTileSet(new CastleTileSet());
 		
-		selectionPlatformMap = new OrthogonalSelectionMap(10, 3, tileWidth, tileHeight);
+		selectionPlatformMap = new OrthogonalSelectionMap(14, 3, tileWidth, tileHeight);
 		selectionPlatformMap.translateMap(13*tileWidth, tileSetOffsetY);
 		selectionPlatformMap.setListener(editor);
 		selectionPlatformMap.setTileSet(new LandTileSet());
