@@ -16,12 +16,12 @@ public class HexagonalTileColider extends TileColider {
 	
 	private boolean colideHexagonal(Tile tile, int px, int py, int offsetX, int offsetY) {
 
+		int mx = tile.getW()/4;
+		int my = tile.getH()/2;
+		
 		int x = px-tile.getX()-offsetX;
 		int y = py-tile.getY()-offsetY;
 		
-		int my = tile.getH()/3;
-		int mx = tile.getW()/2;
-
 		if(x > mx*3) {
 			x = mx-(x-mx*3);
 		} else if(x > mx) {
