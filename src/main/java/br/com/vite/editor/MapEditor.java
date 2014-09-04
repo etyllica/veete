@@ -107,6 +107,14 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	public MapType getType() {
 		return type;
 	}
+	
+	public int getOffsetX() {
+		return map.getOffsetX();
+	}
+	
+	public int getOffsetY() {
+		return map.getOffsetY();
+	}
 
 	public void swapGridShow() {
 		map.getDrawer().swapDrawGrid();

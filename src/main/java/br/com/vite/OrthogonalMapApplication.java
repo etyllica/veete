@@ -6,19 +6,11 @@ import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.etyllica.core.loader.image.ImageLoader;
-import br.com.etyllica.util.io.IOHandler;
 import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.collection.tileset.LandTileSet;
-import br.com.vite.editor.MapEditor;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.export.MapExporter;
 import br.com.vite.map.selection.OrthogonalSelectionMap;
-import br.com.vite.serialization.MapEditorDeserializer;
-import br.com.vite.serialization.MapEditorSerializer;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class OrthogonalMapApplication extends MapApplication {
 	
@@ -84,9 +76,16 @@ public class OrthogonalMapApplication extends MapApplication {
 		if(event.isKeyDown(KeyEvent.TSK_2)) {
 		    
 			try {
+				
+				int offsetX = editor.getOffsetX();
+				int offsetY = editor.getOffsetY();
+				
 				editor = MapExporter.load("map.json");
 				selectionCastleMap.setListener(editor);
 				selectionPlatformMap.setListener(editor);
+								
+				editor.translateMap(offsetX, offsetY);
+								
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
