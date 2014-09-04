@@ -27,6 +27,9 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
 	public static final String JSON_TILE_WIDTH = "tile_width";
 	public static final String JSON_TILE_HEIGHT = "tile_height";
 	
+	public static final String JSON_TILESETS = "tilesets";
+	public static final String JSON_TILES = "tiles";
+	
 	private static final int MAP_VERSION = 1;
 	
     private int uniqueId = 0;
@@ -59,9 +62,9 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
        
         JsonArray array = serializeTileArray(editor.getTiles());
        
-        element.add("tilesets", serializeTileSets());
+        element.add(JSON_TILESETS, serializeTileSets());
         
-        element.add("tiles", serializeuniqueIds());
+        element.add(JSON_TILES, serializeuniqueIds());
        
         element.add("map", array);
 
@@ -77,7 +80,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
         	JsonObject tilesetNode = new JsonObject();
         	
         	tilesetNode.addProperty("id", entry.getValue());
-        	tilesetNode.addProperty("set", entry.getKey());
+        	tilesetNode.addProperty("path", entry.getKey());
         	
         	array.add(tilesetNode);
         }
