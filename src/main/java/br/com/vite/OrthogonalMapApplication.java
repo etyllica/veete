@@ -9,6 +9,7 @@ import br.com.vite.collection.tileset.LandTileSet;
 import br.com.vite.editor.MapEditor;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.map.selection.OrthogonalSelectionMap;
+import br.com.vite.serialization.MapEditorDeserializer;
 import br.com.vite.serialization.MapEditorSerializer;
 
 import com.google.gson.Gson;
@@ -73,12 +74,14 @@ public class OrthogonalMapApplication extends MapApplication {
 		if(event.isKeyDown(KeyEvent.TSK_1)) {
 			final GsonBuilder gsonBuilder = new GsonBuilder();
 		    gsonBuilder.registerTypeAdapter(MapEditor.class, new MapEditorSerializer());
+		    gsonBuilder.registerTypeAdapter(MapEditor.class, new MapEditorDeserializer());
 		    gsonBuilder.setPrettyPrinting();
 		    final Gson gson = gsonBuilder.create();
 		    
 		    final String json = gson.toJson(editor, MapEditor.class);
 		    System.out.println(json);
-			
+		    
+		    MapEditor editor = gson.fromJson(json, MapEditor.class);		    	    
 		}
 		
 		return GUIEvent.NONE;
