@@ -6,6 +6,7 @@ import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.vite.map.Map;
+import br.com.vite.map.MapType;
 import br.com.vite.map.selection.SelectionMapListener;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.layer.ImageTileFloor;
@@ -13,6 +14,8 @@ import br.com.vite.tile.layer.ImageTileObject;
 
 public abstract class MapEditor implements Drawable, SelectionMapListener {
 
+	protected MapType type;
+	
 	protected Map map;
 
 	protected Tile[][] tiles;
@@ -100,6 +103,10 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 			}
 		}
 	}
+	
+	public MapType getType() {
+		return type;
+	}
 
 	public void swapGridShow() {
 		map.getDrawer().swapDrawGrid();
@@ -123,6 +130,6 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 
 	public Tile[][] getTiles() {
 		return tiles;
-	}	
+	}
 	
 }
