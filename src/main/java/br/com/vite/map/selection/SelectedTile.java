@@ -12,6 +12,14 @@ public class SelectedTile {
 	
 	private int height;
 
+	public SelectedTile(String path, int x, int y) {
+		super();
+		
+		this.path = path;
+		this.x = x;
+		this.y = y;
+	}
+	
 	public SelectedTile(String path, int x, int y, int width, int height) {
 		super();
 		
@@ -66,9 +74,7 @@ public class SelectedTile {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + height;
 		result = prime * result + ((path == null) ? 0 : path.hashCode());
-		result = prime * result + width;
 		result = prime * result + x;
 		result = prime * result + y;
 		return result;
@@ -83,14 +89,10 @@ public class SelectedTile {
 		if (getClass() != obj.getClass())
 			return false;
 		SelectedTile other = (SelectedTile) obj;
-		if (height != other.height)
-			return false;
 		if (path == null) {
 			if (other.path != null)
 				return false;
 		} else if (!path.equals(other.path))
-			return false;
-		if (width != other.width)
 			return false;
 		if (x != other.x)
 			return false;
