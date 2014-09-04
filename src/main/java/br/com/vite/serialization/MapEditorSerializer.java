@@ -20,6 +20,13 @@ import com.google.gson.JsonSerializer;
 
 public class MapEditorSerializer implements JsonSerializer<MapEditor> {
 
+	public static final String JSON_VERSION = "version";
+	public static final String JSON_TYPE = "type";
+	public static final String JSON_COLUMNS = "columns";
+	public static final String JSON_LINES = "lines";
+	public static final String JSON_TILE_WIDTH = "tile_width";
+	public static final String JSON_TILE_HEIGHT = "tile_height";
+	
 	private static final int MAP_VERSION = 1;
 	
     private int uniqueId = 0;
@@ -39,11 +46,12 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
        
         JsonObject element = new JsonObject();
        
-        element.add("version", new JsonPrimitive(MAP_VERSION));
-        element.add("columns", context.serialize(columns));
-        element.add("lines", context.serialize(lines));       
-        element.add("tile_width", context.serialize(editor.getTileWidth()));
-        element.add("tile_height", context.serialize(editor.getTileHeight()));
+        element.add(JSON_VERSION, new JsonPrimitive(MAP_VERSION));
+        element.add(JSON_TYPE, context.serialize(editor.getType()));
+        element.add(JSON_COLUMNS, context.serialize(columns));
+        element.add(JSON_LINES, context.serialize(lines));
+        element.add(JSON_TILE_WIDTH, context.serialize(editor.getTileWidth()));
+        element.add(JSON_TILE_HEIGHT, context.serialize(editor.getTileHeight()));
        
         tileSets = new HashMap<String, Integer>();
         
