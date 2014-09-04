@@ -29,6 +29,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
 	
 	public static final String JSON_TILESETS = "tilesets";
 	public static final String JSON_TILES = "tiles";
+	public static final String JSON_MAP = "map";
 	
 	private static final int MAP_VERSION = 1;
 	
@@ -66,7 +67,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
         
         element.add(JSON_TILES, serializeuniqueIds());
        
-        element.add("map", array);
+        element.add(JSON_MAP, array);
 
         return element;
     }

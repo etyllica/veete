@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "type": "ORTHOGONAL",
+  "columns": 48,
+  "lines": 16,
+  "tile_width": 16,
+  "tile_height": 16,
+  "tilesets": [
+    {
+      "id": 0,
+      "path": "platform/land.png"
+    }
+  ],
+  "tiles": [
+    {
+      "id": 0,
+      "set": 0,
+      "xImage": 16,
+      "yImage": 0
+    }
+  ],
+  "map": [
+    {
+      "x": 19,
+      "y": 9,
+      "id": 0
+    },
+    {
+      "x": 20,
+      "y": 9,
+      "id": 0
+    },
+    {
+      "x": 21,
+      "y": 9,
+      "id": 0
+    }
+  ]
+}

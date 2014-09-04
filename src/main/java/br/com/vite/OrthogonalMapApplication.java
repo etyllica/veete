@@ -1,13 +1,18 @@
 package br.com.vite;
 
+import java.io.FileNotFoundException;
+
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.loader.image.ImageLoader;
+import br.com.etyllica.util.io.IOHandler;
 import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.collection.tileset.LandTileSet;
 import br.com.vite.editor.MapEditor;
 import br.com.vite.editor.OrthogonalMapEditor;
+import br.com.vite.export.MapExporter;
 import br.com.vite.map.selection.OrthogonalSelectionMap;
 import br.com.vite.serialization.MapEditorDeserializer;
 import br.com.vite.serialization.MapEditorSerializer;
@@ -72,16 +77,21 @@ public class OrthogonalMapApplication extends MapApplication {
 		super.updateKeyboard(event);
 
 		if(event.isKeyDown(KeyEvent.TSK_1)) {
-			final GsonBuilder gsonBuilder = new GsonBuilder();
-		    gsonBuilder.registerTypeAdapter(MapEditor.class, new MapEditorSerializer());
-		    gsonBuilder.registerTypeAdapter(MapEditor.class, new MapEditorDeserializer());
-		    gsonBuilder.setPrettyPrinting();
-		    final Gson gson = gsonBuilder.create();
+					    
+		    MapExporter.export(editor, "map.json");
+		}
+		
+		if(event.isKeyDown(KeyEvent.TSK_2)) {
 		    
-		    final String json = gson.toJson(editor, MapEditor.class);
-		    System.out.println(json);
-		    
-		    MapEditor editor = gson.fromJson(json, MapEditor.class);		    	    
+			try {
+				editor = MapExporter.load("map.json");
+				selectionCastleMap.setListener(editor);
+				selectionPlatformMap.setListener(editor);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
 		}
 		
 		return GUIEvent.NONE;

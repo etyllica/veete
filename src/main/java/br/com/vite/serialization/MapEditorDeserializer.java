@@ -10,6 +10,7 @@ import br.com.vite.editor.MapEditor;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.map.MapType;
 import br.com.vite.map.selection.SelectedTile;
+import br.com.vite.tile.layer.ImageTileFloor;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -23,6 +24,8 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
 	private Map<Integer, String> tileSets = new HashMap<Integer, String>();
 	
 	private Map<Integer, SelectedTile> tileIds = new HashMap<Integer, SelectedTile>();
+	
+	private Map<SelectedTile, ImageTileFloor> selectedTiles = new HashMap<SelectedTile, ImageTileFloor>();
        
     @Override
 	public MapEditor deserialize(JsonElement element, Type type,
@@ -44,7 +47,9 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     	
     	JsonArray tilesNode = object.getAsJsonArray(MapEditorSerializer.JSON_TILES);
     	deserializeTiles(tilesNode, tileWidth, tileHeight);
-    	//deserialize maptiles
+    	
+    	JsonArray mapNode = object.getAsJsonArray(MapEditorSerializer.JSON_MAP);
+    	deserializeMap(editor, mapNode);
     	
 		return editor;
 	}
@@ -93,5 +98,35 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     		tileIds.put(id, tile);
     	}
     }
+    
+    private void deserializeMap(MapEditor editor, JsonArray array) {
+    	
+    	for(int i = 0; i < array.size(); i++) {
+    		JsonObject node = array.get(i).getAsJsonObject();
+    		    		    		
+            int x = node.get("x").getAsInt();
+            int y = node.get("y").getAsInt();
+            int id = node.get("id").getAsInt();            
+    		
+            editor.getTiles()[y][x].setLayer(createSelectedTile(tileIds.get(id)));
+    	}
+    }
+    
+    private ImageTileFloor createSelectedTile(SelectedTile selectedTile) {
+				
+		ImageTileFloor floor = selectedTiles.get(selectedTile);
+		
+		if(floor == null) {
+		
+			ImageTileFloor tileFloor = new ImageTileFloor(selectedTile.getPath());
+			tileFloor.setLayerBounds(selectedTile.getX(), selectedTile.getY(), selectedTile.getWidth(), selectedTile.getHeight());
+			
+			selectedTiles.put(selectedTile, tileFloor);
+			
+			return tileFloor;
+		}
+		
+		return floor;
+	}
     
 }
