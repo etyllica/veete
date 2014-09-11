@@ -43,13 +43,14 @@ public class IsometricMap extends Map {
 		
 		onMouse = overLine&&overColumn;
 		
-		for(int j = line - offset;j<line+offset; j++) {
+		for(int j = line - offset; j<line+offset; j++) {
 
-			for(int i = column - offset;i<column+offset; i++) {
+			for(int i = column - offset; i<column+offset; i++) {
 
 				if(colider.colideTile(tiles[j][i],mouseX, mouseY, offsetX, offsetY)) {
 
 					target.setLocation(i, j);
+					break;
 				}
 			}
 		}		

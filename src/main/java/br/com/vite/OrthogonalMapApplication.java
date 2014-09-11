@@ -14,15 +14,17 @@ import br.com.vite.map.selection.OrthogonalSelectionMap;
 
 public class OrthogonalMapApplication extends MapApplication {
 	
-	final int tileWidth = 16;
-	final int tileHeight = 16;
+	private final String mapFile = "map.json";
+	
+	private final int tileWidth = 16;
+	private final int tileHeight = 16;
 
 	private int tileSetOffsetY = 300;
 	
 	private OrthogonalSelectionMap selectionCastleMap;
 	
 	private OrthogonalSelectionMap selectionPlatformMap;
-
+	
 	public OrthogonalMapApplication(int w, int h) {
 		super(w, h);
 	}
@@ -30,7 +32,7 @@ public class OrthogonalMapApplication extends MapApplication {
 	@Override
 	public void load() {
 
-		final int columns = 48;
+		final int columns = 50;
 		final int lines = 16;
 
 		editor = new OrthogonalMapEditor(columns, lines, tileWidth, tileHeight);
@@ -43,7 +45,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		selectionCastleMap.setListener(editor);
 		selectionCastleMap.setTileSet(new CastleTileSet());
 		
-		selectionPlatformMap = new OrthogonalSelectionMap(14, 3, tileWidth, tileHeight);
+		selectionPlatformMap = new OrthogonalSelectionMap(10, 8, tileWidth, tileHeight);
 		selectionPlatformMap.translateMap(13*tileWidth, tileSetOffsetY);
 		selectionPlatformMap.setListener(editor);
 		selectionPlatformMap.setTileSet(new LandTileSet());
@@ -51,7 +53,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		loading = 70;		
 
 		updateAtFixedRate(80);
-
+		
 		loading = 100;
 	}
 
@@ -70,7 +72,7 @@ public class OrthogonalMapApplication extends MapApplication {
 
 		if(event.isKeyDown(KeyEvent.TSK_1)) {
 					    
-		    MapExporter.export(editor, "map.json");
+		    MapExporter.export(editor, mapFile);
 		}
 		
 		if(event.isKeyDown(KeyEvent.TSK_2)) {
@@ -80,7 +82,7 @@ public class OrthogonalMapApplication extends MapApplication {
 				int offsetX = editor.getOffsetX();
 				int offsetY = editor.getOffsetY();
 				
-				editor = MapExporter.load("map.json");
+				editor = MapExporter.load(mapFile);
 				selectionCastleMap.setListener(editor);
 				selectionPlatformMap.setListener(editor);
 								
@@ -95,7 +97,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		
 		return GUIEvent.NONE;
 	}
-	
+		
 	@Override
 	public GUIEvent updateMouse(PointerEvent event) {				
 		super.updateMouse(event);
@@ -109,7 +111,7 @@ public class OrthogonalMapApplication extends MapApplication {
 	@Override
 	public void draw(Graphic g) {
 		super.draw(g);
-
+		
 		selectionCastleMap.draw(g);
 		selectionPlatformMap.draw(g);
 	}

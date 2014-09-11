@@ -13,7 +13,10 @@ public abstract class MapApplication extends Application {
 		
 	protected MapEditor editor;
 	
-	private int offsetSpeed = 6;
+	private int normalSpeed = 6;
+	private int fastSpeed = 50;
+	
+	private int offsetSpeed = normalSpeed;
 	
 	//Input
 	protected int mx = 0;
@@ -65,6 +68,12 @@ public abstract class MapApplication extends Application {
 		if(event.isKeyDown(KeyEvent.TSK_G)) {
 			editor.swapGridShow();
 		}
+		
+		if(event.isAnyKeyDown(KeyEvent.TSK_SHIFT_LEFT, KeyEvent.TSK_SHIFT_RIGHT)) {
+			offsetSpeed = fastSpeed;
+		} else if(event.isKeyUp(KeyEvent.TSK_SHIFT_LEFT)||event.isKeyUp(KeyEvent.TSK_SHIFT_RIGHT)) {
+			offsetSpeed = normalSpeed;
+		}
 
 		return GUIEvent.NONE;
 	}
@@ -104,17 +113,21 @@ public abstract class MapApplication extends Application {
 		editor.update(now);
 		
 		if(upArrowPressed) {
-			editor.offsetMap(0, offsetSpeed);
+			offsetMap(0, offsetSpeed);
 		} else if(downArrowPressed) {
-			editor.offsetMap(0, -offsetSpeed);
+			offsetMap(0, -offsetSpeed);
 		}
 		
 		if(leftArrowPressed) {
-			editor.offsetMap(offsetSpeed, 0);			
+			offsetMap(offsetSpeed, 0);			
 		} else if(rightArrowPressed) {
-			editor.offsetMap(-offsetSpeed, 0);
+			offsetMap(-offsetSpeed, 0);
 		}
 		
+	}
+	
+	protected void offsetMap(int offsetX, int offsetY) {
+		editor.offsetMap(offsetX, offsetY);
 	}
 	
 	@Override
