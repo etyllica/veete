@@ -1,0 +1,7 @@
+package br.com.vite.tile.collision;
+
+public enum CollisionType {
+
+	FREE, BLOCK, UPPER, UPPER_LEFT, UPPER_RIGHT, LOWER, LOWER_LEFT, LOWER_RIGHT,
+	HALF_TOP_LEFT, HALF_TOP_RIGHT, HALF_BOTTOM_LEFT, HALF_BOTTOM_RIGHT; 
+}

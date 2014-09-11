@@ -7,12 +7,14 @@ import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.vite.map.Map;
 import br.com.vite.map.MapType;
+import br.com.vite.map.selection.CollisionMapListener;
 import br.com.vite.map.selection.SelectionMapListener;
 import br.com.vite.tile.Tile;
+import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.layer.ImageTileObject;
 
-public abstract class MapEditor implements Drawable, SelectionMapListener {
+public abstract class MapEditor implements Drawable, SelectionMapListener, CollisionMapListener {
 
 	protected MapType type;
 	
@@ -48,14 +50,19 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		map.setOffset(x, y);
 	}
 	
-	public void setFloorTile(ImageTileFloor tile) {
-		selectedTile = tile;
-		map.getFiller().setFloorTile(tile);
+	public void setFloorTile(ImageTileFloor floor) {
+		selectedTile = floor;
+		map.getFiller().setFloorTile(floor);
 	}
 	
-	public void setObjectTile(ImageTileObject tile) {
-		selectedObject = tile;
-		map.getFiller().setObjectTile(tile);
+	public void setObjectTile(ImageTileObject obj) {
+		selectedObject = obj;
+		map.getFiller().setObjectTile(obj);
+	}
+	
+	@Override
+	public void setCollisionTile(CollisionType type) {
+		// TODO Auto-generated method stub
 	}
 
 	public void draw(Graphic g) {

@@ -3,6 +3,7 @@ package br.com.vite.tile;
 import java.awt.Color;
 
 import br.com.etyllica.layer.GeometricLayer;
+import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.layer.ImageTileObject;
 
@@ -13,6 +14,8 @@ public class Tile extends GeometricLayer {
 	protected ImageTileObject objectLayer;
 	
 	private Color color;
+	
+	protected CollisionType collision = CollisionType.FREE;
 	
 	public Tile(int x, int y, int w, int h){
 		super(x,y,w,h);
@@ -41,5 +44,13 @@ public class Tile extends GeometricLayer {
 	public void setObjectLayer(ImageTileObject layer) {
 		this.objectLayer = layer;
 	}
-	
+
+	public CollisionType getCollision() {
+		return collision;
+	}
+
+	public void setCollision(CollisionType collision) {
+		this.collision = collision;
+	}
+		
 }

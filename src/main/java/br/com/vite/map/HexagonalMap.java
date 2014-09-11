@@ -1,8 +1,11 @@
 package br.com.vite.map;
 
 import br.com.vite.tile.colider.HexagonalTileColider;
+import br.com.vite.tile.colider.OrthogonalTileColider;
 import br.com.vite.tile.drawer.HexagonalTileDrawer;
+import br.com.vite.tile.drawer.OrthogonalTileDrawer;
 import br.com.vite.tile.filler.HexagonalTileFiller;
+import br.com.vite.tile.filler.OrthogonalTileFiller;
 import br.com.vite.tile.generator.HexagonalTileCreator;
 
 public class HexagonalMap extends Map {
@@ -16,11 +19,11 @@ public class HexagonalMap extends Map {
 		filler = new HexagonalTileFiller(tileWidth, tileHeight);
 	}
 	
-	protected void updateTarget(int mouseX, int mouseY) {
+	/*protected void updateTarget(int mouseX, int mouseY) {
 
-		int column = Math.round((mouseX-offsetX)/tileWidth/1.5f);
+		int column = Math.round((mouseX-offsetX)/tileWidth);
 
-		int line = Math.round((mouseY-offsetY)/tileHeight*1.5f);
+		int line = Math.round((mouseY-offsetY)/tileHeight);
 		//line++;
 				
 		int offset = 2;
@@ -49,16 +52,45 @@ public class HexagonalMap extends Map {
 		
 		//target.setLocation(column, line);
 				
-		for(int j=line-offset;j<line+offset;j++) {
+		//for(int j=line-offset;j<line+offset;j++) {
+		for(int j=0; j < lines; j++) {
 
-			for(int i=column-offset;i<column+offset;i++) {
+			//for(int i=column-offset;i<column+offset;i++) {
+			//for(int i = 0; i < columns; i++) {
+			int i=0;
 
 				if(colider.colideTile(tiles[j][i], mouseX, mouseY, offsetX, offsetY)) {
 
 					target.setLocation(i, j);
+					break;
+				}
+			//}
+		}
+		
+	}*/
+	
+	protected void updateTarget(int mouseX, int mouseY) {
+
+		int column = (int)((mouseX-offsetX)/(tileWidth*4)/3);
+		
+		int line = (int)((mouseY-offsetY)/tileHeight);
+
+		boolean overLine = false;
+		boolean overColumn = false;
+		
+		onMouse = true;
+
+		for(int j = 0;j<lines-1; j++) {
+
+			for(int i = 0;i<columns-1; i++) {
+
+				if(colider.colideTile(tiles[j][i],mouseX, mouseY, offsetX, offsetY)) {
+
+					target.setLocation(i, j);
+					break;
 				}
 			}
-		}		
+		}	
 	}
 	
 }

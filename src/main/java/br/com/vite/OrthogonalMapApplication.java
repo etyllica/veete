@@ -10,7 +10,9 @@ import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.collection.tileset.LandTileSet;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.export.MapExporter;
+import br.com.vite.map.selection.OrthogonalCollisionMap;
 import br.com.vite.map.selection.OrthogonalSelectionMap;
+import br.com.vite.tile.collision.CollisionTileSet;
 
 public class OrthogonalMapApplication extends MapApplication {
 	
@@ -24,6 +26,8 @@ public class OrthogonalMapApplication extends MapApplication {
 	private OrthogonalSelectionMap selectionCastleMap;
 	
 	private OrthogonalSelectionMap selectionPlatformMap;
+	
+	private OrthogonalCollisionMap selectionCollisionMap;
 	
 	public OrthogonalMapApplication(int w, int h) {
 		super(w, h);
@@ -49,6 +53,11 @@ public class OrthogonalMapApplication extends MapApplication {
 		selectionPlatformMap.translateMap(13*tileWidth, tileSetOffsetY);
 		selectionPlatformMap.setListener(editor);
 		selectionPlatformMap.setTileSet(new LandTileSet());
+		
+		selectionCollisionMap = new OrthogonalCollisionMap(5, 3, tileWidth, tileHeight);
+		selectionCollisionMap.setListener(editor);
+		selectionCollisionMap.setTileSet(new CollisionTileSet(tileWidth, tileHeight));
+		selectionCollisionMap.translateMap(28*tileWidth, tileSetOffsetY);
 		
 		loading = 70;		
 
@@ -85,6 +94,7 @@ public class OrthogonalMapApplication extends MapApplication {
 				editor = MapExporter.load(mapFile);
 				selectionCastleMap.setListener(editor);
 				selectionPlatformMap.setListener(editor);
+				selectionCollisionMap.setListener(editor);
 								
 				editor.translateMap(offsetX, offsetY);
 								
@@ -104,6 +114,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		
 		selectionCastleMap.updateMouse(event);
 		selectionPlatformMap.updateMouse(event);
+		selectionCollisionMap.updateMouse(event);
 		
 		return GUIEvent.NONE;
 	}
@@ -114,6 +125,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		
 		selectionCastleMap.draw(g);
 		selectionPlatformMap.draw(g);
+		selectionCollisionMap.draw(g);
 	}
 
 }
