@@ -24,6 +24,15 @@ public class SelectedTile {
 		this.y = y;
 	}
 	
+	public SelectedTile(String path, int x, int y, CollisionType collision) {
+		super();
+		
+		this.path = path;
+		this.x = x;
+		this.y = y;
+		this.collision = collision;
+	}
+	
 	public SelectedTile(String path, int x, int y, int width, int height) {
 		super();
 		

@@ -100,7 +100,7 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		
 		if(map.isOnMouse()) {
 
-			if(leftPressed) {
+			if(leftPressed && selectedTile != null) {				
 				lastSelectedTile.setLayer(selectedTile);
 				lastSelectedTile.setCollision(selectedTile.getCollision());
 			} else if(rightPressed) {

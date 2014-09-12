@@ -10,6 +10,7 @@ import br.com.vite.editor.MapEditor;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.map.MapType;
 import br.com.vite.map.selection.SelectedTile;
+import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.layer.ImageTileFloor;
 
 import com.google.gson.JsonArray;
@@ -91,7 +92,16 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
             int x = node.get("xImage").getAsInt();
             int y = node.get("yImage").getAsInt();
             
-            SelectedTile tile = new SelectedTile(path, x, y, tileWidth, tileHeight);
+            
+            JsonElement collisionNode = node.get("collision");
+            
+            CollisionType type = CollisionType.FREE;
+            
+            if(collisionNode != null) {
+            	type = CollisionType.valueOf(node.get("collision").getAsString());
+            }
+            
+            SelectedTile tile = new SelectedTile(path, x, y, tileWidth, tileHeight, type);
     		
             int id = node.get("id").getAsInt();
             
@@ -106,9 +116,10 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     		    		    		
             int x = node.get("x").getAsInt();
             int y = node.get("y").getAsInt();
-            int id = node.get("id").getAsInt();            
+            int id = node.get("id").getAsInt();
     		
             editor.getTiles()[y][x].setLayer(createSelectedTile(tileIds.get(id)));
+            editor.getTiles()[y][x].setCollision(createSelectedTile(tileIds.get(id)).getCollision());
     	}
     }
     
@@ -120,6 +131,7 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
 		
 			ImageTileFloor tileFloor = new ImageTileFloor(selectedTile.getPath());
 			tileFloor.setLayerBounds(selectedTile.getX(), selectedTile.getY(), selectedTile.getWidth(), selectedTile.getHeight());
+			tileFloor.setCollision(selectedTile.getCollision());
 			
 			selectedTiles.put(selectedTile, tileFloor);
 			
@@ -127,6 +139,6 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
 		}
 		
 		return floor;
-	}
+	}    
     
 }

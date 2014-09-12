@@ -30,6 +30,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
 	public static final String JSON_TILESETS = "tilesets";
 	public static final String JSON_TILES = "tiles";
 	public static final String JSON_MAP = "map";
+	public static final String JSON_ID = "id";
 	
 	private static final int MAP_VERSION = 1;
 	
@@ -56,10 +57,10 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
         element.add(JSON_LINES, context.serialize(lines));
         element.add(JSON_TILE_WIDTH, context.serialize(editor.getTileWidth()));
         element.add(JSON_TILE_HEIGHT, context.serialize(editor.getTileHeight()));
-       
+               
         tileSets = new HashMap<String, Integer>();
         
-        uniqueIds = new HashMap<SelectedTile, Integer>();        
+        uniqueIds = new HashMap<SelectedTile, Integer>();
        
         JsonArray array = serializeTileArray(editor.getTiles());
        
@@ -80,7 +81,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
         	
         	JsonObject tilesetNode = new JsonObject();
         	
-        	tilesetNode.addProperty("id", entry.getValue());
+        	tilesetNode.addProperty(JSON_ID, entry.getValue());
         	tilesetNode.addProperty("path", entry.getKey());
         	
         	array.add(tilesetNode);
@@ -97,10 +98,12 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
            
             JsonObject tileNode = new JsonObject();
            
-            tileNode.addProperty("id", entry.getValue());
+            tileNode.addProperty(JSON_ID, entry.getValue());
             tileNode.addProperty("set", tileSets.get(entry.getKey().getPath()));
             tileNode.addProperty("xImage", entry.getKey().getX());
             tileNode.addProperty("yImage", entry.getKey().getY());
+            //Save Collision
+            tileNode.addProperty("collision", entry.getKey().getCollision().toString());
            
             array.add(tileNode);
         }
@@ -126,11 +129,11 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
                                
                 JsonObject tileNode = new JsonObject();
                
-                SelectedTile selection = new SelectedTile(tile.getLayer().getPath(), tile.getLayer().getX(), tile.getLayer().getY());
+                SelectedTile selection = new SelectedTile(tile.getLayer().getPath(), tile.getLayer().getX(), tile.getLayer().getY(), tile.getCollision());
                
                 tileNode.addProperty("x", i);
                 tileNode.addProperty("y", j);
-                tileNode.addProperty("id", getUniqueId(selection));
+                tileNode.addProperty(JSON_ID, getUniqueId(selection));
                                
                 array.add(tileNode);
             }
@@ -145,7 +148,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
             uniqueIds.put(selectedTile, uniqueId);
             uniqueId++;
             
-            generateTileSetId(selectedTile.getPath());            
+            generateTileSetId(selectedTile.getPath());
         }
        
         return uniqueIds.get(selectedTile);
