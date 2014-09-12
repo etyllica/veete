@@ -6,11 +6,15 @@ import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 
 import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.layer.BufferedLayer;
 import br.com.vite.tile.Tile;
+import br.com.vite.tile.collision.CollisionType;
 
 public class IsometricTileDrawer extends TileDrawer {
-
+	
 	private BufferedImage gridCell;
+	
+	private BufferedLayer collisionLayer;
 	
 	public IsometricTileDrawer(int tileWidth, int tileHeight) {
 		super(tileWidth, tileHeight);
@@ -33,6 +37,10 @@ public class IsometricTileDrawer extends TileDrawer {
 		polygon.addPoint(tileWidth/2, tileHeight);
 
 		g.drawPolygon(polygon);
+		
+		collisionLayer = new BufferedLayer(0, 0, tileWidth, tileHeight);
+		collisionLayer.getGraphics().setColor(Color.BLACK);
+		collisionLayer.getGraphics().fillPolygon(polygon);
 	}
 
 	@Override
@@ -42,6 +50,23 @@ public class IsometricTileDrawer extends TileDrawer {
 		int ty = tile.getY()+offsetY;
 		
 		g.drawImage(gridCell, tx, ty);		
+	}
+
+	@Override
+	protected void drawCollision(Tile tile, Graphic g, int offsetX, int offsetY) {
+
+		int tx = tile.getX()+offsetX;
+		int ty = tile.getY()+offsetY;
+		
+		if(tile.getCollision() == CollisionType.FREE) {
+			collisionLayer.resetImage();
+			collisionLayer.offsetRGB(0, 0xff, 0);
+		} else if(tile.getCollision() == CollisionType.BLOCK) {
+			collisionLayer.resetImage();
+			collisionLayer.offsetRGB(0xff, 0, 0);
+		}
+		
+		collisionLayer.simpleDraw(g, tx, ty);		
 	}
 	
 }

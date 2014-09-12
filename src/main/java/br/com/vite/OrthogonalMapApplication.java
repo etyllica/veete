@@ -12,7 +12,6 @@ import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.export.MapExporter;
 import br.com.vite.map.selection.OrthogonalCollisionMap;
 import br.com.vite.map.selection.OrthogonalSelectionMap;
-import br.com.vite.tile.collision.CollisionTileSet;
 
 public class OrthogonalMapApplication extends MapApplication {
 	
@@ -43,22 +42,22 @@ public class OrthogonalMapApplication extends MapApplication {
 		editor.translateMap(0, 40);
 
 		loading = 30;
+
+		selectionCollisionMap = new OrthogonalCollisionMap(5, 3, tileWidth, tileHeight);
+		selectionCollisionMap.translateMap(28*tileWidth, tileSetOffsetY);
 		
 		selectionCastleMap = new OrthogonalSelectionMap(9, 12, tileWidth, tileHeight);
 		selectionCastleMap.translateMap(0, tileSetOffsetY);
 		selectionCastleMap.setListener(editor);
+		selectionCastleMap.setCollisionMap(selectionCollisionMap);
 		selectionCastleMap.setTileSet(new CastleTileSet());
 		
 		selectionPlatformMap = new OrthogonalSelectionMap(10, 8, tileWidth, tileHeight);
 		selectionPlatformMap.translateMap(13*tileWidth, tileSetOffsetY);
 		selectionPlatformMap.setListener(editor);
+		selectionPlatformMap.setCollisionMap(selectionCollisionMap);
 		selectionPlatformMap.setTileSet(new LandTileSet());
-		
-		selectionCollisionMap = new OrthogonalCollisionMap(5, 3, tileWidth, tileHeight);
-		selectionCollisionMap.setListener(editor);
-		selectionCollisionMap.setTileSet(new CollisionTileSet(tileWidth, tileHeight));
-		selectionCollisionMap.translateMap(28*tileWidth, tileSetOffsetY);
-		
+				
 		loading = 70;		
 
 		updateAtFixedRate(80);
@@ -73,6 +72,8 @@ public class OrthogonalMapApplication extends MapApplication {
 		selectionCastleMap.update(now);
 		
 		selectionPlatformMap.update(now);
+		
+		selectionCollisionMap.update(now);
 	}
 		
 	@Override
@@ -94,8 +95,7 @@ public class OrthogonalMapApplication extends MapApplication {
 				editor = MapExporter.load(mapFile);
 				selectionCastleMap.setListener(editor);
 				selectionPlatformMap.setListener(editor);
-				selectionCollisionMap.setListener(editor);
-								
+												
 				editor.translateMap(offsetX, offsetY);
 								
 			} catch (FileNotFoundException e) {

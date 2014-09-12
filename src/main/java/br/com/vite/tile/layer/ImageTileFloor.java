@@ -6,7 +6,7 @@ import br.com.etyllica.layer.ImageLayer;
 public class ImageTileFloor extends TileLayer implements DrawableLayer {
 	
 	protected ImageLayer layer;
-			
+				
 	public ImageTileFloor(String path) {
 		super();
 		

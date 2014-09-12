@@ -7,14 +7,12 @@ import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.vite.map.Map;
 import br.com.vite.map.MapType;
-import br.com.vite.map.selection.CollisionMapListener;
 import br.com.vite.map.selection.SelectionMapListener;
 import br.com.vite.tile.Tile;
-import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.layer.ImageTileObject;
 
-public abstract class MapEditor implements Drawable, SelectionMapListener, CollisionMapListener {
+public abstract class MapEditor implements Drawable, SelectionMapListener {
 
 	protected MapType type;
 	
@@ -34,12 +32,18 @@ public abstract class MapEditor implements Drawable, SelectionMapListener, Colli
 	protected boolean rightPressed = false;
 	protected boolean middlePressed = false;
 	
+	protected int tileWidth = 0;
+	protected int tileHeight = 0;
+	
 	public MapEditor(int columns, int lines) {
 		this(columns, lines, 64, 64);		
 	}
 	
 	public MapEditor(int columns, int lines, int tileWidth, int tileHeight) {
 		super();
+		
+		this.tileWidth = tileWidth;
+		this.tileHeight = tileHeight;
 	}
 
 	public void offsetMap(int offsetX, int offsetY) {
@@ -60,11 +64,6 @@ public abstract class MapEditor implements Drawable, SelectionMapListener, Colli
 		map.getFiller().setObjectTile(obj);
 	}
 	
-	@Override
-	public void setCollisionTile(CollisionType type) {
-		// TODO Auto-generated method stub
-	}
-
 	public void draw(Graphic g) {
 		map.draw(g, 0, 0);				
 	}
@@ -103,6 +102,7 @@ public abstract class MapEditor implements Drawable, SelectionMapListener, Colli
 
 			if(leftPressed) {
 				lastSelectedTile.setLayer(selectedTile);
+				lastSelectedTile.setCollision(selectedTile.getCollision());
 			} else if(rightPressed) {
 				lastSelectedTile.setObjectLayer(selectedObject);
 			} else if(middlePressed) {

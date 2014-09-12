@@ -13,7 +13,7 @@ public class CollisionTileSet extends ProceduralTileSet {
 	public CollisionTileSet(int tileWidth, int tileHeight) {
 		super(5, 3, tileWidth, tileHeight);
 		
-		drawTiles();		
+		drawTiles();
 	}
 	
 	private void drawTiles() {
@@ -29,7 +29,7 @@ public class CollisionTileSet extends ProceduralTileSet {
 		polygon.addPoint(tileWidth, tileHeight*3);
 		polygon.addPoint(tileWidth*2, tileHeight*2);
 		
-		g.fillPolygon(polygon);		
+		g.fillPolygon(polygon);
 		
 		g.fillRoundRect(tileWidth*2, 0, tileWidth*3, tileHeight*3, tileWidth, tileHeight);
 	}

@@ -6,6 +6,7 @@ import java.util.Map;
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.tile.Tile;
+import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.set.TileSet;
 
@@ -14,6 +15,8 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 	private TileSet tileSet;
 	
 	private SelectionMapListener listener;
+	
+	private OrthogonalCollisionMap collisionMap;
 	
 	private Map<SelectedTile, ImageTileFloor> selectedTiles = new HashMap<SelectedTile, ImageTileFloor>();
 	
@@ -33,22 +36,47 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 	public void update(long now) {
 		
 		Tile lastSelectionTile = map.getTargetTile(mx, my);
-		
+				
 		if(map.isOnMouse()) {
-			
+						
 			if(leftPressed) {
-
+				
 				int x = lastSelectionTile.getX();
 				int y = lastSelectionTile.getY();
 				
 				int tileWidth = map.getTileWidth();
 				int tileHeight = map.getTileHeight();
+								
+				ImageTileFloor selectedTile = null;
 				
-				ImageTileFloor selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, tileWidth, tileHeight);
+				if(!collisionMap.isActiveSelection()) {
 
-				notifySelectedFloorTile(selectedTile);
+					selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, 
+							tileWidth, tileHeight);	
+					
+				} else {
+					
+					CollisionType selectedType = getCollisionType();
+					
+					lastSelectionTile.setCollision(selectedType);					
+										
+					selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, 
+							tileWidth, tileHeight, selectedType);
+					
+					collisionMap.setActiveSelection(false);
+				}
+				
+				notifySelectedFloorTile(selectedTile);				
 			}
 		}
+	}
+	
+	private CollisionType getCollisionType() {
+		if(collisionMap == null) {
+			return CollisionType.FREE;
+		}
+		
+		return collisionMap.getSelectedType();
 	}
 	
 	private void notifySelectedFloorTile(ImageTileFloor selectedTile) {
@@ -57,7 +85,7 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 		
 		listener.setFloorTile(selectedTile);
 	}
-	
+		
 	private ImageTileFloor createSelectedTile(String path, int x, int y, int width, int height) {
 		
 		SelectedTile selectedTile = new SelectedTile(path, x, y, width, height);
@@ -73,6 +101,15 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 			
 			return tileFloor;
 		}
+		
+		return floor;
+	}
+	
+	private ImageTileFloor createSelectedTile(String path, int x, int y, int width, int height, CollisionType collision) {
+		
+		ImageTileFloor floor = createSelectedTile(path, x, y, width, height);
+		
+		floor.setCollision(collision);
 		
 		return floor;
 	}
@@ -96,4 +133,12 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 		this.tileSet = tileSet;
 	}
 
+	public OrthogonalCollisionMap getCollisionMap() {
+		return collisionMap;
+	}
+
+	public void setCollisionMap(OrthogonalCollisionMap collisionMap) {
+		this.collisionMap = collisionMap;
+	}
+	
 }

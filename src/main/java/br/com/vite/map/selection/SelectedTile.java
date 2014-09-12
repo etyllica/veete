@@ -1,5 +1,7 @@
 package br.com.vite.map.selection;
 
+import br.com.vite.tile.collision.CollisionType;
+
 public class SelectedTile {
 
 	private String path;
@@ -11,6 +13,8 @@ public class SelectedTile {
 	private int width;
 	
 	private int height;
+	
+	private CollisionType collision = CollisionType.FREE;
 
 	public SelectedTile(String path, int x, int y) {
 		super();
@@ -28,6 +32,17 @@ public class SelectedTile {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+	}
+	
+	public SelectedTile(String path, int x, int y, int width, int height, CollisionType collision) {
+		super();
+		
+		this.path = path;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.collision = collision;
 	}
 
 	public String getPath() {
@@ -68,6 +83,14 @@ public class SelectedTile {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	
+	public CollisionType getCollision() {
+		return collision;
+	}
+
+	public void setCollision(CollisionType collision) {
+		this.collision = collision;
 	}
 
 	@Override

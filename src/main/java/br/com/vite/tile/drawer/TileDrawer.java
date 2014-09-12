@@ -7,6 +7,8 @@ import br.com.vite.tile.TileHelper;
 public abstract class TileDrawer extends TileHelper {
 	
 	protected boolean drawGrid = true;
+	
+	protected boolean drawCollision = true;
 
 	public TileDrawer(int tileWidth, int tileHeight) {
 		super(tileWidth, tileHeight);
@@ -18,11 +20,19 @@ public abstract class TileDrawer extends TileHelper {
 
 		if(drawGrid)
 			drawGrid(tile, g, offsetX, offsetY);
-		
+				
 		drawObject(tile, g, offsetX, offsetY);
+		
+		if(drawCollision) {
+			g.setAlpha(30);
+			drawCollision(tile, g, offsetX, offsetY);
+			g.setAlpha(100);
+		}
 	}
 	
 	protected abstract void drawGrid(Tile tile, Graphic g, int offsetX, int offsetY);
+	
+	protected abstract void drawCollision(Tile tile, Graphic g, int offsetX, int offsetY);
 	
 	private void drawFloor(Tile tile, Graphic g, int offsetX, int offsetY) {
 		
