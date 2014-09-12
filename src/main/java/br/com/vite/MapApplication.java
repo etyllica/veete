@@ -69,6 +69,10 @@ public abstract class MapApplication extends Application {
 			editor.swapGridShow();
 		}
 		
+		if(event.isKeyDown(KeyEvent.TSK_C)) {
+			editor.swapCollisionShow();
+		}
+		
 		if(event.isAnyKeyDown(KeyEvent.TSK_SHIFT_LEFT, KeyEvent.TSK_SHIFT_RIGHT)) {
 			offsetSpeed = fastSpeed;
 		} else if(event.isKeyUp(KeyEvent.TSK_SHIFT_LEFT)||event.isKeyUp(KeyEvent.TSK_SHIFT_RIGHT)) {

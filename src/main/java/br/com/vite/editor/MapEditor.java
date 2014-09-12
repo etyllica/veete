@@ -126,6 +126,10 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	public void swapGridShow() {
 		map.getDrawer().swapDrawGrid();
 	}
+	
+	public void swapCollisionShow() {
+		map.getDrawer().swapDrawCollision();
+	}
 
 	public int getTileWidth() {
 		return map.getTileWidth();

@@ -43,20 +43,20 @@ public class OrthogonalMapApplication extends MapApplication {
 
 		loading = 30;
 
-		selectionCollisionMap = new OrthogonalCollisionMap(5, 3, tileWidth, tileHeight);
+		selectionCollisionMap = new OrthogonalCollisionMap(tileWidth, tileHeight);
 		selectionCollisionMap.translateMap(28*tileWidth, tileSetOffsetY);
 		
-		selectionCastleMap = new OrthogonalSelectionMap(9, 12, tileWidth, tileHeight);
+		loading = 50;
+		selectionCastleMap = new OrthogonalSelectionMap(tileWidth, tileHeight, new CastleTileSet());
 		selectionCastleMap.translateMap(0, tileSetOffsetY);
 		selectionCastleMap.setListener(editor);
-		selectionCastleMap.setCollisionMap(selectionCollisionMap);
-		selectionCastleMap.setTileSet(new CastleTileSet());
+		selectionCastleMap.setCollisionMap(selectionCollisionMap);		
 		
-		selectionPlatformMap = new OrthogonalSelectionMap(10, 8, tileWidth, tileHeight);
+		loading = 60;
+		selectionPlatformMap = new OrthogonalSelectionMap(tileWidth, tileHeight, new LandTileSet());
 		selectionPlatformMap.translateMap(13*tileWidth, tileSetOffsetY);
 		selectionPlatformMap.setListener(editor);
-		selectionPlatformMap.setCollisionMap(selectionCollisionMap);
-		selectionPlatformMap.setTileSet(new LandTileSet());
+		selectionPlatformMap.setCollisionMap(selectionCollisionMap);		
 				
 		loading = 70;		
 

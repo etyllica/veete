@@ -14,8 +14,8 @@ public class OrthogonalCollisionMap extends OrthogonalMapEditor {
 	
 	private boolean activeSelection = false;
 			
-	public OrthogonalCollisionMap(int columns, int lines, int tileWidth, int tileHeight) {
-		super(columns, lines, tileWidth, tileHeight);
+	public OrthogonalCollisionMap(int tileWidth, int tileHeight) {
+		super(5, 3, tileWidth, tileHeight);		
 		
 		tileSet = new CollisionTileSet(tileWidth, tileHeight);
 	}

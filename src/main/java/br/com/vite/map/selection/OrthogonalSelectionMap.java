@@ -23,6 +23,12 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 	public OrthogonalSelectionMap(int columns, int lines, int tileWidth, int tileHeight) {
 		super(columns, lines, tileWidth, tileHeight);
 	}
+	
+	public OrthogonalSelectionMap(int tileWidth, int tileHeight, TileSet tileSet) {
+		super(tileSet.getColumns(), tileSet.getLines(), tileWidth, tileHeight);
+		
+		setTileSet(tileSet);		
+	}
 
 	public Map<SelectedTile, ImageTileFloor> getSelectedTiles() {
 		return selectedTiles;
@@ -49,23 +55,18 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 								
 				ImageTileFloor selectedTile = null;
 				
-				if(!collisionMap.isActiveSelection()) {
-
-					selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, 
-							tileWidth, tileHeight);	
-					
-				} else {
+				if(collisionMap.isActiveSelection()) {
 					
 					CollisionType selectedType = getCollisionType();
 					
-					lastSelectionTile.setCollision(selectedType);					
-										
-					selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, 
-							tileWidth, tileHeight, selectedType);
+					lastSelectionTile.setCollision(selectedType);
 					
 					collisionMap.setActiveSelection(false);
 				}
 				
+				selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, 
+						tileWidth, tileHeight, lastSelectionTile.getCollision());
+								
 				notifySelectedFloorTile(selectedTile);				
 			}
 		}
@@ -131,6 +132,18 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 
 	public void setTileSet(TileSet tileSet) {
 		this.tileSet = tileSet;
+		
+		updateCollisions(tileSet);
+	}
+	
+	private void updateCollisions(TileSet tileSet) {
+		
+		for (int j = 0; j < tileSet.getLines(); j++) {
+			for (int i = 0; i < tileSet.getColumns(); i++) {
+				tiles[j][i].setCollision(tileSet.getCollision()[j][i]);		
+			}
+		}
+		
 	}
 
 	public OrthogonalCollisionMap getCollisionMap() {

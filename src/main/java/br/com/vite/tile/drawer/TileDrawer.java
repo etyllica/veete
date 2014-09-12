@@ -67,5 +67,17 @@ public abstract class TileDrawer extends TileHelper {
 	public void swapDrawGrid() {
 		drawGrid = !drawGrid;
 	}
+	
+	public boolean isDrawCollision() {
+		return drawCollision;
+	}
+
+	public void setDrawCollision(boolean drawCollision) {
+		this.drawCollision = drawCollision;
+	}
+	
+	public void swapDrawCollision() {
+		drawCollision = !drawCollision;
+	}
 
 }

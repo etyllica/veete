@@ -6,7 +6,7 @@ import br.com.vite.tile.set.TileSet;
 public class CastleTileSet extends TileSet {
 
 	public CastleTileSet() {
-		super(16, 16, MapType.ORTHOGONAL, "castle/tileset.png");
+		super(9, 12, 16, 16, MapType.ORTHOGONAL, "castle/tileset.png");
 	}
 
 }
