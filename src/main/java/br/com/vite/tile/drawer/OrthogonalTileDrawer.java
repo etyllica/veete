@@ -3,6 +3,7 @@ package br.com.vite.tile.drawer;
 import java.awt.Color;
 
 import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.graphics.SVGColor;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.collision.CollisionType;
 
@@ -29,9 +30,21 @@ public class OrthogonalTileDrawer extends TileDrawer {
 		int ty = tile.getY()+offsetY;
 		
 		if(tile.getCollision() == CollisionType.FREE) {
-			g.setColor(Color.GREEN);
+			
+			g.setColor(SVGColor.GREEN);
+			
+		} else if(tile.getCollision() == CollisionType.UPPER 
+				|| tile.getCollision() == CollisionType.UPPER_LEFT 
+				|| tile.getCollision() == CollisionType.UPPER_RIGHT
+				|| tile.getCollision() == CollisionType.LOWER_LEFT
+				|| tile.getCollision() == CollisionType.LOWER_RIGHT) {			
+			
+			g.setColor(SVGColor.ORANGE_RED);
+			
 		} else {
-			g.setColor(Color.RED);
+			
+			g.setColor(SVGColor.RED);
+			
 		}
 		
 		g.fillRect(tx, ty, tile.getW(), tile.getH());

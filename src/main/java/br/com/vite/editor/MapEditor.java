@@ -104,9 +104,11 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 				lastSelectedTile.setLayer(selectedTile);
 				lastSelectedTile.setCollision(selectedTile.getCollision());
 			} else if(rightPressed) {
-				lastSelectedTile.setObjectLayer(selectedObject);
-			} else if(middlePressed) {
+				//Erase Tile
 				lastSelectedTile.setLayer(null);
+				lastSelectedTile.setObjectLayer(null);
+			} else if(middlePressed) {
+				
 			}
 		}
 	}

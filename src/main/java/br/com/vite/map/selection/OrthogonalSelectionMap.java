@@ -55,21 +55,30 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 								
 				ImageTileFloor selectedTile = null;
 				
-				if(collisionMap.isActiveSelection()) {
-					
-					CollisionType selectedType = getCollisionType();
-					
-					lastSelectionTile.setCollision(selectedType);
-					
-					collisionMap.setActiveSelection(false);
-				}
-				
+				handleCollisionMap(lastSelectionTile);
+								
 				selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, 
 						tileWidth, tileHeight, lastSelectionTile.getCollision());
 								
 				notifySelectedFloorTile(selectedTile);				
 			}
 		}
+	}
+	
+	private void handleCollisionMap(Tile tile) {
+		
+		if(collisionMap == null)
+			return;
+		
+		if(collisionMap.isActiveSelection()) {
+			
+			CollisionType selectedType = getCollisionType();
+			
+			tile.setCollision(selectedType);
+			
+			collisionMap.setActiveSelection(false);
+		}
+		
 	}
 	
 	private CollisionType getCollisionType() {
