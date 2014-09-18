@@ -10,6 +10,7 @@ import com.google.gson.stream.JsonReader;
 import br.com.etyllica.core.loader.image.ImageLoader;
 import br.com.etyllica.util.io.IOHandler;
 import br.com.vite.editor.MapEditor;
+import br.com.vite.map.Map;
 import br.com.vite.serialization.MapEditorDeserializer;
 import br.com.vite.serialization.MapEditorSerializer;
 
@@ -35,6 +36,23 @@ public class MapExporter {
 	    JsonReader jsonReader = new JsonReader(new FileReader(path));
 	    
 	    return gson.fromJson(jsonReader, MapEditor.class);
+	}
+	
+	public static Map loadMap(String filename) throws FileNotFoundException {
+	    final Gson gson = createGson();
+	    
+	    final String path = getPath(filename);
+	    
+	    JsonReader jsonReader = new JsonReader(new FileReader(path));
+	    
+	    MapEditor editor = gson.fromJson(jsonReader, MapEditor.class);
+	    	    
+	    Map map = editor.getMap();
+	    
+	    map.getDrawer().setDrawGrid(false);
+	    map.getDrawer().setDrawCollision(false);
+	    
+	    return map;
 	}
 	
 	private static String getPath(String filename) {

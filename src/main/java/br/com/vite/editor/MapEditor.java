@@ -173,5 +173,9 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	public Tile[][] getTiles() {
 		return map.getTiles();
 	}
-	
+
+	public Map getMap() {
+		return map;
+	}
+		
 }
