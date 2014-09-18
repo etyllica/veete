@@ -123,7 +123,7 @@ public abstract class Map {
 	}
 	
 	public void draw(Graphic g) {
-		draw(g, offsetX, offsetY, columns, lines);
+		draw(g, 0, 0);
 	}
 	
 	public void draw(Graphic g, int x, int y) {
