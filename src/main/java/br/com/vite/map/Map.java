@@ -1,7 +1,6 @@
 package br.com.vite.map;
 
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.etyllica.linear.Point2D;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.TileColider;
 import br.com.vite.tile.drawer.TileDrawer;
@@ -33,13 +32,6 @@ public abstract class Map {
 
 	protected TileFiller filler;
 
-	//Selection
-	protected Tile lastSelectedTile;
-
-	protected Point2D target = new Point2D(0, 0);
-
-	protected boolean onMouse = false;
-
 	public Map(int columns, int lines) {
 		super();
 
@@ -60,7 +52,7 @@ public abstract class Map {
 		this.tileHeight = tileHeight;
 	}
 
-	public Tile[][] createTiles() {
+	public void createTiles() {
 
 		tiles = new Tile[lines][columns]; 
 
@@ -71,10 +63,6 @@ public abstract class Map {
 				tiles[j][i] = creator.createTile(j, i);
 			}
 		}
-
-		lastSelectedTile = tiles[0][0];
-
-		return tiles;
 	}
 
 	public Tile[][] getTiles() {
@@ -144,36 +132,21 @@ public abstract class Map {
 
 	private void draw(Graphic g, int x, int y, int w, int h) {
 
-		for(int j=y;j<h;j++) {
+		for(int j = y; j < h; j++) {
 
-			for(int i=x;i<w;i++) {
-
+			for(int i = x; i < w; i++) {
+				
 				Tile tile = tiles[j][i];
 
 				drawer.drawTile(tile, g, offsetX, offsetY);
 			}
 		}
-
-		if(onMouse) {
-			g.setAlpha(50);
-			filler.drawFiller(lastSelectedTile, g, offsetX, offsetY);
-			g.setAlpha(100);
-		}
 	}
-
-	public Tile getTargetTile(int mx, int my) {
-
-		updateTarget(mx, my);
-
-		lastSelectedTile = tiles[(int)target.getY()][(int)target.getX()];
-
-		return lastSelectedTile;
-	}
-
-	protected abstract void updateTarget(int mx, int my);
-
-	public boolean isOnMouse() {
-		return onMouse;
+	
+	public void drawFiller(Graphic g, Tile lastSelectedTile) {
+		g.setAlpha(50);
+		filler.drawFiller(lastSelectedTile, g, offsetX, offsetY);
+		g.setAlpha(100);
 	}
 
 	public int getLines() {

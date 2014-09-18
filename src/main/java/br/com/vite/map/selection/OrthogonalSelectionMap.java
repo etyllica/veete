@@ -41,24 +41,24 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 	@Override
 	public void update(long now) {
 		
-		Tile lastSelectionTile = map.getTargetTile(mx, my);
+		getTargetTile(mx, my);
 				
-		if(map.isOnMouse()) {
+		if(onMouse) {
 						
 			if(leftPressed) {
 				
-				int x = lastSelectionTile.getX();
-				int y = lastSelectionTile.getY();
+				int x = lastSelectedTile.getX();
+				int y = lastSelectedTile.getY();
 				
 				int tileWidth = map.getTileWidth();
 				int tileHeight = map.getTileHeight();
 								
 				ImageTileFloor selectedTile = null;
 				
-				handleCollisionMap(lastSelectionTile);
+				handleCollisionMap(lastSelectedTile);
 								
 				selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, 
-						tileWidth, tileHeight, lastSelectionTile.getCollision());
+						tileWidth, tileHeight, lastSelectedTile.getCollision());
 								
 				notifySelectedFloorTile(selectedTile);				
 			}
@@ -128,7 +128,7 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 	public void draw(Graphic g) {
 		tileSet.getLayer().simpleDraw(g, map.getOffsetX(), map.getOffsetY());
 		
-		map.draw(g, 0, 0);
+		super.draw(g);
 	}
 	
 	public void setListener(SelectionMapListener listener) {
@@ -149,7 +149,7 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 		
 		for (int j = 0; j < tileSet.getLines(); j++) {
 			for (int i = 0; i < tileSet.getColumns(); i++) {
-				tiles[j][i].setCollision(tileSet.getCollision()[j][i]);		
+				map.getTiles()[j][i].setCollision(tileSet.getCollision()[j][i]);		
 			}
 		}
 		

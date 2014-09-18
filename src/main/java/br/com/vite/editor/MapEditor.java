@@ -5,6 +5,7 @@ import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.core.input.mouse.MouseButton;
+import br.com.etyllica.linear.Point2D;
 import br.com.vite.map.Map;
 import br.com.vite.map.MapType;
 import br.com.vite.map.selection.SelectionMapListener;
@@ -17,10 +18,15 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	protected MapType type;
 	
 	protected Map map;
-
-	protected Tile[][] tiles;
 	
+	protected boolean onMouse = false;
+
 	//Selection
+	
+	protected Tile lastSelectedTile;
+	
+	protected Point2D target = new Point2D(0, 0);	
+	
 	protected ImageTileFloor selectedTile;
 
 	protected ImageTileObject selectedObject;
@@ -65,7 +71,11 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	}
 	
 	public void draw(Graphic g) {
-		map.draw(g, 0, 0);				
+		map.draw(g, 0, 0);
+		
+		if(onMouse) {
+			map.drawFiller(g, lastSelectedTile);
+		}
 	}
 	
 	public GUIEvent updateMouse(PointerEvent event) {
@@ -94,11 +104,22 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		return GUIEvent.NONE;
 	}
 	
+	public Tile getTargetTile(int mx, int my) {
+
+		updateTarget(mx, my);
+
+		lastSelectedTile = map.getTiles()[(int)target.getY()][(int)target.getX()];
+
+		return lastSelectedTile;
+	}
+	
+	protected abstract void updateTarget(int mx, int my);
+	
 	public void update(long now) {
 				
-		Tile lastSelectedTile = map.getTargetTile(mx, my);
+		Tile lastSelectedTile = getTargetTile(mx, my);
 		
-		if(map.isOnMouse()) {
+		if(onMouse) {
 
 			if(leftPressed && selectedTile != null) {				
 				lastSelectedTile.setLayer(selectedTile);
@@ -150,7 +171,7 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	}
 
 	public Tile[][] getTiles() {
-		return tiles;
+		return map.getTiles();
 	}
 	
 }

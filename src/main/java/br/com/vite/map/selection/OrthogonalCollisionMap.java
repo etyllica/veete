@@ -24,9 +24,9 @@ public class OrthogonalCollisionMap extends OrthogonalMapEditor {
 	public void update(long now) {
 		
 		//Necessary to update Filler
-		map.getTargetTile(mx, my);
+		getTargetTile(mx, my);
 		
-		if(map.isOnMouse()) {
+		if(onMouse) {
 			
 			if(leftPressed) {
 
@@ -131,7 +131,7 @@ public class OrthogonalCollisionMap extends OrthogonalMapEditor {
 	public void draw(Graphic g) {
 		tileSet.getLayer().simpleDraw(g, map.getOffsetX(), map.getOffsetY());
 		
-		map.draw(g, 0, 0);
+		super.draw(g);
 	}
 	
 	public void setTileSet(ProceduralTileSet tileSet) {

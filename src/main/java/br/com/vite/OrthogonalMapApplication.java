@@ -109,7 +109,7 @@ public class OrthogonalMapApplication extends MapApplication {
 	}
 		
 	@Override
-	public GUIEvent updateMouse(PointerEvent event) {				
+	public GUIEvent updateMouse(PointerEvent event) {	
 		super.updateMouse(event);
 		
 		selectionCastleMap.updateMouse(event);
