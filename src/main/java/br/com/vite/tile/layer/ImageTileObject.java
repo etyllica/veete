@@ -27,7 +27,7 @@ public class ImageTileObject extends TileLayer implements DrawableObject {
 		this.layer.setCoordinates(x, y);
 	}
 		
-	public void draw(Graphic g, int x, int y, int tileWidth, int tileHeight) {		
+	public void draw(Graphic g, int x, int y, int tileWidth, int tileHeight) {
 		layer.simpleDraw(g, offsetX+x-tileWidth/2, offsetY+y-layer.getH()+tileHeight);
 	}
 

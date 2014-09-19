@@ -143,9 +143,15 @@ public abstract class Map {
 		}
 	}
 	
-	public void drawFiller(Graphic g, Tile lastSelectedTile) {
+	public void drawTileFiller(Graphic g, Tile lastSelectedTile) {
 		g.setAlpha(50);
-		filler.drawFiller(lastSelectedTile, g, offsetX, offsetY);
+		filler.drawTileFiller(lastSelectedTile, g, offsetX, offsetY);
+		g.setAlpha(100);
+	}
+	
+	public void drawObjectFiller(Graphic g, Tile lastSelectedTile) {
+		g.setAlpha(50);
+		filler.drawObjectFiller(lastSelectedTile, g, offsetX, offsetY);
 		g.setAlpha(100);
 	}
 

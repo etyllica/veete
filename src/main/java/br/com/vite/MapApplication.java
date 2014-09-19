@@ -40,6 +40,8 @@ public abstract class MapApplication extends Application {
 	
 	@Override
 	public GUIEvent updateKeyboard(KeyEvent event) {
+		
+		editor.updateKeyboard(event);
 
 		if(event.isKeyDown(KeyEvent.TSK_UP_ARROW)) {
 			upArrowPressed = true;

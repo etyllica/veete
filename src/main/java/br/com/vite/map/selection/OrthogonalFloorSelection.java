@@ -10,7 +10,7 @@ import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.set.TileSet;
 
-public class OrthogonalSelectionMap extends OrthogonalMapEditor {
+public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 	
 	private TileSet tileSet;
 	
@@ -20,11 +20,11 @@ public class OrthogonalSelectionMap extends OrthogonalMapEditor {
 	
 	private Map<SelectedTile, ImageTileFloor> selectedTiles = new HashMap<SelectedTile, ImageTileFloor>();
 	
-	public OrthogonalSelectionMap(int columns, int lines, int tileWidth, int tileHeight) {
+	public OrthogonalFloorSelection(int columns, int lines, int tileWidth, int tileHeight) {
 		super(columns, lines, tileWidth, tileHeight);
 	}
 	
-	public OrthogonalSelectionMap(int tileWidth, int tileHeight, TileSet tileSet) {
+	public OrthogonalFloorSelection(int tileWidth, int tileHeight, TileSet tileSet) {
 		super(tileSet.getColumns(), tileSet.getLines(), tileWidth, tileHeight);
 		
 		setTileSet(tileSet);		

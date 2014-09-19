@@ -16,7 +16,9 @@ public abstract class TileFiller extends TileHelper {
 		super(tileWidth, tileHeight);
 	}
 		
-	public abstract void drawFiller(Tile tile, Graphic g, int offsetX, int offsetY);
+	public abstract void drawTileFiller(Tile tile, Graphic g, int offsetX, int offsetY);
+	
+	public abstract void drawObjectFiller(Tile tile, Graphic g, int offsetX, int offsetY);
 	
 	public ImageTileFloor getFloorTile() {
 		return floorTile;

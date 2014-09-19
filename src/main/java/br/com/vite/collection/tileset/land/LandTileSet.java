@@ -1,4 +1,4 @@
-package br.com.vite.collection.tileset;
+package br.com.vite.collection.tileset.land;
 
 import br.com.vite.map.MapType;
 import br.com.vite.tile.collision.CollisionType;

@@ -7,11 +7,13 @@ import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.vite.collection.tileset.CastleTileSet;
-import br.com.vite.collection.tileset.LandTileSet;
+import br.com.vite.collection.tileset.land.BigGrass;
+import br.com.vite.collection.tileset.land.LandTileSet;
+import br.com.vite.collection.tileset.land.SmallGrass;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.export.MapExporter;
 import br.com.vite.map.selection.OrthogonalCollisionMap;
-import br.com.vite.map.selection.OrthogonalSelectionMap;
+import br.com.vite.map.selection.OrthogonalFloorSelection;
 
 public class OrthogonalMapApplication extends MapApplication {
 	
@@ -22,11 +24,13 @@ public class OrthogonalMapApplication extends MapApplication {
 
 	private int tileSetOffsetY = 300;
 	
-	private OrthogonalSelectionMap selectionCastleMap;
+	private OrthogonalFloorSelection selectionCastleMap;
 	
-	private OrthogonalSelectionMap selectionPlatformMap;
+	private OrthogonalFloorSelection selectionPlatformMap;
 	
 	private OrthogonalCollisionMap selectionCollisionMap;
+	
+	private BigGrass smallGrass;
 	
 	public OrthogonalMapApplication(int w, int h) {
 		super(w, h);
@@ -47,19 +51,22 @@ public class OrthogonalMapApplication extends MapApplication {
 		selectionCollisionMap.translateMap(28*tileWidth, tileSetOffsetY);
 		
 		loading = 50;
-		selectionCastleMap = new OrthogonalSelectionMap(tileWidth, tileHeight, new CastleTileSet());
+		selectionCastleMap = new OrthogonalFloorSelection(tileWidth, tileHeight, new CastleTileSet());
 		selectionCastleMap.translateMap(0, tileSetOffsetY);
 		selectionCastleMap.setListener(editor);
 		selectionCastleMap.setCollisionMap(selectionCollisionMap);		
 		
 		loading = 60;
-		selectionPlatformMap = new OrthogonalSelectionMap(tileWidth, tileHeight, new LandTileSet());
+		selectionPlatformMap = new OrthogonalFloorSelection(tileWidth, tileHeight, new LandTileSet());
 		selectionPlatformMap.translateMap(13*tileWidth, tileSetOffsetY);
 		selectionPlatformMap.setListener(editor);
-		selectionPlatformMap.setCollisionMap(selectionCollisionMap);		
-				
-		loading = 70;		
+		selectionPlatformMap.setCollisionMap(selectionCollisionMap);
+		
+		loading = 70;
 
+		smallGrass = new BigGrass();
+		editor.setObjectTile(smallGrass);
+		
 		updateAtFixedRate(80);
 		
 		loading = 100;
