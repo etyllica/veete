@@ -5,6 +5,8 @@ import br.com.etyllica.layer.ImageLayer;
 
 public class ImageTileObject extends TileLayer implements DrawableObject {
 	
+	protected String label = "";
+	
 	protected ImageLayer layer;
 	
 	protected int offsetX = 0;
