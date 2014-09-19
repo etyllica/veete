@@ -12,6 +12,7 @@ import br.com.vite.map.MapType;
 import br.com.vite.map.selection.SelectedTile;
 import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.layer.ImageTileFloor;
+import br.com.vite.tile.layer.ImageTileObject;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -27,6 +28,7 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
 	private Map<Integer, SelectedTile> tileIds = new HashMap<Integer, SelectedTile>();
 	
 	private Map<SelectedTile, ImageTileFloor> selectedTiles = new HashMap<SelectedTile, ImageTileFloor>();
+	private Map<SelectedTile, ImageTileObject> selectedObjects = new HashMap<SelectedTile, ImageTileObject>();
        
     @Override
 	public MapEditor deserialize(JsonElement element, Type type,
@@ -116,10 +118,29 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     		    		    		
             int x = node.get("x").getAsInt();
             int y = node.get("y").getAsInt();
-            int id = node.get("id").getAsInt();
+            
+            if(node.has(MapEditorSerializer.JSON_FLOOR_ID)) {
+            	
+            	int layerId = node.get(MapEditorSerializer.JSON_FLOOR_ID).getAsInt();
+            	
+            	ImageTileFloor floor = createSelectedTile(tileIds.get(layerId));
+            	
+            	editor.getTiles()[y][x].setLayer(floor);
+                editor.getTiles()[y][x].setCollision(floor.getCollision());
+            }
+            
+            if(node.has(MapEditorSerializer.JSON_OBJECT_ID)) {
+            	
+            	int objectId = node.get(MapEditorSerializer.JSON_OBJECT_ID).getAsInt();
+            	int w = node.get("w").getAsInt();
+            	int h = node.get("h").getAsInt();
+            	
+            	ImageTileObject obj = createSelectedObject(tileIds.get(objectId), w, h);
+            	
+            	editor.getTiles()[y][x].setObjectLayer(obj);
+                editor.getTiles()[y][x].setCollision(obj.getCollision());
+            }            
     		
-            editor.getTiles()[y][x].setLayer(createSelectedTile(tileIds.get(id)));
-            editor.getTiles()[y][x].setCollision(createSelectedTile(tileIds.get(id)).getCollision());
     	}
     }
     
@@ -139,6 +160,24 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
 		}
 		
 		return floor;
-	}    
+	}
+    
+    private ImageTileObject createSelectedObject(SelectedTile selectedTile, int w, int h) {
+		
+    	ImageTileObject obj = selectedObjects.get(selectedTile);
+		
+		if(obj == null) {
+		
+			ImageTileObject tileObject = new ImageTileObject(selectedTile.getPath());
+			tileObject.setLayerBounds(selectedTile.getX(), selectedTile.getY(), w, h);
+			tileObject.setCollision(selectedTile.getCollision());
+			
+			selectedObjects.put(selectedTile, tileObject);
+			
+			return tileObject;
+		}
+		
+		return obj;
+	}
     
 }

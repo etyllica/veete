@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import br.com.vite.map.selection.SelectedTile;
 import br.com.vite.tile.Tile;
+import br.com.vite.tile.layer.ImageTileLayer;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -28,9 +29,12 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
 	public static final String JSON_TILE_HEIGHT = "tile_height";
 	
 	public static final String JSON_TILESETS = "tilesets";
+	public static final String JSON_OBJECTS = "objects";
 	public static final String JSON_TILES = "tiles";
 	public static final String JSON_MAP = "map";
 	public static final String JSON_ID = "id";
+	public static final String JSON_FLOOR_ID = "floor_id";
+	public static final String JSON_OBJECT_ID = "obj_id";
 	
 	private static final int MAP_VERSION = 1;
 	
@@ -39,8 +43,10 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
     private int tileSetId = 0;
    
     private Map<SelectedTile, Integer> uniqueIds;
-    
+        
     private Map<String, Integer> tileSets;
+    
+    private Map<String, Integer> objectSets;
    
     @Override
     public JsonElement serialize(MapEditor editor, Type type,
@@ -124,22 +130,66 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
                
                 Tile tile = tiles[j][i];
                
-                if(tile.getLayer() == null)
-                    continue;
-                               
-                JsonObject tileNode = new JsonObject();
-               
-                SelectedTile selection = new SelectedTile(tile.getLayer().getPath(), tile.getLayer().getX(), tile.getLayer().getY(), tile.getCollision());
-               
-                tileNode.addProperty("x", i);
-                tileNode.addProperty("y", j);
-                tileNode.addProperty(JSON_ID, getUniqueId(selection));
-                               
-                array.add(tileNode);
+                if(tile.getLayer() != null) {
+                	JsonObject tileNode = serializeTileFloor(tile, i, j);
+                	  
+                	if(tile.getObjectLayer() != null) {
+                		serializeTileObject(tile, i, j, tileNode);
+                    }
+                	                	
+                	array.add(tileNode);
+                	
+                } else if(tile.getObjectLayer() != null) {
+                	array.add(serializeTileObject(tile, i, j));
+                }
+                
             }
         }
        
         return array;
+    }
+    
+    private JsonObject serializeTileFloor(Tile tile, int i, int j) {
+    	 
+         JsonObject tileNode = new JsonObject();
+        
+         SelectedTile selection = new SelectedTile(tile.getLayer().getPath(), tile.getLayer().getX(), tile.getLayer().getY(), tile.getCollision());
+        
+         tileNode.addProperty("x", i);
+         tileNode.addProperty("y", j);
+         tileNode.addProperty(JSON_FLOOR_ID, getUniqueId(selection));
+                 
+         return tileNode;
+    }
+    
+    private JsonObject serializeTileObject(Tile tile, int i, int j) {
+    	
+    	JsonObject tileNode = new JsonObject();
+    	
+    	ImageTileLayer layer = tile.getObjectLayer();
+        
+        SelectedTile selection = new SelectedTile(layer.getPath(), layer.getX(), layer.getY(), tile.getCollision());
+       
+        tileNode.addProperty("x", i);
+        tileNode.addProperty("y", j);
+        tileNode.addProperty("w", tile.getObjectLayer().getW());
+        tileNode.addProperty("h", tile.getObjectLayer().getH());
+        tileNode.addProperty(JSON_OBJECT_ID, getUniqueId(selection));
+                
+        return tileNode;
+    }
+    
+    private JsonObject serializeTileObject(Tile tile, int i, int j, JsonObject tileNode) {
+    	    	
+    	ImageTileLayer layer = tile.getObjectLayer();
+        
+        SelectedTile selection = new SelectedTile(layer.getPath(), layer.getX(), layer.getY(), tile.getCollision());
+       
+        tileNode.addProperty("w", tile.getObjectLayer().getW());
+        tileNode.addProperty("h", tile.getObjectLayer().getH());
+        tileNode.addProperty(JSON_OBJECT_ID, getUniqueId(selection));
+                
+        return tileNode;
     }
    
     private int getUniqueId(SelectedTile selectedTile) {
@@ -153,13 +203,12 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
        
         return uniqueIds.get(selectedTile);
     }
-    
+       
     private void generateTileSetId(String path) {
     	
     	if(!tileSets.containsKey(path)) {
         	tileSets.put(path, tileSetId);
         	tileSetId++;
         }    	
-    }
-
+    }    
 }
