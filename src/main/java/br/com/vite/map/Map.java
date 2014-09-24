@@ -154,14 +154,22 @@ public abstract class Map {
 	}
 	
 	public void drawTileFiller(Graphic g) {
+		drawTileFiller(g, lastTarget);
+	}
+	
+	public void drawTileFiller(Graphic g, Tile target) {
 		g.setAlpha(50);
-		filler.drawTileFiller(lastTarget, g, offsetX, offsetY);
+		filler.drawTileFiller(target, g, offsetX, offsetY);
 		g.setAlpha(100);
 	}
 	
 	public void drawObjectFiller(Graphic g) {
+		drawObjectFiller(g, lastTarget);
+	}
+	
+	public void drawObjectFiller(Graphic g, Tile target) {
 		g.setAlpha(50);
-		filler.drawObjectFiller(lastTarget, g, offsetX, offsetY);
+		filler.drawObjectFiller(target, g, offsetX, offsetY);
 		g.setAlpha(100);
 	}
 
