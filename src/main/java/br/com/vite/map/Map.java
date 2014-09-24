@@ -2,10 +2,10 @@ package br.com.vite.map;
 
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.vite.tile.Tile;
-import br.com.vite.tile.colider.TileColider;
+import br.com.vite.tile.colider.TileCollider;
+import br.com.vite.tile.creator.TileCreator;
 import br.com.vite.tile.drawer.TileDrawer;
 import br.com.vite.tile.filler.TileFiller;
-import br.com.vite.tile.generator.TileCreator;
 
 public abstract class Map {
 
@@ -23,15 +23,21 @@ public abstract class Map {
 
 	protected Tile[][] tiles;
 
+	protected MapType type;
+	
 	//Helpers
 	protected TileCreator creator;
 
-	protected TileColider colider;
+	protected TileCollider collider;
 
 	protected TileDrawer drawer;
 
 	protected TileFiller filler;
-
+	
+	protected boolean onTarget = false;
+	
+	protected Tile lastTarget;
+	
 	public Map(int columns, int lines) {
 		super();
 
@@ -63,8 +69,12 @@ public abstract class Map {
 				tiles[j][i] = creator.createTile(j, i);
 			}
 		}
+		
+		lastTarget = tiles[0][0];
 	}
-
+	
+	public abstract Tile updateTarget(int mouseX, int mouseY);
+	
 	public Tile[][] getTiles() {
 		return tiles;
 	}
@@ -98,12 +108,12 @@ public abstract class Map {
 		this.creator = creator;
 	}
 
-	public TileColider getColider() {
-		return colider;
+	public TileCollider getCollider() {
+		return collider;
 	}
 
-	public void setColider(TileColider colider) {
-		this.colider = colider;
+	public void setColider(TileCollider colider) {
+		this.collider = colider;
 	}
 
 	public TileDrawer getDrawer() {
@@ -143,15 +153,15 @@ public abstract class Map {
 		}
 	}
 	
-	public void drawTileFiller(Graphic g, Tile lastSelectedTile) {
+	public void drawTileFiller(Graphic g) {
 		g.setAlpha(50);
-		filler.drawTileFiller(lastSelectedTile, g, offsetX, offsetY);
+		filler.drawTileFiller(lastTarget, g, offsetX, offsetY);
 		g.setAlpha(100);
 	}
 	
-	public void drawObjectFiller(Graphic g, Tile lastSelectedTile) {
+	public void drawObjectFiller(Graphic g) {
 		g.setAlpha(50);
-		filler.drawObjectFiller(lastSelectedTile, g, offsetX, offsetY);
+		filler.drawObjectFiller(lastTarget, g, offsetX, offsetY);
 		g.setAlpha(100);
 	}
 
@@ -169,6 +179,18 @@ public abstract class Map {
 
 	public int getTileHeight() {
 		return tileHeight;
+	}
+
+	public MapType getType() {
+		return type;
+	}
+
+	public boolean isOnTarget() {
+		return onTarget;
+	}
+
+	public Tile getLastTarget() {
+		return lastTarget;
 	}
 	
 }

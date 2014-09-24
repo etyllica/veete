@@ -24,9 +24,9 @@ public class OrthogonalCollisionMap extends OrthogonalMapEditor {
 	public void update(long now) {
 		
 		//Necessary to update Filler
-		getTargetTile(mx, my);
+		map.updateTarget(mx, my);
 		
-		if(onMouse) {
+		if(map.isOnTarget()) {
 			
 			if(leftPressed) {
 

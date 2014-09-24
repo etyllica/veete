@@ -41,24 +41,24 @@ public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 	@Override
 	public void update(long now) {
 		
-		getTargetTile(mx, my);
+		map.updateTarget(mx, my);
 				
-		if(onMouse) {
+		if(map.isOnTarget()) {
 						
 			if(leftPressed) {
 				
-				int x = lastSelectedTile.getX();
-				int y = lastSelectedTile.getY();
+				int x = map.getLastTarget().getX();
+				int y = map.getLastTarget().getY();
 				
 				int tileWidth = map.getTileWidth();
 				int tileHeight = map.getTileHeight();
 								
 				ImageTileFloor selectedTile = null;
 				
-				handleCollisionMap(lastSelectedTile);
+				handleCollisionMap(map.getLastTarget());
 								
 				selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, 
-						tileWidth, tileHeight, lastSelectedTile.getCollision());
+						tileWidth, tileHeight, map.getLastTarget().getCollision());
 								
 				notifySelectedFloorTile(selectedTile);				
 			}

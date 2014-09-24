@@ -6,7 +6,6 @@ import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.etyllica.core.input.mouse.MouseButton;
-import br.com.etyllica.linear.Point2D;
 import br.com.vite.map.Map;
 import br.com.vite.map.MapType;
 import br.com.vite.map.selection.SelectionMapListener;
@@ -16,17 +15,9 @@ import br.com.vite.tile.layer.ImageTileObject;
 
 public abstract class MapEditor implements Drawable, SelectionMapListener {
 
-	protected MapType type;
-
 	protected Map map;
 
-	protected boolean onMouse = false;
-
 	//Selection
-
-	protected Tile lastSelectedTile;
-
-	protected Point2D target = new Point2D(0, 0);	
 
 	protected ImageTileFloor selectedTile;
 
@@ -75,11 +66,11 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	public void draw(Graphic g) {
 		map.draw(g, 0, 0);
 
-		if(onMouse) {
+		if(map.isOnTarget()) {
 			if(!ctrlPressed)
-				map.drawTileFiller(g, lastSelectedTile);
+				map.drawTileFiller(g);
 			else
-				map.drawObjectFiller(g, lastSelectedTile);
+				map.drawObjectFiller(g);
 		}
 	}
 
@@ -120,28 +111,16 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		return GUIEvent.NONE;
 	}
 
-	public Tile getTargetTile(int mx, int my) {
-
-		updateTarget(mx, my);
-
-		lastSelectedTile = map.getTiles()[(int)target.getY()][(int)target.getX()];
-
-		return lastSelectedTile;
-	}
-
-	protected abstract void updateTarget(int mx, int my);
-
 	public void update(long now) {
 
-		Tile lastSelectedTile = getTargetTile(mx, my);
+		Tile lastSelectedTile = map.updateTarget(mx, my);
 
-		if(onMouse) {
+		if(map.isOnTarget()) {
 
 			if(rightPressed) {
 				//Erase Tile
 				lastSelectedTile.setLayer(null);
-				lastSelectedTile.setObjectLayer(null);
-				
+				lastSelectedTile.setObjectLayer(null);				
 			}
 			
 			if(!ctrlPressed) {
@@ -161,9 +140,9 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 			}
 		}
 	}
-
+	
 	public MapType getType() {
-		return type;
+		return map.getType();
 	}
 
 	public int getOffsetX() {
