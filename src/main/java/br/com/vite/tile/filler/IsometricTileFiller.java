@@ -18,12 +18,18 @@ public class IsometricTileFiller extends TileFiller {
 		createGridCell();
 	}
 	
+	@Override
+	public void setColor(Color color) {
+		super.setColor(color);
+		createGridCell();
+	}
+	
 	private void createGridCell() {
 	
 		fillCell = new BufferedImage(tileWidth, tileHeight+1, BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D g = fillCell.createGraphics();
-		g.setColor(Color.GREEN);		
+		g.setColor(color);		
 
 		Polygon polygon = new Polygon();
 
