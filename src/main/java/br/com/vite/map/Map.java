@@ -38,7 +38,7 @@ public abstract class Map {
 	
 	protected boolean onTarget = false;
 	
-	protected PointInt2D target;
+	protected PointInt2D target = new PointInt2D();
 	
 	public Map(int columns, int lines) {
 		super();
