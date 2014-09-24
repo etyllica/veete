@@ -2,7 +2,7 @@ package br.com.vite.tile.colider;
 
 import br.com.vite.tile.Tile;
 
-public class IsometricTileColider extends TileColider {
+public class IsometricTileColider extends TileCollider {
 
 	public IsometricTileColider(int tileWidth, int tileHeight) {
 		super(tileWidth, tileHeight);

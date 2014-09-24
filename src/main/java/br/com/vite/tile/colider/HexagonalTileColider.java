@@ -2,7 +2,7 @@ package br.com.vite.tile.colider;
 
 import br.com.vite.tile.Tile;
 
-public class HexagonalTileColider extends TileColider {
+public class HexagonalTileColider extends TileCollider {
 
 	public HexagonalTileColider(int tileWidth, int tileHeight) {
 		super(tileWidth, tileHeight);
