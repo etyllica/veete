@@ -1,6 +1,6 @@
 package br.com.vite.map;
 
-import br.com.vite.tile.Tile;
+import br.com.etyllica.linear.PointInt2D;
 import br.com.vite.tile.colider.OrthogonalTileColider;
 import br.com.vite.tile.creator.OrthogonalTileCreator;
 import br.com.vite.tile.drawer.OrthogonalTileDrawer;
@@ -19,7 +19,7 @@ public class OrthogonalMap extends Map {
 		filler = new OrthogonalTileFiller(tileWidth, tileHeight);		
 	}
 	
-	public Tile updateTarget(int mouseX, int mouseY) {
+	public boolean updateTarget(int mouseX, int mouseY, PointInt2D target) {
 		
 		int column = (int)((mouseX-offsetX)/tileWidth);
 
@@ -47,8 +47,8 @@ public class OrthogonalMap extends Map {
 		int j = line;
 		int i = column;
 
-		lastTarget = tiles[j][i];
-		return lastTarget;
+		target.setLocation(j, i);
+		return onTarget;
 	}
 	
 }

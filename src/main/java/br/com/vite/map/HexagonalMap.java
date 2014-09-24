@@ -1,6 +1,6 @@
 package br.com.vite.map;
 
-import br.com.vite.tile.Tile;
+import br.com.etyllica.linear.PointInt2D;
 import br.com.vite.tile.colider.HexagonalTileColider;
 import br.com.vite.tile.creator.HexagonalTileCreator;
 import br.com.vite.tile.drawer.HexagonalTileDrawer;
@@ -19,7 +19,7 @@ public class HexagonalMap extends Map {
 		filler = new HexagonalTileFiller(tileWidth, tileHeight);
 	}
 	
-	public Tile updateTarget(int mouseX, int mouseY) {
+	public boolean updateTarget(int mouseX, int mouseY, PointInt2D target) {
 
 		int column = (int)((mouseX-offsetX)/(tileWidth*4)/3);
 
@@ -37,13 +37,14 @@ public class HexagonalMap extends Map {
 			for(i = 0;i < columns-1; i++) {
 
 				if(collider.colideTile(tiles[j][i], mouseX, mouseY, offsetX, offsetY)) {
-					lastTarget = tiles[j][i];
-					return lastTarget;
+					target.setX(i);
+					target.setY(j);
+					return true;
 				}
 			}
 		}
 		
-		return tiles[j][i];
+		return false;
 	}
 	/*protected void updateTarget(int mouseX, int mouseY) {
 

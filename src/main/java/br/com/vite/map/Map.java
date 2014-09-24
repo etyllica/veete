@@ -1,6 +1,8 @@
 package br.com.vite.map;
 
 import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.linear.Point2D;
+import br.com.etyllica.linear.PointInt2D;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.TileCollider;
 import br.com.vite.tile.creator.TileCreator;
@@ -36,7 +38,7 @@ public abstract class Map {
 	
 	protected boolean onTarget = false;
 	
-	protected Tile lastTarget;
+	protected PointInt2D target;
 	
 	public Map(int columns, int lines) {
 		super();
@@ -70,10 +72,16 @@ public abstract class Map {
 			}
 		}
 		
-		lastTarget = tiles[0][0];
 	}
 	
-	public abstract Tile updateTarget(int mouseX, int mouseY);
+	public Tile updateTarget(int mouseX, int mouseY) {
+		
+		updateTarget(mouseX, mouseY, target);
+		
+		return getLastTarget();
+	}
+	
+	public abstract boolean updateTarget(int mouseX, int mouseY, PointInt2D target);
 	
 	public Tile[][] getTiles() {
 		return tiles;
@@ -154,7 +162,7 @@ public abstract class Map {
 	}
 	
 	public void drawTileFiller(Graphic g) {
-		drawTileFiller(g, lastTarget);
+		drawTileFiller(g, getLastTarget());
 	}
 	
 	public void drawTileFiller(Graphic g, Tile target) {
@@ -164,7 +172,7 @@ public abstract class Map {
 	}
 	
 	public void drawObjectFiller(Graphic g) {
-		drawObjectFiller(g, lastTarget);
+		drawObjectFiller(g, getLastTarget());
 	}
 	
 	public void drawObjectFiller(Graphic g, Tile target) {
@@ -198,7 +206,7 @@ public abstract class Map {
 	}
 
 	public Tile getLastTarget() {
-		return lastTarget;
+		return tiles[target.getX()][target.getY()];
 	}
 	
 }

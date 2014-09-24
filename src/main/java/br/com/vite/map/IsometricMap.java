@@ -1,6 +1,6 @@
 package br.com.vite.map;
 
-import br.com.vite.tile.Tile;
+import br.com.etyllica.linear.PointInt2D;
 import br.com.vite.tile.colider.IsometricTileColider;
 import br.com.vite.tile.creator.IsometricTileCreator;
 import br.com.vite.tile.drawer.IsometricTileDrawer;
@@ -19,7 +19,7 @@ public class IsometricMap extends Map {
 		filler = new IsometricTileFiller(tileWidth, tileHeight);
 	}
 	
-	public Tile updateTarget(int mouseX, int mouseY) {
+	public boolean updateTarget(int mouseX, int mouseY, PointInt2D target) {
 		
 		int column = (int)(mouseX-offsetX)/tileWidth;
 
@@ -53,13 +53,13 @@ public class IsometricMap extends Map {
 			for(; i<column+offset; i++) {
 
 				if(collider.colideTile(tiles[j][i],mouseX, mouseY, offsetX, offsetY)) {
-					lastTarget = tiles[j][i];
-					return lastTarget;
+					target.setLocation(j, i);
+					return true;
 				}
 			}
 		}
 		
-		return lastTarget;
+		return false;
 	}
 	
 }
