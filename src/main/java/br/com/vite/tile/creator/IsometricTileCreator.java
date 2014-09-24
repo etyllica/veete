@@ -1,4 +1,4 @@
-package br.com.vite.tile.generator;
+package br.com.vite.tile.creator;
 
 import br.com.vite.tile.Tile;
 
