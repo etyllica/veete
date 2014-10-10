@@ -1,10 +1,10 @@
 package br.com.vite.map;
 
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.etyllica.linear.Point2D;
 import br.com.etyllica.linear.PointInt2D;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.TileCollider;
+import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.creator.TileCreator;
 import br.com.vite.tile.drawer.TileDrawer;
 import br.com.vite.tile.filler.TileFiller;
@@ -26,7 +26,7 @@ public abstract class Map {
 	protected Tile[][] tiles;
 
 	protected MapType type;
-	
+
 	//Helpers
 	protected TileCreator creator;
 
@@ -35,11 +35,11 @@ public abstract class Map {
 	protected TileDrawer drawer;
 
 	protected TileFiller filler;
-	
+
 	protected boolean onTarget = false;
-	
+
 	protected PointInt2D target = new PointInt2D();
-	
+
 	public Map(int columns, int lines) {
 		super();
 
@@ -71,18 +71,18 @@ public abstract class Map {
 				tiles[j][i] = creator.createTile(j, i);
 			}
 		}
-		
+
 	}
-	
+
 	public Tile updateTarget(int mouseX, int mouseY) {
-		
+
 		updateTarget(mouseX, mouseY, target);
-		
+
 		return getLastTarget();
 	}
-	
+
 	public abstract boolean updateTarget(int mouseX, int mouseY, PointInt2D target);
-	
+
 	public Tile[][] getTiles() {
 		return tiles;
 	}
@@ -139,11 +139,11 @@ public abstract class Map {
 	public void setFiller(TileFiller filler) {
 		this.filler = filler;
 	}
-	
+
 	public void draw(Graphic g) {
 		draw(g, 0, 0);
 	}
-	
+
 	public void draw(Graphic g, int x, int y) {
 		draw(g, x, y, columns, lines);
 	}
@@ -153,28 +153,28 @@ public abstract class Map {
 		for(int j = y; j < h; j++) {
 
 			for(int i = x; i < w; i++) {
-				
+
 				Tile tile = tiles[j][i];
 
 				drawer.drawTile(tile, g, offsetX, offsetY);
 			}
 		}
 	}
-	
+
 	public void drawTileFiller(Graphic g) {
 		drawTileFiller(g, getLastTarget());
 	}
-	
+
 	public void drawTileFiller(Graphic g, Tile target) {
 		g.setAlpha(50);
 		filler.drawTileFiller(target, g, offsetX, offsetY);
 		g.setAlpha(100);
 	}
-	
+
 	public void drawObjectFiller(Graphic g) {
 		drawObjectFiller(g, getLastTarget());
 	}
-	
+
 	public void drawObjectFiller(Graphic g, Tile target) {
 		g.setAlpha(50);
 		filler.drawObjectFiller(target, g, offsetX, offsetY);
@@ -206,7 +206,27 @@ public abstract class Map {
 	}
 
 	public Tile getLastTarget() {
-		return tiles[target.getX()][target.getY()];
+		return tiles[target.getY()][target.getX()];
 	}
-	
+
+	public boolean isBlock(Tile tile) {
+
+		CollisionType collision = tile.getCollision();
+
+		return collision == CollisionType.BLOCK;
+	}
+
+	public boolean isPlatform(Tile tile) {
+
+		CollisionType collision = tile.getCollision();
+
+		boolean isFixed = collision == CollisionType.UPPER || 
+				collision == CollisionType.UPPER_RIGHT || 
+				collision == CollisionType.UPPER_LEFT ||
+				collision == CollisionType.BLOCK;
+
+		return isFixed;
+
+	}
+
 }

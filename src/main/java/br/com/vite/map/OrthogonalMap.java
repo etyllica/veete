@@ -47,7 +47,7 @@ public class OrthogonalMap extends Map {
 		int j = line;
 		int i = column;
 
-		target.setLocation(j, i);
+		target.setLocation(i, j);
 		return onTarget;
 	}
 	

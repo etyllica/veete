@@ -53,7 +53,7 @@ public class IsometricMap extends Map {
 			for(; i<column+offset; i++) {
 
 				if(collider.colideTile(tiles[j][i],mouseX, mouseY, offsetX, offsetY)) {
-					target.setLocation(j, i);
+					target.setLocation(i, j);
 					return true;
 				}
 			}

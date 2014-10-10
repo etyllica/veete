@@ -7,88 +7,72 @@
   "tile_height": 16,
   "tilesets": [
     {
+      "id": 1,
+      "path": "platform/land_grass.png"
+    },
+    {
       "id": 0,
       "path": "platform/land.png"
     }
   ],
   "tiles": [
     {
-      "id": 1,
+      "id": 0,
       "set": 0,
       "xImage": 16,
       "yImage": 0,
       "collision": "UPPER"
     },
     {
-      "id": 0,
-      "set": 0,
-      "xImage": 48,
+      "id": 1,
+      "set": 1,
+      "xImage": 96,
       "yImage": 0,
-      "collision": "UPPER_LEFT"
-    },
-    {
-      "id": 2,
-      "set": 0,
-      "xImage": 64,
-      "yImage": 0,
-      "collision": "UPPER_RIGHT"
+      "collision": "FREE"
     }
   ],
   "map": [
     {
-      "x": 19,
-      "y": 8,
-      "id": 0
-    },
-    {
       "x": 20,
-      "y": 8,
-      "id": 1
+      "y": 7,
+      "floor_id": 0
     },
     {
       "x": 21,
-      "y": 8,
-      "id": 1
+      "y": 7,
+      "floor_id": 0
     },
     {
       "x": 22,
-      "y": 8,
-      "id": 1
+      "y": 7,
+      "floor_id": 0
     },
     {
       "x": 23,
-      "y": 8,
-      "id": 1
+      "y": 7,
+      "floor_id": 0
     },
     {
       "x": 24,
-      "y": 8,
-      "id": 1
+      "y": 7,
+      "floor_id": 0
     },
     {
       "x": 25,
-      "y": 8,
-      "id": 1
+      "y": 7,
+      "floor_id": 0
     },
     {
       "x": 26,
-      "y": 8,
-      "id": 1
+      "y": 7,
+      "floor_id": 0
     },
     {
       "x": 27,
-      "y": 8,
-      "id": 1
-    },
-    {
-      "x": 28,
-      "y": 8,
-      "id": 1
-    },
-    {
-      "x": 29,
-      "y": 8,
-      "id": 2
+      "y": 7,
+      "w": 160,
+      "h": 96,
+      "obj_id": 1
     }
   ]
 }

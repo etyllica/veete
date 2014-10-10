@@ -37,8 +37,7 @@ public class HexagonalMap extends Map {
 			for(i = 0;i < columns-1; i++) {
 
 				if(collider.colideTile(tiles[j][i], mouseX, mouseY, offsetX, offsetY)) {
-					target.setX(i);
-					target.setY(j);
+					target.setLocation(i, j);
 					return true;
 				}
 			}
