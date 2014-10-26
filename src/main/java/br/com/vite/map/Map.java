@@ -73,12 +73,24 @@ public abstract class Map {
 		}
 
 	}
-
-	public Tile updateTarget(int mouseX, int mouseY) {
+	
+	public Tile getTile(int mouseX, int mouseY) {
 
 		updateTarget(mouseX, mouseY, target);
 
 		return getLastTarget();
+	}
+	
+	public Tile getTile(int mouseX, int mouseY, PointInt2D target) {
+
+		updateTarget(mouseX, mouseY, target);
+
+		return getLastTarget();
+	}
+
+	public Tile updateTarget(int mouseX, int mouseY) {
+
+		return getTile(mouseX, mouseY);
 	}
 
 	public abstract boolean updateTarget(int mouseX, int mouseY, PointInt2D target);
