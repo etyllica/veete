@@ -53,7 +53,8 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     	deserializeTiles(tilesNode, tileWidth, tileHeight);
     	
     	JsonArray objectsNode = object.getAsJsonArray(MapEditorSerializer.JSON_OBJECTS);
-    	deserializeObjects(objectsNode);
+    	if(objectsNode!=null)
+    		deserializeObjects(objectsNode);
     	
     	JsonArray mapNode = object.getAsJsonArray(MapEditorSerializer.JSON_MAP);
     	deserializeMap(editor, mapNode);
