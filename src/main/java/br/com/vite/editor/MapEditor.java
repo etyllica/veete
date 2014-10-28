@@ -18,7 +18,6 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	protected Map map;
 
 	//Selection
-
 	protected ImageTileFloor selectedTile;
 
 	protected ImageTileObject selectedObject;
@@ -33,6 +32,8 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 
 	protected int tileWidth = 0;
 	protected int tileHeight = 0;
+
+	private boolean drawCurrentTile = true;
 
 	public MapEditor(int columns, int lines) {
 		this(columns, lines, 64, 64);		
@@ -56,7 +57,7 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	public ImageTileFloor getFloorTile() {
 		return selectedTile;
 	}
-	
+
 	public void setFloorTile(ImageTileFloor floor) {
 		selectedTile = floor;
 		map.getFiller().setFloorTile(floor);
@@ -65,20 +66,22 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	public ImageTileObject getObjectTile() {
 		return selectedObject;
 	}
-	
+
 	public void setObjectTile(ImageTileObject obj) {
 		selectedObject = obj;
 		map.getFiller().setObjectTile(obj);
 	}
-	
+
 	public void draw(Graphic g) {
 		map.draw(g, 0, 0);
 
-		if(map.isOnTarget()) {
-			if(!ctrlPressed)
-				map.drawTileFiller(g);
-			else
-				map.drawObjectFiller(g);
+		if (drawCurrentTile) {
+			if (map.isOnTarget()) {
+				if(!ctrlPressed)
+					map.drawTileFiller(g);
+				else
+					map.drawObjectFiller(g);
+			}
 		}
 	}
 
@@ -130,7 +133,7 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 				lastSelectedTile.setLayer(null);
 				lastSelectedTile.setObjectLayer(null);				
 			}
-			
+
 			if(!ctrlPressed) {
 
 				if(leftPressed && selectedTile != null) {				
@@ -139,16 +142,16 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 				} else if(middlePressed) {
 
 				}
-				
+
 			} else {
-								
+
 				if(leftPressed && selectedObject != null) {
 					lastSelectedTile.setObjectLayer(selectedObject);					
 				}
 			}
 		}
 	}
-	
+
 	public MapType getType() {
 		return map.getType();
 	}
@@ -165,8 +168,32 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		map.getDrawer().swapDrawGrid();
 	}
 
+	public void enableGridShow() {
+		map.getDrawer().setDrawGrid(false);
+	}
+
+	public void disableGridShow() {
+		map.getDrawer().setDrawGrid(false);
+	}
+
 	public void swapCollisionShow() {
 		map.getDrawer().swapDrawCollision();
+	}
+
+	public void enableCollisionShow() {
+		map.getDrawer().setDrawCollision(true);
+	}
+
+	public void disableCollisionShow() {
+		map.getDrawer().setDrawCollision(false);
+	}
+
+	public void enableCurrentTileShow() {
+		drawCurrentTile = true;
+	}
+
+	public void disableCurrentTileShow() {
+		drawCurrentTile = false;
 	}
 
 	public int getTileWidth() {
