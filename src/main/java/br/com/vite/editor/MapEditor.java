@@ -53,16 +53,24 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		map.setOffset(x, y);
 	}
 
+	public ImageTileFloor getFloorTile() {
+		return selectedTile;
+	}
+	
 	public void setFloorTile(ImageTileFloor floor) {
 		selectedTile = floor;
 		map.getFiller().setFloorTile(floor);
 	}
 
+	public ImageTileObject getObjectTile() {
+		return selectedObject;
+	}
+	
 	public void setObjectTile(ImageTileObject obj) {
 		selectedObject = obj;
 		map.getFiller().setObjectTile(obj);
 	}
-
+	
 	public void draw(Graphic g) {
 		map.draw(g, 0, 0);
 

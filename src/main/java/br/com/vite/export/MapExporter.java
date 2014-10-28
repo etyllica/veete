@@ -29,13 +29,39 @@ public class MapExporter {
 	}
 	
 	public static MapEditor load(String filename) throws FileNotFoundException {
+		
 	    final Gson gson = createGson();
 	    
 	    final String path = getPath(filename);
 	    
 	    JsonReader jsonReader = new JsonReader(new FileReader(path));
 	    
-	    return gson.fromJson(jsonReader, MapEditor.class);
+	    MapEditor editor = gson.fromJson(jsonReader, MapEditor.class);
+	    
+	    return editor;
+	    	    
+	}
+	
+	public static MapEditor reload(MapEditor editor, String filename) throws FileNotFoundException {
+		
+	    final Gson gson = createGson();
+	    
+	    final String path = getPath(filename);
+	    
+	    JsonReader jsonReader = new JsonReader(new FileReader(path));
+	    
+	    int offsetX = editor.getOffsetX();
+		int offsetY = editor.getOffsetY();
+	    
+	    MapEditor loadedEditor = gson.fromJson(jsonReader, MapEditor.class);
+	    
+	    loadedEditor.translateMap(offsetX, offsetY);
+	    
+	    loadedEditor.setObjectTile(editor.getObjectTile());
+	    loadedEditor.setFloorTile(editor.getFloorTile());
+	    
+	    return loadedEditor;
+	    	    
 	}
 	
 	public static Map loadMap(String filename) throws FileNotFoundException {
