@@ -199,40 +199,45 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
     	
     	tileNode.addProperty("x", i);
         tileNode.addProperty("y", j);
-        
+                
         SelectedObjectTile selection = new SelectedObjectTile(layer);
+        
         tileNode.addProperty(JSON_OBJECT_ID, getUniqueObjectId(selection));  
                 
         return tileNode;
     }
    
     private int getUniqueObjectId(SelectedObjectTile obj) {
-    	
-    	int id = uniqueObjectId;
-    	
+    	    	
     	if(!objectIds.containsKey(obj)) {
+    	
+    		int id = uniqueObjectId;
+    		    		
     		objectIds.put(obj, id);
     		uniqueObjectId++;
             
             generateTileSetId(obj.getPath());
+            
+            return id;
         }
        
-        return id;
+        return objectIds.get(obj);
     	
     }
     
     private int getUniqueId(SelectedTile selectedTile) {
-       
-    	int id = uniqueId;
-    	
+           	
         if(!uniqueIds.containsKey(selectedTile)) {
+        	int id = uniqueId;        	
             uniqueIds.put(selectedTile, id);
             uniqueId++;
             
             generateTileSetId(selectedTile.getPath());
+            
+            return id;
         }
        
-        return id;
+        return uniqueIds.get(selectedTile);
     }
        
     private void generateTileSetId(String path) {
@@ -241,5 +246,6 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
         	tileSets.put(path, tileSetId);
         	tileSetId++;
         }    	
-    }    
+    }
+    
 }

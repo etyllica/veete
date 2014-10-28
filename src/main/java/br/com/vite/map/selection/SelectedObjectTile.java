@@ -9,8 +9,8 @@ public class SelectedObjectTile extends SelectedTile {
 	
 	protected int offsetY = 0;
 	
-	protected String label; 
-	
+	protected String label;		
+		
 	public SelectedObjectTile(String path, int x, int y, CollisionType collision) {
 		super(path, x, y, collision);
 	}

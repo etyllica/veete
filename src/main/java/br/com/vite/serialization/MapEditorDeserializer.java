@@ -172,7 +172,7 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     	ImageTileObject obj = selectedObjects.get(selectedTile);
 		
 		if(obj == null) {
-		
+					
 			ImageTileObject tileObject = new ImageTileObject(selectedTile.getPath());
 			tileObject.setLayerBounds(selectedTile.getX(), selectedTile.getY(), selectedTile.getWidth(), selectedTile.getHeight());
 			tileObject.setCollision(selectedTile.getCollision());
