@@ -62,7 +62,7 @@ public class SelectedObjectTileSerializer implements TileSerializer<SelectedObje
         tile.setOffsetX(dx);
         
         int dy = node.get("dy").getAsInt();
-        tile.setOffsetX(dy);
+        tile.setOffsetY(dy);
 		
 		return tile;
 		
