@@ -4,17 +4,17 @@ import br.com.vite.tile.collision.CollisionType;
 
 public class SelectedTile {
 
-	private String path;
+	protected String path;
 	
 	private int x;
 	
 	private int y;
 	
-	private int width;
+	protected int width;
 	
-	private int height;
+	protected int height;
 	
-	private CollisionType collision = CollisionType.FREE;
+	protected CollisionType collision = CollisionType.FREE;
 
 	public SelectedTile(String path, int x, int y) {
 		super();

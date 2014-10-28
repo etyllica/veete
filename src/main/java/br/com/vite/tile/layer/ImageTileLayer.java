@@ -17,7 +17,8 @@ public class ImageTileLayer extends TileLayer {
 	public ImageTileLayer(ImageTileLayer tile) {
 		super();
 		
-		copy(tile);		
+		copy(tile);
+		
 	}
 	
 	public void copy(ImageTileLayer tile) {
@@ -26,6 +27,8 @@ public class ImageTileLayer extends TileLayer {
 		int yImage = tile.layer.getYImage();
 		int tileWidth = tile.layer.getW();
 		int tileHeight = tile.layer.getH();
+		
+		this.collision = tile.getCollision();
 		
 		layer = new ImageLayer(path);
 		setLayerBounds(xImage, yImage, tileWidth, tileHeight);

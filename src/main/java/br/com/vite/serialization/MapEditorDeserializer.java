@@ -9,8 +9,8 @@ import br.com.vite.editor.IsometricMapEditor;
 import br.com.vite.editor.MapEditor;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.map.MapType;
+import br.com.vite.map.selection.SelectedObjectTile;
 import br.com.vite.map.selection.SelectedTile;
-import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.layer.ImageTileObject;
 
@@ -26,9 +26,10 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
 	private Map<Integer, String> tileSets = new HashMap<Integer, String>();
 	
 	private Map<Integer, SelectedTile> tileIds = new HashMap<Integer, SelectedTile>();
+	private Map<Integer, SelectedObjectTile> objectIds = new HashMap<Integer, SelectedObjectTile>();
 	
 	private Map<SelectedTile, ImageTileFloor> selectedTiles = new HashMap<SelectedTile, ImageTileFloor>();
-	private Map<SelectedTile, ImageTileObject> selectedObjects = new HashMap<SelectedTile, ImageTileObject>();
+	private Map<SelectedObjectTile, ImageTileObject> selectedObjects = new HashMap<SelectedObjectTile, ImageTileObject>();
        
     @Override
 	public MapEditor deserialize(JsonElement element, Type type,
@@ -50,6 +51,9 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     	
     	JsonArray tilesNode = object.getAsJsonArray(MapEditorSerializer.JSON_TILES);
     	deserializeTiles(tilesNode, tileWidth, tileHeight);
+    	
+    	JsonArray objectsNode = object.getAsJsonArray(MapEditorSerializer.JSON_OBJECTS);
+    	deserializeObjects(objectsNode);
     	
     	JsonArray mapNode = object.getAsJsonArray(MapEditorSerializer.JSON_MAP);
     	deserializeMap(editor, mapNode);
@@ -83,31 +87,33 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     }
     
     private void deserializeTiles(JsonArray array, int tileWidth, int tileHeight) {
-    	    	
+    	   
+    	SelectedTileSerializer serializer = new SelectedTileSerializer(tileWidth, tileHeight);
+    	
     	for(int i = 0; i < array.size(); i++) {
+    		
     		JsonObject node = array.get(i).getAsJsonObject();
     		
-    		int setId = node.get("set").getAsInt();
-    		
-    		String path = tileSets.get(setId);
-    		
-            int x = node.get("xImage").getAsInt();
-            int y = node.get("yImage").getAsInt();
-            
-            
-            JsonElement collisionNode = node.get("collision");
-            
-            CollisionType type = CollisionType.FREE;
-            
-            if(collisionNode != null) {
-            	type = CollisionType.valueOf(node.get("collision").getAsString());
-            }
-            
-            SelectedTile tile = new SelectedTile(path, x, y, tileWidth, tileHeight, type);
-    		
+    		SelectedTile tile = serializer.deserialize(tileSets, node);
+    	    
             int id = node.get("id").getAsInt();
             
     		tileIds.put(id, tile);
+    	}
+    }
+    
+    private void deserializeObjects(JsonArray array) {
+    	
+    	SelectedObjectTileSerializer serializer = new SelectedObjectTileSerializer();
+    	
+    	for(int i = 0; i < array.size(); i++) {
+    		JsonObject node = array.get(i).getAsJsonObject();
+    		
+    		SelectedObjectTile tile = serializer.deserialize(tileSets, node);
+                		
+            int id = node.get("id").getAsInt();
+            
+    		objectIds.put(id, tile);
     	}
     }
     
@@ -120,7 +126,7 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
             int y = node.get("y").getAsInt();
             
             if(node.has(MapEditorSerializer.JSON_FLOOR_ID)) {
-            	
+
             	int layerId = node.get(MapEditorSerializer.JSON_FLOOR_ID).getAsInt();
             	
             	ImageTileFloor floor = createSelectedTile(tileIds.get(layerId));
@@ -130,16 +136,14 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
             }
             
             if(node.has(MapEditorSerializer.JSON_OBJECT_ID)) {
-            	
+
             	int objectId = node.get(MapEditorSerializer.JSON_OBJECT_ID).getAsInt();
-            	int w = node.get("w").getAsInt();
-            	int h = node.get("h").getAsInt();
-            	
-            	ImageTileObject obj = createSelectedObject(tileIds.get(objectId), w, h);
+            	            	
+            	ImageTileObject obj = createSelectedObject(objectIds.get(objectId));
             	
             	editor.getTiles()[y][x].setObjectLayer(obj);
                 editor.getTiles()[y][x].setCollision(obj.getCollision());
-            }            
+            }
     		
     	}
     }
@@ -162,15 +166,18 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
 		return floor;
 	}
     
-    private ImageTileObject createSelectedObject(SelectedTile selectedTile, int w, int h) {
+    private ImageTileObject createSelectedObject(SelectedObjectTile selectedTile) {
 		
     	ImageTileObject obj = selectedObjects.get(selectedTile);
 		
 		if(obj == null) {
 		
 			ImageTileObject tileObject = new ImageTileObject(selectedTile.getPath());
-			tileObject.setLayerBounds(selectedTile.getX(), selectedTile.getY(), w, h);
+			tileObject.setLayerBounds(selectedTile.getX(), selectedTile.getY(), selectedTile.getWidth(), selectedTile.getHeight());
 			tileObject.setCollision(selectedTile.getCollision());
+			tileObject.setLabel(selectedTile.getLabel());
+			tileObject.setOffsetX(selectedTile.getOffsetX());
+			tileObject.setOffsetY(selectedTile.getOffsetY());
 			
 			selectedObjects.put(selectedTile, tileObject);
 			
