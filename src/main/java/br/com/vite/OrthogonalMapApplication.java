@@ -117,11 +117,12 @@ public class OrthogonalMapApplication extends MapApplication {
 		
 	@Override
 	public GUIEvent updateMouse(PointerEvent event) {	
-		super.updateMouse(event);
 		
 		selectionCastleMap.updateMouse(event);
 		selectionPlatformMap.updateMouse(event);
 		selectionCollisionMap.updateMouse(event);
+		
+		super.updateMouse(event);
 		
 		return GUIEvent.NONE;
 	}

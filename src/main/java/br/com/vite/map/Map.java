@@ -160,11 +160,11 @@ public abstract class Map {
 		draw(g, x, y, columns, lines);
 	}
 
-	private void draw(Graphic g, int x, int y, int w, int h) {
+	public void draw(Graphic g, int x, int y, int columns, int lines) {
 
-		for(int j = y; j < h; j++) {
+		for(int j = y; j < lines; j++) {
 
-			for(int i = x; i < w; i++) {
+			for(int i = x; i < columns; i++) {
 
 				Tile tile = tiles[j][i];
 

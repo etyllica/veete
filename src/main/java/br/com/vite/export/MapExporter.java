@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import br.com.etyllica.core.loader.image.ImageLoader;
-import br.com.etyllica.util.io.IOHandler;
+import br.com.etyllica.util.io.IOHelper;
 import br.com.vite.editor.MapEditor;
 import br.com.vite.map.Map;
 import br.com.vite.serialization.MapEditorDeserializer;
@@ -25,7 +25,7 @@ public class MapExporter {
 	    
 	    final String path = getPath(filename);
 	    
-	    IOHandler.write(path, json);
+	    IOHelper.write(path, json);
 	}
 	
 	public static MapEditor load(String filename) throws FileNotFoundException {
