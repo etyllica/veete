@@ -18,8 +18,7 @@ public class ViteMapEditor extends EtyllicaFrame {
 
 	public Application startApplication() {
 		
-		String s = ViteMapEditor.class.getResource("").toString();
-		setPath(s+"../../../");
+		initialSetup("../../");
 			
 		//return new IsometricMapApplication(w, h);
 		return new OrthogonalMapApplication(w, h);

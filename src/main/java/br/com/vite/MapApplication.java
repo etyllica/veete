@@ -1,6 +1,7 @@
 package br.com.vite;
 
 import br.com.etyllica.context.Application;
+import br.com.etyllica.context.UpdateIntervalListener;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
@@ -9,7 +10,7 @@ import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.vite.editor.MapEditor;
 import br.com.vite.tile.layer.ImageTileObject;
 
-public abstract class MapApplication extends Application {
+public abstract class MapApplication extends Application implements UpdateIntervalListener {
 		
 	protected MapEditor editor;
 	

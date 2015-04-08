@@ -2,6 +2,7 @@ package br.com.vite;
 
 import java.io.FileNotFoundException;
 
+import br.com.etyllica.context.UpdateIntervalListener;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
@@ -15,7 +16,7 @@ import br.com.vite.export.MapExporter;
 import br.com.vite.map.selection.OrthogonalCollisionMap;
 import br.com.vite.map.selection.OrthogonalFloorSelection;
 
-public class OrthogonalMapApplication extends MapApplication {
+public class OrthogonalMapApplication extends MapApplication implements UpdateIntervalListener {
 	
 	private final String mapFile = "map.json";
 	
@@ -67,7 +68,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		smallGrass = new BigGrass();
 		editor.setObjectTile(smallGrass);
 		
-		updateAtFixedRate(80);
+		updateAtFixedRate(80, this);
 		
 		loading = 100;
 	}

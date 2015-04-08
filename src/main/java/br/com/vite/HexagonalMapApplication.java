@@ -1,5 +1,6 @@
 package br.com.vite;
 
+import br.com.etyllica.context.UpdateIntervalListener;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
@@ -7,7 +8,7 @@ import br.com.vite.collection.isometric.grassland.floor.Marble;
 import br.com.vite.collection.isometric.tree.PalmTree1;
 import br.com.vite.editor.HexagonalMapEditor;
 
-public class HexagonalMapApplication extends MapApplication {
+public class HexagonalMapApplication extends MapApplication implements UpdateIntervalListener {
 
 	private Grass grass;
 	private Marble marble;
@@ -36,7 +37,7 @@ public class HexagonalMapApplication extends MapApplication {
 
 		editor.translateMap(0, 32);
 						
-		updateAtFixedRate(80);
+		updateAtFixedRate(80, this);
 
 		loading = 100;
 	}
