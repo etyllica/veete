@@ -3,16 +3,16 @@ package br.com.vite.export;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
-
-import br.com.etyllica.core.loader.image.ImageLoader;
+import br.com.etyllica.loader.image.ImageLoader;
 import br.com.etyllica.util.io.IOHelper;
 import br.com.vite.editor.MapEditor;
 import br.com.vite.map.Map;
 import br.com.vite.serialization.MapEditorDeserializer;
 import br.com.vite.serialization.MapEditorSerializer;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 
 public class MapExporter {
 

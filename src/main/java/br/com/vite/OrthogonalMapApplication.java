@@ -2,7 +2,6 @@ package br.com.vite;
 
 import java.io.FileNotFoundException;
 
-import br.com.etyllica.context.UpdateIntervalListener;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
@@ -10,13 +9,12 @@ import br.com.etyllica.core.graphics.Graphic;
 import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.collection.tileset.land.BigGrass;
 import br.com.vite.collection.tileset.land.LandTileSet;
-import br.com.vite.collection.tileset.land.SmallGrass;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.export.MapExporter;
 import br.com.vite.map.selection.OrthogonalCollisionMap;
 import br.com.vite.map.selection.OrthogonalFloorSelection;
 
-public class OrthogonalMapApplication extends MapApplication implements UpdateIntervalListener {
+public class OrthogonalMapApplication extends MapApplication {
 	
 	private final String mapFile = "map.json";
 	
@@ -88,12 +86,12 @@ public class OrthogonalMapApplication extends MapApplication implements UpdateIn
 	public GUIEvent updateKeyboard(KeyEvent event) {
 		super.updateKeyboard(event);
 
-		if(event.isKeyDown(KeyEvent.TSK_1)) {
+		if(event.isKeyDown(KeyEvent.VK_1)) {
 					    
 		    MapExporter.export(editor, mapFile);
 		}
 		
-		if(event.isKeyDown(KeyEvent.TSK_2)) {
+		if(event.isKeyDown(KeyEvent.VK_2)) {
 		    
 			try {
 				

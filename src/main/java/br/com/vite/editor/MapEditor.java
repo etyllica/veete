@@ -3,9 +3,9 @@ package br.com.vite.editor;
 import br.com.etyllica.core.Drawable;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
+import br.com.etyllica.core.event.MouseButton;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.vite.map.Map;
 import br.com.vite.map.MapType;
 import br.com.vite.map.selection.SelectionMapListener;
@@ -87,9 +87,9 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 
 	public GUIEvent updateKeyboard(KeyEvent event) {
 
-		if(event.isKeyDown(KeyEvent.TSK_CTRL_LEFT)) {
+		if(event.isKeyDown(KeyEvent.VK_CTRL_LEFT)) {
 			ctrlPressed = true;
-		} else if(event.isKeyUp(KeyEvent.TSK_CTRL_LEFT)) {
+		} else if(event.isKeyUp(KeyEvent.VK_CTRL_LEFT)) {
 			ctrlPressed = false;
 		}
 

@@ -1,7 +1,7 @@
 package br.com.vite.map;
 
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.etyllica.linear.PointInt2D;
+import br.com.etyllica.core.linear.PointInt2D;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.TileCollider;
 import br.com.vite.tile.collision.CollisionType;

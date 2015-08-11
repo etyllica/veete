@@ -1,6 +1,6 @@
 package br.com.vite.map;
 
-import br.com.etyllica.linear.PointInt2D;
+import br.com.etyllica.core.linear.PointInt2D;
 import br.com.vite.tile.colider.OrthogonalTileColider;
 import br.com.vite.tile.creator.OrthogonalTileCreator;
 import br.com.vite.tile.drawer.OrthogonalTileDrawer;

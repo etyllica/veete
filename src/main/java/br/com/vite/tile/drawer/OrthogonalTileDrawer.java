@@ -2,8 +2,8 @@ package br.com.vite.tile.drawer;
 
 import java.awt.Color;
 
+import br.com.etyllica.awt.SVGColor;
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.etyllica.core.graphics.SVGColor;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.collision.CollisionType;
 

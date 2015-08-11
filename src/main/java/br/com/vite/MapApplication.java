@@ -1,12 +1,12 @@
 package br.com.vite;
 
-import br.com.etyllica.context.Application;
-import br.com.etyllica.context.UpdateIntervalListener;
+import br.com.etyllica.core.context.Application;
+import br.com.etyllica.core.context.UpdateIntervalListener;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
+import br.com.etyllica.core.event.MouseButton;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.etyllica.core.input.mouse.MouseButton;
 import br.com.vite.editor.MapEditor;
 import br.com.vite.tile.layer.ImageTileObject;
 
@@ -44,41 +44,41 @@ public abstract class MapApplication extends Application implements UpdateInterv
 		
 		editor.updateKeyboard(event);
 
-		if(event.isKeyDown(KeyEvent.TSK_UP_ARROW)) {
+		if(event.isKeyDown(KeyEvent.VK_UP_ARROW)) {
 			upArrowPressed = true;
-		} else if(event.isKeyUp(KeyEvent.TSK_UP_ARROW)) {
+		} else if(event.isKeyUp(KeyEvent.VK_UP_ARROW)) {
 			upArrowPressed = false;
 		}
 		
-		if(event.isKeyDown(KeyEvent.TSK_DOWN_ARROW)) {
+		if(event.isKeyDown(KeyEvent.VK_DOWN_ARROW)) {
 			downArrowPressed = true;
-		} else if(event.isKeyUp(KeyEvent.TSK_DOWN_ARROW)) {
+		} else if(event.isKeyUp(KeyEvent.VK_DOWN_ARROW)) {
 			downArrowPressed = false;
 		}
 		
-		if(event.isKeyDown(KeyEvent.TSK_LEFT_ARROW)) {
+		if(event.isKeyDown(KeyEvent.VK_LEFT_ARROW)) {
 			leftArrowPressed = true;
-		} else if(event.isKeyUp(KeyEvent.TSK_LEFT_ARROW)) {
+		} else if(event.isKeyUp(KeyEvent.VK_LEFT_ARROW)) {
 			leftArrowPressed = false;
 		}
 		
-		if(event.isKeyDown(KeyEvent.TSK_RIGHT_ARROW)) {
+		if(event.isKeyDown(KeyEvent.VK_RIGHT_ARROW)) {
 			rightArrowPressed = true;
-		} else if(event.isKeyUp(KeyEvent.TSK_RIGHT_ARROW)) {
+		} else if(event.isKeyUp(KeyEvent.VK_RIGHT_ARROW)) {
 			rightArrowPressed = false;
 		}
 		
-		if(event.isKeyDown(KeyEvent.TSK_G)) {
+		if(event.isKeyDown(KeyEvent.VK_G)) {
 			editor.swapGridShow();
 		}
 		
-		if(event.isKeyDown(KeyEvent.TSK_C)) {
+		if(event.isKeyDown(KeyEvent.VK_C)) {
 			editor.swapCollisionShow();
 		}
 		
-		if(event.isAnyKeyDown(KeyEvent.TSK_SHIFT_LEFT, KeyEvent.TSK_SHIFT_RIGHT)) {
+		if(event.isAnyKeyDown(KeyEvent.VK_SHIFT_LEFT, KeyEvent.VK_SHIFT_RIGHT)) {
 			offsetSpeed = fastSpeed;
-		} else if(event.isKeyUp(KeyEvent.TSK_SHIFT_LEFT)||event.isKeyUp(KeyEvent.TSK_SHIFT_RIGHT)) {
+		} else if(event.isKeyUp(KeyEvent.VK_SHIFT_LEFT)||event.isKeyUp(KeyEvent.VK_SHIFT_RIGHT)) {
 			offsetSpeed = normalSpeed;
 		}
 
