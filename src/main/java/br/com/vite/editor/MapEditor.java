@@ -47,11 +47,11 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	}
 
 	public void offsetMap(int offsetX, int offsetY) {
-		map.setOffset(map.getOffsetX()+offsetX, map.getOffsetY()+offsetY);
+		map.setLocation(map.getX()+offsetX, map.getY()+offsetY);
 	}
 
 	public void translateMap(int x, int y) {
-		map.setOffset(x, y);
+		map.setLocation(x, y);
 	}
 
 	public ImageTileFloor getFloorTile() {
@@ -73,7 +73,11 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	}
 
 	public void draw(Graphic g) {
-		map.draw(g, 0, 0);
+		this.draw(g, 0, 0);
+	}
+	
+	public void draw(Graphic g, int x, int y) {
+		map.draw(g, x, y);
 
 		if (drawCurrentTile) {
 			if (map.isOnTarget()) {
@@ -157,11 +161,11 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 	}
 
 	public int getOffsetX() {
-		return map.getOffsetX();
+		return map.getX();
 	}
 
 	public int getOffsetY() {
-		return map.getOffsetY();
+		return map.getY();
 	}
 
 	public void swapGridShow() {

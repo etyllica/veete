@@ -11,16 +11,13 @@ import br.com.vite.tile.filler.TileFiller;
 
 public abstract class Map {
 
+	protected int x;
+	protected int y;
+	
 	protected int lines;
-
 	protected int columns;
 
-	protected int offsetX;
-
-	protected int offsetY;
-
 	protected int tileWidth;
-
 	protected int tileHeight;
 
 	protected Tile[][] tiles;
@@ -29,11 +26,8 @@ public abstract class Map {
 
 	//Helpers
 	protected TileCreator creator;
-
 	protected TileCollider collider;
-
 	protected TileDrawer drawer;
-
 	protected TileFiller filler;
 
 	protected boolean onTarget = false;
@@ -44,7 +38,6 @@ public abstract class Map {
 		super();
 
 		this.lines = lines;
-
 		this.columns = columns;
 	}
 
@@ -52,11 +45,9 @@ public abstract class Map {
 		super();
 
 		this.lines = lines;
-
 		this.columns = columns;
 
 		this.tileWidth = tileWidth;
-
 		this.tileHeight = tileHeight;
 	}
 
@@ -71,7 +62,6 @@ public abstract class Map {
 				tiles[j][i] = creator.createTile(j, i);
 			}
 		}
-
 	}
 	
 	public Tile getTile(int mouseX, int mouseY) {
@@ -82,14 +72,12 @@ public abstract class Map {
 	}
 	
 	public Tile getTile(int mouseX, int mouseY, PointInt2D target) {
-
 		updateTarget(mouseX, mouseY, target);
 
 		return getLastTarget();
 	}
 
 	public Tile updateTarget(int mouseX, int mouseY) {
-
 		return getTile(mouseX, mouseY);
 	}
 
@@ -99,25 +87,25 @@ public abstract class Map {
 		return tiles;
 	}
 
-	public int getOffsetX() {
-		return offsetX;
+	public int getX() {
+		return x;
 	}
 
-	public void setOffsetX(int offsetX) {
-		this.offsetX = offsetX;
+	public void setX(int x) {
+		this.x = x;
 	}
 
-	public int getOffsetY() {
-		return offsetY;
+	public int getY() {
+		return y;
 	}
 
-	public void setOffsetY(int offsetY) {
-		this.offsetY = offsetY;
+	public void setY(int y) {
+		this.y = y;
 	}
 
-	public void setOffset(int offsetX, int offsetY) {
-		this.setOffsetX(offsetX);
-		this.setOffsetY(offsetY);
+	public void setLocation(int x, int y) {
+		this.setX(x);
+		this.setY(y);
 	}
 
 	public TileCreator getCreator() {
@@ -153,14 +141,24 @@ public abstract class Map {
 	}
 
 	public void draw(Graphic g) {
-		draw(g, 0, 0);
+		drawRect(g, 0, 0);
 	}
-
+	
+	/**
+	 * Draw with offset
+	 * @param g
+	 * @param x - offset in x axis
+	 * @param y - offset in y axis
+	 */
 	public void draw(Graphic g, int x, int y) {
-		draw(g, x, y, columns, lines);
+		draw(g, 0, 0, columns, lines, x, y);
 	}
 
-	public void draw(Graphic g, int x, int y, int columns, int lines) {
+	public void drawRect(Graphic g, int x, int y) {
+		draw(g, x, y, columns, lines, 0, 0);
+	}
+
+	public void draw(Graphic g, int x, int y, int columns, int lines, int offsetX, int offsetY) {
 
 		for(int j = y; j < lines; j++) {
 
@@ -168,7 +166,7 @@ public abstract class Map {
 
 				Tile tile = tiles[j][i];
 
-				drawer.drawTile(tile, g, offsetX, offsetY);
+				drawer.drawTile(tile, g, this.x+offsetX, this.y+offsetY);
 			}
 		}
 	}
@@ -179,7 +177,7 @@ public abstract class Map {
 
 	public void drawTileFiller(Graphic g, Tile target) {
 		g.setAlpha(50);
-		filler.drawTileFiller(target, g, offsetX, offsetY);
+		filler.drawTileFiller(target, g, x, y);
 		g.setAlpha(100);
 	}
 
@@ -189,7 +187,7 @@ public abstract class Map {
 
 	public void drawObjectFiller(Graphic g, Tile target) {
 		g.setAlpha(50);
-		filler.drawObjectFiller(target, g, offsetX, offsetY);
+		filler.drawObjectFiller(target, g, x, y);
 		g.setAlpha(100);
 	}
 
@@ -238,7 +236,5 @@ public abstract class Map {
 				collision == CollisionType.BLOCK;
 
 		return isFixed;
-
 	}
-
 }

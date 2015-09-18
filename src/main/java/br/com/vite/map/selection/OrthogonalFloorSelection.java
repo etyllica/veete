@@ -126,7 +126,7 @@ public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 	
 	@Override
 	public void draw(Graphic g) {
-		tileSet.getLayer().simpleDraw(g, map.getOffsetX(), map.getOffsetY());
+		tileSet.getLayer().simpleDraw(g, map.getX(), map.getY());
 		
 		super.draw(g);
 	}

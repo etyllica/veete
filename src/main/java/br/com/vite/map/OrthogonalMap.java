@@ -21,9 +21,13 @@ public class OrthogonalMap extends Map {
 	
 	public boolean updateTarget(int mouseX, int mouseY, PointInt2D target) {
 		
-		int column = (int)((mouseX-offsetX)/tileWidth);
+		/*if(mouseY < offsetY || mouseX < offsetX) {
+			return false;
+		}*/
+		
+		int column = (int)((mouseX-x)/tileWidth);
 
-		int line = (int)((mouseY-offsetY)/tileHeight);
+		int line = (int)((mouseY-y)/tileHeight);
 
 		boolean overLine = false;
 		boolean overColumn = false;

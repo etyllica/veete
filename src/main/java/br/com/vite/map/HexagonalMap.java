@@ -21,9 +21,9 @@ public class HexagonalMap extends Map {
 	
 	public boolean updateTarget(int mouseX, int mouseY, PointInt2D target) {
 
-		int column = (int)((mouseX-offsetX)/(tileWidth*4)/3);
+		int column = (int)((mouseX-x)/(tileWidth*4)/3);
 
-		int line = (int)((mouseY-offsetY)/tileHeight);
+		int line = (int)((mouseY-y)/tileHeight);
 
 		boolean overLine = false;
 		boolean overColumn = false;
@@ -36,7 +36,7 @@ public class HexagonalMap extends Map {
 
 			for(i = 0;i < columns-1; i++) {
 
-				if(collider.colideTile(tiles[j][i], mouseX, mouseY, offsetX, offsetY)) {
+				if(collider.colideTile(tiles[j][i], mouseX, mouseY, x, y)) {
 					target.setLocation(i, j);
 					return true;
 				}

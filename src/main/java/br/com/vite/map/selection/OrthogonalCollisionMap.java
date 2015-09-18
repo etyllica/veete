@@ -110,15 +110,15 @@ public class OrthogonalCollisionMap extends OrthogonalMapEditor {
 		boolean colideX = false;
 		boolean colideY = false;
 		
-		int minX = map.getOffsetX()+(column)*tileWidth;
-		int maxX = map.getOffsetX()+(column+1)*tileWidth;
+		int minX = map.getX()+(column)*tileWidth;
+		int maxX = map.getX()+(column+1)*tileWidth;
 		
 		if(x >= minX && x < maxX) {
 			colideX = true;
 		}
 
-		int minY = map.getOffsetY()+(line)*tileHeight;
-		int maxY = map.getOffsetY()+(line+1)*tileHeight;
+		int minY = map.getY()+(line)*tileHeight;
+		int maxY = map.getY()+(line+1)*tileHeight;
 		
 		if(y >= minY && y < maxY) {
 			colideY = true;
@@ -129,7 +129,7 @@ public class OrthogonalCollisionMap extends OrthogonalMapEditor {
 		
 	@Override
 	public void draw(Graphic g) {
-		tileSet.getLayer().simpleDraw(g, map.getOffsetX(), map.getOffsetY());
+		tileSet.getLayer().simpleDraw(g, map.getX(), map.getY());
 		
 		super.draw(g);
 	}

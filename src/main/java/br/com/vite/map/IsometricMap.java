@@ -21,9 +21,9 @@ public class IsometricMap extends Map {
 	
 	public boolean updateTarget(int mouseX, int mouseY, PointInt2D target) {
 		
-		int column = (int)(mouseX-offsetX)/tileWidth;
+		int column = (int)(mouseX-x)/tileWidth;
 
-		int line = (int)(mouseY-offsetY)/(tileHeight/2);
+		int line = (int)(mouseY-y)/(tileHeight/2);
 		
 		int offset = 1;
 		
@@ -52,7 +52,7 @@ public class IsometricMap extends Map {
 
 			for(; i<column+offset; i++) {
 
-				if(collider.colideTile(tiles[j][i],mouseX, mouseY, offsetX, offsetY)) {
+				if(collider.colideTile(tiles[j][i],mouseX, mouseY, x, y)) {
 					target.setLocation(i, j);
 					return true;
 				}

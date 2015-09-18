@@ -66,6 +66,13 @@ public class OrthogonalMapApplication extends MapApplication {
 		smallGrass = new BigGrass();
 		editor.setObjectTile(smallGrass);
 		
+		try {
+			reloadMap();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		updateAtFixedRate(80, this);
 		
 		loading = 100;
@@ -94,16 +101,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		if(event.isKeyDown(KeyEvent.VK_2)) {
 		    
 			try {
-				
-				int offsetX = editor.getOffsetX();
-				int offsetY = editor.getOffsetY();
-				
-				editor = MapExporter.load(mapFile);
-				selectionCastleMap.setListener(editor);
-				selectionPlatformMap.setListener(editor);
-												
-				editor.translateMap(offsetX, offsetY);
-								
+				reloadMap();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -112,6 +110,17 @@ public class OrthogonalMapApplication extends MapApplication {
 		}
 		
 		return GUIEvent.NONE;
+	}
+	
+	private void reloadMap() throws FileNotFoundException {
+		int offsetX = editor.getOffsetX();
+		int offsetY = editor.getOffsetY();
+		
+		editor = MapExporter.load(mapFile);
+		selectionCastleMap.setListener(editor);
+		selectionPlatformMap.setListener(editor);
+										
+		editor.translateMap(offsetX, offsetY);
 	}
 		
 	@Override
