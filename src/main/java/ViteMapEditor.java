@@ -1,5 +1,7 @@
 import br.com.etyllica.EtyllicaFrame;
 import br.com.etyllica.core.context.Application;
+import br.com.vite.HexagonalMapApplication;
+import br.com.vite.IsometricMapApplication;
 import br.com.vite.OrthogonalMapApplication;
 
 

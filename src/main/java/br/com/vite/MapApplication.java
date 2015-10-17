@@ -2,7 +2,6 @@ package br.com.vite;
 
 import br.com.etyllica.core.context.Application;
 import br.com.etyllica.core.context.UpdateIntervalListener;
-import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.MouseButton;
 import br.com.etyllica.core.event.PointerEvent;
@@ -40,7 +39,7 @@ public abstract class MapApplication extends Application implements UpdateInterv
 	}
 	
 	@Override
-	public GUIEvent updateKeyboard(KeyEvent event) {
+	public void updateKeyboard(KeyEvent event) {
 		
 		editor.updateKeyboard(event);
 
@@ -81,12 +80,10 @@ public abstract class MapApplication extends Application implements UpdateInterv
 		} else if(event.isKeyUp(KeyEvent.VK_SHIFT_LEFT)||event.isKeyUp(KeyEvent.VK_SHIFT_RIGHT)) {
 			offsetSpeed = normalSpeed;
 		}
-
-		return GUIEvent.NONE;
 	}
 	
 	@Override
-	public GUIEvent updateMouse(PointerEvent event) {
+	public void updateMouse(PointerEvent event) {
 				
 		editor.updateMouse(event);
 		
@@ -110,8 +107,6 @@ public abstract class MapApplication extends Application implements UpdateInterv
 		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_MIDDLE)) {
 			middlePressed = false;
 		}
-				
-		return GUIEvent.NONE;
 	}
 	
 	@Override

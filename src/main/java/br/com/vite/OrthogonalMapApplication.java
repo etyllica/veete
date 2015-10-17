@@ -2,7 +2,6 @@ package br.com.vite;
 
 import java.io.FileNotFoundException;
 
-import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
@@ -90,7 +89,7 @@ public class OrthogonalMapApplication extends MapApplication {
 	}
 		
 	@Override
-	public GUIEvent updateKeyboard(KeyEvent event) {
+	public void updateKeyboard(KeyEvent event) {
 		super.updateKeyboard(event);
 
 		if(event.isKeyDown(KeyEvent.VK_1)) {
@@ -108,8 +107,6 @@ public class OrthogonalMapApplication extends MapApplication {
 			}
 				
 		}
-		
-		return GUIEvent.NONE;
 	}
 	
 	private void reloadMap() throws FileNotFoundException {
@@ -124,15 +121,12 @@ public class OrthogonalMapApplication extends MapApplication {
 	}
 		
 	@Override
-	public GUIEvent updateMouse(PointerEvent event) {	
-		
+	public void updateMouse(PointerEvent event) {	
 		selectionCastleMap.updateMouse(event);
 		selectionPlatformMap.updateMouse(event);
 		selectionCollisionMap.updateMouse(event);
 		
 		super.updateMouse(event);
-		
-		return GUIEvent.NONE;
 	}
 
 	@Override

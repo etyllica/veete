@@ -1,6 +1,5 @@
 package br.com.vite;
 
-import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
 import br.com.vite.collection.isometric.grassland.floor.Marble;
@@ -60,7 +59,7 @@ public class IsometricMapApplication extends MapApplication {
 	}
 	
 	@Override
-	public GUIEvent updateKeyboard(KeyEvent event) {
+	public void updateKeyboard(KeyEvent event) {
 		super.updateKeyboard(event);
 		
 		if(event.isKeyDown(KeyEvent.VK_1)) {
@@ -70,8 +69,6 @@ public class IsometricMapApplication extends MapApplication {
 		if(event.isKeyDown(KeyEvent.VK_2)) {
 			editor.setFloorTile(marble);
 		}
-
-		return GUIEvent.NONE;
 	}
 
 }
