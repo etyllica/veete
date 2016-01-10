@@ -81,6 +81,7 @@ public abstract class Map {
 		return getTile(mouseX, mouseY);
 	}
 
+	public abstract void getIndex(int mouseX, int mouseY, PointInt2D out);
 	public abstract boolean updateTarget(int mouseX, int mouseY, PointInt2D target);
 
 	public Tile[][] getTiles() {

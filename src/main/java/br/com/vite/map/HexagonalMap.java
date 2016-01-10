@@ -19,6 +19,18 @@ public class HexagonalMap extends Map {
 		filler = new HexagonalTileFiller(tileWidth, tileHeight);
 	}
 	
+	public void getIndex(int px, int py, PointInt2D target) {
+		int j = 0, i = 0;
+		for(j = 0; j < lines-1; j++) {
+			for(i = 0;i < columns-1; i++) {
+				if(collider.colideTile(tiles[j][i], px, py, x, y)) {
+					target.setLocation(i, j);
+					return;
+				}
+			}
+		}
+	}
+	
 	public boolean updateTarget(int mouseX, int mouseY, PointInt2D target) {
 
 		int column = (int)((mouseX-x)/(tileWidth*4)/3);
@@ -31,7 +43,6 @@ public class HexagonalMap extends Map {
 		//onMouse = true;
 
 		int j = 0, i = 0;
-		
 		for(j = 0; j < lines-1; j++) {
 
 			for(i = 0;i < columns-1; i++) {

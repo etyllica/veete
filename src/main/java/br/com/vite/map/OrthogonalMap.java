@@ -19,6 +19,13 @@ public class OrthogonalMap extends Map {
 		filler = new OrthogonalTileFiller(tileWidth, tileHeight);		
 	}
 	
+	public void getIndex(int px, int py, PointInt2D out) {
+		int column = (int)((px-x)/tileWidth);
+		int line = (int)((py-y)/tileHeight);
+		
+		out.setLocation(column, line);
+	}
+	
 	public boolean updateTarget(int mouseX, int mouseY, PointInt2D target) {
 		
 		/*if(mouseY < offsetY || mouseX < offsetX) {
@@ -26,7 +33,6 @@ public class OrthogonalMap extends Map {
 		}*/
 		
 		int column = (int)((mouseX-x)/tileWidth);
-
 		int line = (int)((mouseY-y)/tileHeight);
 
 		boolean overLine = false;
@@ -48,10 +54,7 @@ public class OrthogonalMap extends Map {
 		
 		onTarget = overLine&&overColumn;
 
-		int j = line;
-		int i = column;
-
-		target.setLocation(i, j);
+		target.setLocation(column, line);
 		return onTarget;
 	}
 	

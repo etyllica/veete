@@ -19,10 +19,26 @@ public class IsometricMap extends Map {
 		filler = new IsometricTileFiller(tileWidth, tileHeight);
 	}
 	
+	public void getIndex(int px, int py, PointInt2D target) {
+		int column = (int)(px-x)/tileWidth;
+		int line = (int)(py-y)/(tileHeight/2);
+		int offset = 1;
+
+		int j = line - offset, i = column - offset;
+		
+		for(; j<line+offset; j++) {
+			for(; i<column+offset; i++) {
+				if(collider.colideTile(tiles[j][i], px, py, x, y)) {
+					target.setLocation(i, j);
+					return;
+				}
+			}
+		}
+	}
+	
 	public boolean updateTarget(int mouseX, int mouseY, PointInt2D target) {
 		
 		int column = (int)(mouseX-x)/tileWidth;
-
 		int line = (int)(mouseY-y)/(tileHeight/2);
 		
 		int offset = 1;
@@ -49,9 +65,7 @@ public class IsometricMap extends Map {
 		int j = line - offset, i = column - offset;
 		
 		for(; j<line+offset; j++) {
-
 			for(; i<column+offset; i++) {
-
 				if(collider.colideTile(tiles[j][i],mouseX, mouseY, x, y)) {
 					target.setLocation(i, j);
 					return true;
