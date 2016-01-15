@@ -65,9 +65,7 @@ public abstract class Map {
 	}
 	
 	public Tile getTile(int mouseX, int mouseY) {
-
 		updateTarget(mouseX, mouseY, target);
-
 		return getLastTarget();
 	}
 	
@@ -221,7 +219,16 @@ public abstract class Map {
 	}
 
 	public boolean isBlock(Tile tile) {
-
+		CollisionType collision = tile.getCollision();
+		return collision == CollisionType.BLOCK;
+	}
+	
+	public boolean isBlock(PointInt2D point) {
+		return isBlock(point.getX(), point.getY());
+	}
+	
+	public boolean isBlock(int x, int y) {
+		Tile tile = tiles[y][x];
 		CollisionType collision = tile.getCollision();
 
 		return collision == CollisionType.BLOCK;

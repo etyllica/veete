@@ -56,7 +56,7 @@ public class AStar extends PathFinder implements Comparator<Cell> {
 
 			if (current.equals(grid[endY][endX])) {
 				break;
-			} 
+			}
 
 			Cell t;  
 			if(current.i-1>=0){
@@ -118,12 +118,16 @@ public class AStar extends PathFinder implements Comparator<Cell> {
 
 	private Cell[][] initGrid(int startX, int startY, int endX, int endY) {
 		Cell[][] grid = new Cell[rows][columns];
-
+				
 		for(int i = 0; i < columns; i++) {
 			for(int j = 0; j < rows; j++) {
 				grid[j][i] = new Cell(j, i);
 				grid[j][i].heuristicCost = Math.abs(j-endY)+Math.abs(i-endX);
 			}
+		}
+		
+		if (startX < 0 || startX > grid[0].length || startY < 0) {
+			return grid;
 		}
 
 		grid[startY][startX].finalCost = 0;
