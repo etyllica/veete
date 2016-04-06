@@ -1,10 +1,11 @@
-package br.com.vite;
+package examples;
 
 import java.io.FileNotFoundException;
 
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
+import br.com.vite.MapApplication;
 import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.collection.tileset.land.BigGrass;
 import br.com.vite.collection.tileset.land.LandTileSet;

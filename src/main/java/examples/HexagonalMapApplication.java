@@ -1,6 +1,7 @@
-package br.com.vite;
+package examples;
 
 import br.com.etyllica.core.event.KeyEvent;
+import br.com.vite.MapApplication;
 import br.com.vite.collection.isometric.grassland.floor.Grass;
 import br.com.vite.collection.isometric.grassland.floor.Marble;
 import br.com.vite.collection.isometric.tree.PalmTree1;
