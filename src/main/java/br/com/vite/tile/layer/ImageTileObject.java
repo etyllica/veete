@@ -2,12 +2,10 @@ package br.com.vite.tile.layer;
 
 import br.com.etyllica.core.graphics.Graphic;
 
-public class ImageTileObject extends ImageTileLayer implements DrawableObject {
+public class ImageTileObject extends ImageTileLayer implements DrawableObject { 
 	
 	protected String label = "";
-	
 	protected int offsetX = 0;
-	
 	protected int offsetY = 0;
 	
 	public ImageTileObject(String path) {

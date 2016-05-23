@@ -2,12 +2,14 @@ package br.com.vite.collection.tileset.land;
 
 import br.com.vite.map.MapType;
 import br.com.vite.tile.collision.CollisionType;
-import br.com.vite.tile.set.TileSet;
+import br.com.vite.tile.set.ImageTileSet;
 
-public class LandTileSet extends TileSet {
+public class LandTileSet extends ImageTileSet {
 	
-	public LandTileSet() {
+	public LandTileSet(String id) {
 		super(10, 8, 16, 16, MapType.ORTHOGONAL, "platform/land.png");
+		this.id = id;
+		createTiles();
 		
 		collision[0][0] = CollisionType.BLOCK;
 		collision[0][1] = CollisionType.UPPER;

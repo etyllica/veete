@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.etyllica.gui.Button;
-import br.com.etyllica.gui.label.ImageLabel;
 import br.com.vite.MapApplication;
 import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.collection.tileset.land.BigGrass;
@@ -20,6 +18,8 @@ import br.com.vite.ui.Toolbar;
 public class OrthogonalMapApplication extends MapApplication {
 	
 	private final String mapFile = "map.json";
+	private static final String ID_CASTLE = "castle";
+	private static final String ID_LAND = "land";
 	
 	private final int tileWidth = 16;
 	private final int tileHeight = 16;
@@ -57,13 +57,13 @@ public class OrthogonalMapApplication extends MapApplication {
 		selectionCollisionMap.translateMap(28*tileWidth, tileSetOffsetY);
 		
 		loading = 50;
-		selectionCastleMap = new OrthogonalFloorSelection(tileWidth, tileHeight, new CastleTileSet());
+		selectionCastleMap = new OrthogonalFloorSelection(tileWidth, tileHeight, new CastleTileSet(ID_CASTLE));
 		selectionCastleMap.translateMap(0, tileSetOffsetY);
 		selectionCastleMap.setListener(editor);
 		selectionCastleMap.setCollisionMap(selectionCollisionMap);		
 		
 		loading = 60;
-		selectionPlatformMap = new OrthogonalFloorSelection(tileWidth, tileHeight, new LandTileSet());
+		selectionPlatformMap = new OrthogonalFloorSelection(tileWidth, tileHeight, new LandTileSet(ID_LAND));
 		selectionPlatformMap.translateMap(13*tileWidth, tileSetOffsetY);
 		selectionPlatformMap.setListener(editor);
 		selectionPlatformMap.setCollisionMap(selectionCollisionMap);
@@ -90,9 +90,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		super.timeUpdate(now);
 		
 		selectionCastleMap.update(now);
-		
 		selectionPlatformMap.update(now);
-		
 		selectionCollisionMap.update(now);
 	}
 		

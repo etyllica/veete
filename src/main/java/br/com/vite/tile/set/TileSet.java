@@ -1,59 +1,97 @@
 package br.com.vite.tile.set;
 
-import br.com.etyllica.layer.ImageLayer;
+import java.util.HashMap;
+
+import br.com.etyllica.core.linear.PointInt2D;
 import br.com.vite.map.MapType;
+import br.com.vite.map.selection.SelectedTile;
 import br.com.vite.tile.collision.CollisionType;
 
-public class TileSet extends GeometricTileSet {
-		
-	private int columns = 0;
+public class TileSet {
 	
-	private int lines = 0;
+	private int count = 0;
+	protected String id;
 	
-	private ImageLayer layer;
+	protected int tileWidth = 64;
+	protected int tileHeight = 64;
+	
+	protected int columns = 0;
+	protected int rows = 0;
+	
+	private MapType type = MapType.ORTHOGONAL;
 	
 	protected CollisionType[][] collision;
-				
-	public TileSet(int columns, int lines, int tileWidth, int tileHeight, MapType type) {
-		super(tileWidth, tileHeight, type);
+	
+	protected java.util.Map<PointInt2D, String> tileIds = new HashMap<PointInt2D, String>();
+	protected java.util.Map<String, SelectedTile> tiles = new HashMap<String, SelectedTile>();
+	
+	public TileSet(int tileWidth, int tileHeight) {
+		super();
 		
+		this.tileWidth = tileWidth;
+		this.tileHeight = tileHeight;
+	}
+	
+	public TileSet(int tileWidth, int tileHeight, MapType type) {
+		this(tileWidth, tileHeight);
+		this.type = type;
+	}
+	
+	public TileSet(int tileWidth, int tileHeight, int columns, int rows, MapType type) {
+		this(tileWidth, tileHeight);
+		this.rows = rows;
 		this.columns = columns;
-		this.lines = lines;
 		
-		initCollisions(columns, lines);
-	}
-		
-	public TileSet(int columns, int lines, int tileWidth, int tileHeight, MapType type, String path) {
-		this(columns, lines, tileWidth, tileHeight, type);
-				
-		layer = new ImageLayer(path);
+		this.type = type;
 	}
 	
-	private void initCollisions(int columns, int lines) {
-		
-		collision = new CollisionType[lines][columns];
-		
-		for (int j = 0; j < lines; j++) {
-			for (int i = 0; i < columns; i++) {
-				collision[j][i] = CollisionType.FREE;
-			}
-		}
+	public MapType getType() {
+		return type;
 	}
 	
-	public ImageLayer getLayer() {
-		return layer;
+	
+	public int getTileWidth() {
+		return tileWidth;
 	}
 
+	public int getTileHeight() {
+		return tileHeight;
+	}
+	
 	public int getColumns() {
 		return columns;
 	}
 
-	public int getLines() {
-		return lines;
+	public int getRows() {
+		return rows;
 	}
 
 	public CollisionType[][] getCollision() {
 		return collision;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getIndex(int x, int y) {
+		return tileIds.get(new PointInt2D(x, y));
+	}
+	
+	public SelectedTile getTile(String index) {
+		return tiles.get(index);
+	}
+	
+
+	protected String generateId() {
+		String tileSetId = this.id; 
+		String id = tileSetId+Integer.toHexString(count);
+		count++;
+		return id;
 	}
 	
 }

@@ -8,11 +8,11 @@ import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.layer.ImageTileFloor;
-import br.com.vite.tile.set.TileSet;
+import br.com.vite.tile.set.ImageTileSet;
 
 public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 	
-	private TileSet tileSet;
+	private ImageTileSet tileSet;
 	
 	private SelectionMapListener listener;
 	
@@ -24,8 +24,8 @@ public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 		super(columns, lines, tileWidth, tileHeight);
 	}
 	
-	public OrthogonalFloorSelection(int tileWidth, int tileHeight, TileSet tileSet) {
-		super(tileSet.getColumns(), tileSet.getLines(), tileWidth, tileHeight);
+	public OrthogonalFloorSelection(int tileWidth, int tileHeight, ImageTileSet tileSet) {
+		super(tileSet.getColumns(), tileSet.getRows(), tileWidth, tileHeight);
 		
 		setTileSet(tileSet);		
 	}
@@ -98,7 +98,8 @@ public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 		
 	private ImageTileFloor createSelectedTile(String path, int x, int y, int width, int height) {
 		
-		SelectedTile selectedTile = new SelectedTile(path, x, y, width, height);
+		String index = tileSet.getIndex(x, y);
+		SelectedTile selectedTile = tileSet.getTile(index);
 		
 		ImageTileFloor floor = selectedTiles.get(selectedTile);
 		
@@ -135,19 +136,19 @@ public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 		this.listener = listener;
 	}
 
-	public TileSet getTileSet() {
+	public ImageTileSet getTileSet() {
 		return tileSet;
 	}
 
-	public void setTileSet(TileSet tileSet) {
+	public void setTileSet(ImageTileSet tileSet) {
 		this.tileSet = tileSet;
 		
 		updateCollisions(tileSet);
 	}
 	
-	private void updateCollisions(TileSet tileSet) {
+	private void updateCollisions(ImageTileSet tileSet) {
 		
-		for (int j = 0; j < tileSet.getLines(); j++) {
+		for (int j = 0; j < tileSet.getRows(); j++) {
 			for (int i = 0; i < tileSet.getColumns(); i++) {
 				map.getTiles()[j][i].setCollision(tileSet.getCollision()[j][i]);		
 			}

@@ -2,7 +2,7 @@ package br.com.vite.tile.set;
 
 import br.com.etyllica.layer.BufferedLayer;
 
-public class ProceduralTileSet extends GeometricTileSet {
+public class ProceduralTileSet extends TileSet {
 		
 	protected BufferedLayer layer;
 			
