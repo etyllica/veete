@@ -52,5 +52,7 @@ public class Tile extends GeometricLayer {
 	public void setCollision(CollisionType collision) {
 		this.collision = collision;
 	}
+	
+	
 		
 }

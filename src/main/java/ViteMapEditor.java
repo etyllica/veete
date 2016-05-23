@@ -13,12 +13,13 @@ public class ViteMapEditor extends EtyllicaFrame {
 	
 	public static void main(String[] args){
 		ViteMapEditor map = new ViteMapEditor();
+		map.setTitle("Veete");
 		map.init();
 	}
 
 	public Application startApplication() {
 		
-		initialSetup("../../");
+		initialSetup("../");
 			
 		//return new IsometricMapApplication(w, h);
 		return new OrthogonalMapApplication(w, h);

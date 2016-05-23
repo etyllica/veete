@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.gui.Button;
+import br.com.etyllica.gui.label.ImageLabel;
 import br.com.vite.MapApplication;
 import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.collection.tileset.land.BigGrass;
@@ -13,6 +15,7 @@ import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.export.MapExporter;
 import br.com.vite.map.selection.OrthogonalCollisionMap;
 import br.com.vite.map.selection.OrthogonalFloorSelection;
+import br.com.vite.ui.Toolbar;
 
 public class OrthogonalMapApplication extends MapApplication {
 	
@@ -30,6 +33,8 @@ public class OrthogonalMapApplication extends MapApplication {
 	private OrthogonalCollisionMap selectionCollisionMap;
 	
 	private BigGrass smallGrass;
+		
+	private Toolbar bar;
 	
 	public OrthogonalMapApplication(int w, int h) {
 		super(w, h);
@@ -41,8 +46,10 @@ public class OrthogonalMapApplication extends MapApplication {
 		final int columns = 50;
 		final int lines = 16;
 
+		bar = new Toolbar(this);
+		
 		editor = new OrthogonalMapEditor(columns, lines, tileWidth, tileHeight);
-		editor.translateMap(0, 40);
+		editor.translateMap(0, 110);
 
 		loading = 30;
 
@@ -65,7 +72,7 @@ public class OrthogonalMapApplication extends MapApplication {
 
 		smallGrass = new BigGrass();
 		editor.setObjectTile(smallGrass);
-		
+				
 		try {
 			reloadMap();
 		} catch (FileNotFoundException e) {
@@ -94,7 +101,6 @@ public class OrthogonalMapApplication extends MapApplication {
 		super.updateKeyboard(event);
 
 		if(event.isKeyDown(KeyEvent.VK_1)) {
-					    
 		    MapExporter.export(editor, mapFile);
 		}
 		
