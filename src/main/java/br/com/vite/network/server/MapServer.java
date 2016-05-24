@@ -8,8 +8,8 @@ public class MapServer extends TCPServer {
 
 	public static final int PORT = 13131;
 	
-	private MapServerProtocol listener;
-
+	MapServerProtocol protocol;
+	
 	public MapServer() {
 		super(PORT);
 		
@@ -17,9 +17,9 @@ public class MapServer extends TCPServer {
 
 		handshaker = new MapHandshaker();
 		
-		listener = new MapServerProtocol(MapClientProtocol.PREFIX_VEETE);
+		protocol = new MapServerProtocol(MapClientProtocol.PREFIX_VEETE);
 
-		addProtocol(MapClientProtocol.PREFIX_VEETE, listener);
+		addProtocol(MapClientProtocol.PREFIX_VEETE, protocol);
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ public class MapServer extends TCPServer {
 	@Override
 	public void joinPeer(Peer peer) {
 		System.out.println("HandShakePeer "+peer.getSessionID()+" connected.");
-		listener.addPeer(peer);			
+		protocol.addPeer(peer);			
 	}
 	
 }

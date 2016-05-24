@@ -41,10 +41,10 @@ public abstract class Map {
 		this.columns = columns;
 	}
 
-	public Map(int columns, int lines, int tileWidth, int tileHeight) {
+	public Map(int columns, int rows, int tileWidth, int tileHeight) {
 		super();
 
-		this.rows = lines;
+		this.rows = rows;
 		this.columns = columns;
 
 		this.tileWidth = tileWidth;
@@ -53,7 +53,7 @@ public abstract class Map {
 
 	public void createTiles() {
 
-		tiles = new Tile[rows][columns]; 
+		tiles = new Tile[rows][columns];
 
 		for(int j = 0; j < rows; j++) {
 

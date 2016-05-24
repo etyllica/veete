@@ -13,10 +13,10 @@ import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.export.MapExporter;
 import br.com.vite.map.selection.OrthogonalCollisionMap;
 import br.com.vite.map.selection.OrthogonalFloorSelection;
-import br.com.vite.network.client.MapClientListener;
+import br.com.vite.network.listener.MapProtocolListener;
 import br.com.vite.ui.Toolbar;
 
-public class CollaborativeMapApplication extends MapApplication implements MapClientListener {
+public class CollaborativeMapApplication extends MapApplication {
 
 	private final String mapFile = "map.json";
 	private static final String ID_CASTLE = "castle";
@@ -50,8 +50,6 @@ public class CollaborativeMapApplication extends MapApplication implements MapCl
 		editor = new OrthogonalMapEditor(columns, lines, tileWidth, tileHeight);
 		editor.translateMap(0, 110);
 		
-		bar = new Toolbar(this, editor);
-
 		loading = 30;
 
 		selectionCollisionMap = new OrthogonalCollisionMap(tileWidth, tileHeight);
@@ -87,9 +85,11 @@ public class CollaborativeMapApplication extends MapApplication implements MapCl
 			e.printStackTrace();
 		}
 
+		bar = new Toolbar(this, editor);
+		
 		//Remove
 		for (int i = 0;i < 22; i++) {
-			editor.writeFloorTile(i, 0, ID_CASTLE, "castle1");	
+			editor.writeFloorTile(i, 0, ID_CASTLE, "castle1");
 		}
 		
 		updateAtFixedRate(80, this);
@@ -153,30 +153,6 @@ public class CollaborativeMapApplication extends MapApplication implements MapCl
 		selectionCastleMap.draw(g);
 		selectionPlatformMap.draw(g);
 		selectionCollisionMap.draw(g);
-	}
-
-	@Override
-	public void writeFloorTile(String peerId, int x, int y, String tileSetId, String tileId) {
-		editor.writeFloorTile(x, y, tileSetId, tileId);
-	}
-
-	@Override
-	public void eraseFloorTile(String peerId, int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void writeObjectTile(String peerId, int x, int y, String tileSetId,
-			String tileId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void eraseObjectTile(String peerId, int x, int y) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -8,8 +8,8 @@ import br.com.vite.tile.filler.OrthogonalTileFiller;
 
 public class OrthogonalMap extends Map {
 	
-	public OrthogonalMap(int columns, int lines, int tileWidth, int tileHeight) {
-		super(columns, lines, tileWidth, tileHeight);
+	public OrthogonalMap(int columns, int rows, int tileWidth, int tileHeight) {
+		super(columns, rows, tileWidth, tileHeight);
 
 		type = MapType.ORTHOGONAL;
 		

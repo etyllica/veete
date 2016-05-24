@@ -113,8 +113,9 @@ public class TileSet {
 	public ImageTileFloor getTileFloor(String tileId) {
 		SelectedTile tile = getTile(tileId);
 		
-		ImageTileFloor tileFloor = new ImageTileFloor(path, tileId);
+		ImageTileFloor tileFloor = new ImageTileFloor(path, id);
 		tileFloor.setLayerBounds(tile.getX(), tile.getY(), tileWidth, tileHeight);
+		tileFloor.setId(tileId);
 		
 		return tileFloor;
 	}

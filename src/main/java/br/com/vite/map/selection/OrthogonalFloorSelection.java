@@ -59,7 +59,10 @@ public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 								
 				selectedTile = createSelectedTile(tileSet.getLayer().getPath(), x, y, 
 						tileWidth, tileHeight, map.getLastTarget().getCollision());
-								
+				int i = x/tileWidth;
+				int j = y/tileHeight;
+				selectedTile.setId(tileSet.getIndex(i, j));
+				
 				notifySelectedFloorTile(selectedTile);				
 			}
 		}
