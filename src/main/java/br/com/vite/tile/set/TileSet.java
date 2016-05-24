@@ -11,6 +11,7 @@ public class TileSet {
 	
 	private int count = 0;
 	protected String id;
+	protected String path;
 	
 	protected int tileWidth = 64;
 	protected int tileHeight = 64;
@@ -74,6 +75,14 @@ public class TileSet {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getPath() {
+		return path;
+	}
+	
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 	public String getIndex(int x, int y) {

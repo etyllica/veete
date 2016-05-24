@@ -4,8 +4,8 @@ import br.com.vite.tile.layer.ImageTileObject;
 
 public class Column extends ImageTileObject {
 
-	public Column() {
-		super("castle/column.png");
+	public Column(String tileSetId) {
+		super("castle/column.png", tileSetId);
 		
 		offsetX = 32;
 		offsetY = 111-32;

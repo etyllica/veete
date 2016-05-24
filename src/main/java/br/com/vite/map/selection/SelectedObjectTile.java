@@ -11,12 +11,12 @@ public class SelectedObjectTile extends SelectedTile {
 	
 	protected String label;		
 		
-	public SelectedObjectTile(String path, int x, int y, CollisionType collision) {
-		super(path, x, y, collision);
+	public SelectedObjectTile(String id, String setId, int x, int y, CollisionType collision) {
+		super(id, setId, x, y, collision);
 	}
 	
-	public SelectedObjectTile(ImageTileObject obj) {
-		super(obj.getPath(), obj.getX(), obj.getY(), obj.getCollision());
+	public SelectedObjectTile(ImageTileObject obj, String setId) {
+		super(obj.getId(), setId, obj.getX(), obj.getY(), obj.getCollision());
 		
 		this.label = obj.getLabel();
 		this.offsetX = obj.getOffsetX();

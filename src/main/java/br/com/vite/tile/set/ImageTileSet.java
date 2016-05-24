@@ -17,11 +17,11 @@ public class ImageTileSet extends TileSet {
 	public ImageTileSet(int columns, int lines, int tileWidth, int tileHeight, MapType type, String path) {
 		this(columns, lines, tileWidth, tileHeight, type);
 		
+		this.path = path;
 		layer = new ImageLayer(path);
 	}
 	
 	public ImageTileSet createTiles() {
-				
 		for (int j = 0; j < rows; j++) {
 			for (int i = 0; i < columns; i++) {
 				String tileId = generateId();
@@ -30,7 +30,7 @@ public class ImageTileSet extends TileSet {
 				int x = i*tileWidth;
 				int y = j*tileHeight;
 				
-				tiles.put(tileId, new SelectedTile(layer.getPath(), x, y, tileWidth, tileHeight, CollisionType.FREE));
+				tiles.put(tileId, new SelectedTile(tileId, layer.getPath(), x, y, tileWidth, tileHeight, CollisionType.FREE));
 			}
 		}
 		

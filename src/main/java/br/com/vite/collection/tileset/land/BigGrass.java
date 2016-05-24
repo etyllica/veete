@@ -4,8 +4,8 @@ import br.com.vite.tile.layer.ImageTileObject;
 
 public class BigGrass extends ImageTileObject {
 
-	public BigGrass() {
-		super("platform/land_grass.png");
+	public BigGrass(String tileSetId) {
+		super("platform/land_grass.png", tileSetId);
 		
 		label = "big grass";
 		

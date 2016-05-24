@@ -3,13 +3,14 @@ package br.com.vite;
 import br.com.etyllica.core.context.Application;
 import br.com.etyllica.core.context.UpdateIntervalListener;
 import br.com.etyllica.core.event.KeyEvent;
-import br.com.etyllica.core.event.MouseButton;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
+import br.com.vite.editor.EditorListener;
 import br.com.vite.editor.MapEditor;
+import br.com.vite.tile.Tile;
 import br.com.vite.tile.layer.ImageTileObject;
 
-public abstract class MapApplication extends Application implements UpdateIntervalListener {
+public abstract class MapApplication extends Application implements UpdateIntervalListener, EditorListener {
 		
 	protected MapEditor editor;
 	
@@ -21,10 +22,6 @@ public abstract class MapApplication extends Application implements UpdateInterv
 	//Input
 	protected int mx = 0;
 	protected int my = 0;
-
-	protected boolean leftPressed = false;
-	protected boolean rightPressed = false;
-	protected boolean middlePressed = false;
 	
 	protected boolean upArrowPressed = false;
 	protected boolean leftArrowPressed = false;
@@ -84,29 +81,7 @@ public abstract class MapApplication extends Application implements UpdateInterv
 	
 	@Override
 	public void updateMouse(PointerEvent event) {
-				
 		editor.updateMouse(event);
-		
-		my = event.getY();
-		mx = event.getX();
-		
-		if(event.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
-			leftPressed = true;
-		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_LEFT)) {
-			leftPressed = false;
-		}
-		
-		if(event.isButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) {
-			rightPressed = true;
-		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_RIGHT)) {
-			rightPressed = false;
-		}
-		
-		if(event.isButtonDown(MouseButton.MOUSE_BUTTON_MIDDLE)) {
-			middlePressed = true;
-		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_MIDDLE)) {
-			middlePressed = false;
-		}
 	}
 	
 	@Override
@@ -135,6 +110,18 @@ public abstract class MapApplication extends Application implements UpdateInterv
 	@Override
 	public void draw(Graphic g) {
 		editor.draw(g);
+	}
+	
+	@Override
+	public void writeTile(Tile lastSelectedTile, String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eraseTile(Tile lastSelectedTile) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

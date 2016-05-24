@@ -9,6 +9,8 @@ import br.com.vite.editor.IsometricMapEditor;
 
 public class IsometricMapApplication extends MapApplication {
 
+	private static final String TEST_TILESET = "TEST";
+	
 	private Grass grass;
 	private Marble marble;
 	private PalmTree1 tree;
@@ -43,9 +45,9 @@ public class IsometricMapApplication extends MapApplication {
 
 	private void createImageTiles() {
 				
-		grass = new Grass(0);
-		marble = new Marble(0);
-		tree = new PalmTree1();
+		grass = new Grass(TEST_TILESET, 0);
+		marble = new Marble(TEST_TILESET, 0);
+		tree = new PalmTree1(TEST_TILESET);
 
 		editor.setFloorTile(grass);
 

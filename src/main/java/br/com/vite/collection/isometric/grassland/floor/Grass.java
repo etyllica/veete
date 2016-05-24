@@ -4,8 +4,8 @@ import br.com.vite.tile.layer.ImageTileFloor;
 
 public class Grass extends ImageTileFloor{
 
-	public Grass(int offsetTileX) {
-		super("grassland/grassland.png");
+	public Grass(String tileSetId, int offsetTileX) {
+		super("grassland/grassland.png", tileSetId);
 
 		this.setLayerBounds(offsetTileX*64, 0, 64, 32);
 	}

@@ -27,7 +27,7 @@ public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 	public OrthogonalFloorSelection(int tileWidth, int tileHeight, ImageTileSet tileSet) {
 		super(tileSet.getColumns(), tileSet.getRows(), tileWidth, tileHeight);
 		
-		setTileSet(tileSet);		
+		setTileSet(tileSet);
 	}
 
 	public Map<SelectedTile, ImageTileFloor> getSelectedTiles() {
@@ -98,14 +98,17 @@ public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 		
 	private ImageTileFloor createSelectedTile(String path, int x, int y, int width, int height) {
 		
-		String index = tileSet.getIndex(x, y);
+		int i = x/width;
+		int j = y/height;
+		
+		String index = tileSet.getIndex(j, i);
 		SelectedTile selectedTile = tileSet.getTile(index);
 		
 		ImageTileFloor floor = selectedTiles.get(selectedTile);
 		
 		if(floor == null) {
 		
-			ImageTileFloor tileFloor = new ImageTileFloor(path);
+			ImageTileFloor tileFloor = new ImageTileFloor(path, tileSet.getId());
 			tileFloor.setLayerBounds(x, y, map.getTileWidth(), map.getTileHeight());
 			
 			selectedTiles.put(selectedTile, tileFloor);

@@ -8,8 +8,8 @@ public class ImageTileObject extends ImageTileLayer implements DrawableObject {
 	protected int offsetX = 0;
 	protected int offsetY = 0;
 	
-	public ImageTileObject(String path) {
-		super(path);
+	public ImageTileObject(String path, String tileSetId) {
+		super(path, tileSetId);
 	}
 		
 	public void draw(Graphic g, int x, int y, int tileWidth, int tileHeight) {

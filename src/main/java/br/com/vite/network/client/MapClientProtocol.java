@@ -7,6 +7,9 @@ public class MapClientProtocol extends StringClientProtocol {
 
 	public static final String PREFIX_VEETE = "vt";
 	
+	public static final String PREFIX_ADD_TILE = "a";
+	public static final String PREFIX_REMOVE_TILE = "r";
+	
 	public MapClientProtocol() {
 		super(PREFIX_VEETE);
 	}
@@ -23,6 +26,10 @@ public class MapClientProtocol extends StringClientProtocol {
 	@Override
 	public void receiveUDP(Peer peer, String msg) {
 		System.out.println(this.getClass().getSimpleName()+"(UDP) received "+msg);
+	}
+
+	public void sendWriteTile(int x, int y, String id) {
+		sendTCP(PREFIX_ADD_TILE+" "+id+" "+x+" "+y);
 	}
 	
 }

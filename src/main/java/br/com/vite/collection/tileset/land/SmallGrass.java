@@ -4,8 +4,8 @@ import br.com.vite.tile.layer.ImageTileObject;
 
 public class SmallGrass extends ImageTileObject {
 
-	public SmallGrass() {
-		super("platform/land_grass.png");
+	public SmallGrass(String tileSetId) {
+		super("platform/land_grass.png", tileSetId);
 		
 		label = "small grass";
 		

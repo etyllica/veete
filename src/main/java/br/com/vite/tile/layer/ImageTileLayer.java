@@ -8,8 +8,8 @@ public class ImageTileLayer extends TileLayer {
 	
 	protected ImageLayer layer;
 		
-	public ImageTileLayer(String path) {
-		super();
+	public ImageTileLayer(String path, String tileSetId) {
+		super(tileSetId);
 		
 		layer = new ImageLayer(path);
 	}
@@ -29,6 +29,8 @@ public class ImageTileLayer extends TileLayer {
 		int tileHeight = tile.layer.getH();
 		
 		this.collision = tile.getCollision();
+		this.id = tile.id;
+		this.tileSetId = tile.tileSetId;
 		
 		layer = new ImageLayer(path);
 		setLayerBounds(xImage, yImage, tileWidth, tileHeight);

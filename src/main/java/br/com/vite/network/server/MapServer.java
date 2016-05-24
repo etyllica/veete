@@ -2,20 +2,24 @@ package br.com.vite.network.server;
 
 import br.com.midnight.model.Peer;
 import br.com.midnight.server.TCPServer;
-import examples.simpletcp.client.SimpleClientProtocol;
+import br.com.vite.network.client.MapClientProtocol;
 
 public class MapServer extends TCPServer {
 
+	public static final int PORT = 13131;
+	
 	private MapServerProtocol listener;
 
-	public MapServer(int port) {
-		super(port);
+	public MapServer() {
+		super(PORT);
+		
+		this.name = "Veete Server";
 
 		handshaker = new MapHandshaker();
 		
-		listener = new MapServerProtocol(SimpleClientProtocol.DEFAULT_PREFIX);
+		listener = new MapServerProtocol(MapClientProtocol.PREFIX_VEETE);
 
-		addProtocol(SimpleClientProtocol.DEFAULT_PREFIX, listener);
+		addProtocol(MapClientProtocol.PREFIX_VEETE, listener);
 	}
 	
 	@Override

@@ -13,8 +13,10 @@ import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.export.MapExporter;
 import br.com.vite.map.selection.OrthogonalCollisionMap;
 import br.com.vite.map.selection.OrthogonalFloorSelection;
+import br.com.vite.tile.Tile;
+import br.com.vite.ui.Toolbar;
 
-public class OrthogonalMapApplication extends MapApplication {
+public class CollaborativeMapApplication extends MapApplication {
 	
 	private final String mapFile = "map.json";
 	private static final String ID_CASTLE = "castle";
@@ -32,8 +34,10 @@ public class OrthogonalMapApplication extends MapApplication {
 	private OrthogonalCollisionMap selectionCollisionMap;
 	
 	private BigGrass smallGrass;
-
-	public OrthogonalMapApplication(int w, int h) {
+	
+	Toolbar bar;
+			
+	public CollaborativeMapApplication(int w, int h) {
 		super(w, h);
 	}
 
@@ -42,6 +46,8 @@ public class OrthogonalMapApplication extends MapApplication {
 
 		final int columns = 50;
 		final int lines = 16;
+
+		bar = new Toolbar(this);
 		
 		editor = new OrthogonalMapEditor(columns, lines, tileWidth, tileHeight);
 		editor.translateMap(0, 110);
@@ -58,7 +64,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		selectionCastleMap = new OrthogonalFloorSelection(tileWidth, tileHeight, castle);
 		selectionCastleMap.translateMap(0, tileSetOffsetY);
 		selectionCastleMap.setListener(editor);
-		selectionCastleMap.setCollisionMap(selectionCollisionMap);
+		selectionCastleMap.setCollisionMap(selectionCollisionMap);		
 		
 		loading = 60;
 		LandTileSet land = new LandTileSet(ID_LAND);
@@ -74,12 +80,12 @@ public class OrthogonalMapApplication extends MapApplication {
 		smallGrass = new BigGrass(land.getId());
 		editor.setObjectTile(smallGrass);
 				
-		try {
+		/*try {
 			reloadMap();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		updateAtFixedRate(80, this);
 		
@@ -111,7 +117,7 @@ public class OrthogonalMapApplication extends MapApplication {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+				
 		}
 	}
 	
@@ -142,6 +148,24 @@ public class OrthogonalMapApplication extends MapApplication {
 		selectionCastleMap.draw(g);
 		selectionPlatformMap.draw(g);
 		selectionCollisionMap.draw(g);
+	}
+
+	@Override
+	public void writeTile(Tile lastSelectedTile, String id) {
+		if(bar.getSharingTool().isStarted()) {
+			int x = lastSelectedTile.getX();
+			int y = lastSelectedTile.getY();
+			bar.getSharingTool().getMapProtocol().sendWriteTile(x, y, id);
+		}
+			
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eraseTile(Tile lastSelectedTile) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

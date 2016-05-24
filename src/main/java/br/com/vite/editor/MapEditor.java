@@ -1,5 +1,7 @@
 package br.com.vite.editor;
 
+import java.util.HashMap;
+
 import br.com.etyllica.core.Drawable;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
@@ -12,38 +14,43 @@ import br.com.vite.map.selection.SelectionMapListener;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.layer.ImageTileFloor;
 import br.com.vite.tile.layer.ImageTileObject;
+import br.com.vite.tile.set.TileSet;
 
 public abstract class MapEditor implements Drawable, SelectionMapListener {
 
 	protected Map map;
+	
+	private EditorListener listener;
 
 	//Selection
 	protected ImageTileFloor selectedTile;
-
 	protected ImageTileObject selectedObject;
+	
+	protected java.util.Map<String, TileSet> tilesets = new HashMap<String, TileSet>();
 
 	//Input
-	protected int mx, my;	
+	public int mx, my;	
 
-	protected boolean leftPressed = false;
-	protected boolean rightPressed = false;
-	protected boolean middlePressed = false;
-	protected boolean ctrlPressed = false;
+	public boolean leftPressed = false;
+	public boolean rightPressed = false;
+	public boolean middlePressed = false;
+	public boolean ctrlPressed = false;
 
 	protected int tileWidth = 0;
 	protected int tileHeight = 0;
 
 	private boolean drawCurrentTile = true;
 
-	public MapEditor(int columns, int lines) {
-		this(columns, lines, 64, 64);		
-	}
-
-	public MapEditor(int columns, int lines, int tileWidth, int tileHeight) {
+	public MapEditor(int tileWidth, int tileHeight) {
 		super();
 
 		this.tileWidth = tileWidth;
 		this.tileHeight = tileHeight;
+	}
+	
+	public MapEditor(int tileWidth, int tileHeight, EditorListener listener) {
+		this(tileWidth, tileHeight);
+		this.listener = listener;
 	}
 
 	public void offsetMap(int offsetX, int offsetY) {
@@ -100,7 +107,7 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		return GUIEvent.NONE;		
 	}
 
-	public GUIEvent updateMouse(PointerEvent event) {
+	public void updateMouse(PointerEvent event) {
 
 		my = event.getY();
 		mx = event.getX();
@@ -122,8 +129,6 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_MIDDLE)) {
 			middlePressed = false;
 		}
-
-		return GUIEvent.NONE;
 	}
 
 	public void update(long now) {
@@ -133,16 +138,13 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		if(map.isOnTarget()) {
 
 			if(rightPressed) {
-				//Erase Tile
-				lastSelectedTile.setLayer(null);
-				lastSelectedTile.setObjectLayer(null);				
+				eraseTile(lastSelectedTile);
 			}
 
 			if(!ctrlPressed) {
 
-				if(leftPressed && selectedTile != null) {				
-					lastSelectedTile.setLayer(selectedTile);
-					lastSelectedTile.setCollision(selectedTile.getCollision());
+				if(leftPressed && selectedTile != null) {
+					writeTile(lastSelectedTile);
 				} else if(middlePressed) {
 
 				}
@@ -154,6 +156,32 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 				}
 			}
 		}
+	}
+
+	private void notifyEraseTile(Tile lastSelectedTile) {
+		if (listener == null) {
+			return;
+		}
+		listener.eraseTile(lastSelectedTile);
+	}
+	
+	private void notifyWriteTile(Tile lastSelectedTile) {
+		if (listener == null) {
+			return;
+		}
+		listener.writeTile(lastSelectedTile, selectedTile.getId());
+	}
+
+	private void writeTile(Tile lastSelectedTile) {
+		notifyWriteTile(lastSelectedTile);
+		lastSelectedTile.setLayer(selectedTile);
+		lastSelectedTile.setCollision(selectedTile.getCollision());
+	}
+	
+	private void eraseTile(Tile lastSelectedTile) {
+		notifyEraseTile(lastSelectedTile);
+		lastSelectedTile.setLayer(null);
+		lastSelectedTile.setObjectLayer(null);
 	}
 
 	public MapType getType() {
@@ -222,6 +250,14 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 
 	public Map getMap() {
 		return map;
+	}
+
+	public java.util.Map<String, TileSet> getTileSets() {
+		return tilesets;
+	}
+
+	public void addTileSet(TileSet tileSet) {
+		this.tilesets.put(tileSet.getId(), tileSet);
 	}
 
 }

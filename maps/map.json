@@ -7,58 +7,103 @@
   "tile_height": 16,
   "tilesets": [
     {
-      "id": 0,
-      "path": "platform/land.png"
+      "id": "land",
+      "path": "platform/land.png",
+      "tileWidth": 16,
+      "tileHeight": 16,
+      "type": "ORTHOGONAL"
+    },
+    {
+      "id": "castle",
+      "path": "castle/tileset.png",
+      "tileWidth": 16,
+      "tileHeight": 16,
+      "type": "ORTHOGONAL"
     }
   ],
   "tiles": [
     {
-      "set": 0,
-      "xImage": 16,
-      "yImage": 0,
-      "collision": "UPPER",
-      "id": 1
-    },
-    {
-      "set": 0,
-      "xImage": 48,
-      "yImage": 0,
-      "collision": "UPPER_LEFT",
+      "set": "land",
+      "xImage": 0,
+      "yImage": 112,
+      "collision": "FREE",
       "id": 0
     },
     {
-      "set": 0,
-      "xImage": 64,
-      "yImage": 0,
-      "collision": "UPPER_RIGHT",
+      "set": "land",
+      "xImage": 32,
+      "yImage": 112,
+      "collision": "FREE",
       "id": 2
+    },
+    {
+      "set": "land",
+      "xImage": 16,
+      "yImage": 112,
+      "collision": "FREE",
+      "id": 1
     }
   ],
   "objects": [],
   "map": [
     {
-      "x": 17,
-      "y": 11,
+      "x": 19,
+      "y": 5,
       "floor_id": 0
     },
     {
-      "x": 18,
-      "y": 11,
-      "floor_id": 1
+      "x": 20,
+      "y": 5,
+      "floor_id": 0
+    },
+    {
+      "x": 21,
+      "y": 5,
+      "floor_id": 0
     },
     {
       "x": 19,
-      "y": 11,
+      "y": 6,
       "floor_id": 1
     },
     {
       "x": 20,
-      "y": 11,
+      "y": 6,
       "floor_id": 1
     },
     {
       "x": 21,
-      "y": 11,
+      "y": 6,
+      "floor_id": 1
+    },
+    {
+      "x": 19,
+      "y": 7,
+      "floor_id": 1
+    },
+    {
+      "x": 20,
+      "y": 7,
+      "floor_id": 1
+    },
+    {
+      "x": 21,
+      "y": 7,
+      "floor_id": 1
+    },
+    {
+      "x": 19,
+      "y": 8,
+      "floor_id": 2
+    },
+    {
+      "x": 20,
+      "y": 8,
+      "floor_id": 2
+    },
+    {
+      "x": 21,
+      "y": 8,
       "floor_id": 2
     }
   ]

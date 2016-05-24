@@ -10,6 +10,7 @@ import br.com.vite.map.selection.SelectedObjectTile;
 import br.com.vite.map.selection.SelectedTile;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.layer.ImageTileObject;
+import br.com.vite.tile.set.TileSet;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -31,6 +32,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
 	public static final String JSON_OBJECTS = "objects";
 	public static final String JSON_TILES = "tiles";
 	public static final String JSON_MAP = "map";
+	public static final String JSON_SET = "set";
 	public static final String JSON_ID = "id";
 	public static final String JSON_FLOOR_ID = "floor_id";
 	public static final String JSON_OBJECT_ID = "obj_id";
@@ -38,16 +40,13 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
 	private static final int MAP_VERSION = 1;
 	
     private int uniqueId = 0;
-    
     private int uniqueObjectId = 0;
-    
-    private int tileSetId = 0;
    
     private Map<SelectedTile, Integer> uniqueIds;
     
     private Map<SelectedObjectTile, Integer> objectIds;
         
-    private Map<String, Integer> tileSets;
+    private Map<String, TileSet> tileSets;
     
     @Override
     public JsonElement serialize(MapEditor editor, Type type,
@@ -65,7 +64,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
         element.add(JSON_TILE_WIDTH, context.serialize(editor.getTileWidth()));
         element.add(JSON_TILE_HEIGHT, context.serialize(editor.getTileHeight()));
                
-        tileSets = new HashMap<String, Integer>();
+        tileSets = editor.getTileSets();
         
         uniqueIds = new HashMap<SelectedTile, Integer>();
         
@@ -88,13 +87,16 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
         
         JsonArray array = new JsonArray();
         
-        for(Entry<String, Integer> entry: tileSets.entrySet()) {
+        for(TileSet tileset: tileSets.values()) {
         	
         	JsonObject tilesetNode = new JsonObject();
         	
-        	tilesetNode.addProperty(JSON_ID, entry.getValue());
-        	tilesetNode.addProperty("path", entry.getKey());
-        	
+        	tilesetNode.addProperty(JSON_ID, tileset.getId());
+        	tilesetNode.addProperty("path", tileset.getPath());
+        	tilesetNode.addProperty("tileWidth", tileset.getTileWidth());
+        	tilesetNode.addProperty("tileHeight", tileset.getTileHeight());
+        	tilesetNode.addProperty("type", tileset.getType().toString());
+
         	array.add(tilesetNode);
         }
         
@@ -177,7 +179,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
     	 
          JsonObject tileNode = new JsonObject();
         
-         SelectedTile selection = new SelectedTile(tile.getLayer().getPath(), tile.getLayer().getX(), tile.getLayer().getY(), tile.getCollision());
+         SelectedTile selection = new SelectedTile(tile.getLayer().getId(), tile.getLayer().getTileSetId(), tile.getLayer().getX(), tile.getLayer().getY(), tile.getCollision());
         
          tileNode.addProperty("x", i);
          tileNode.addProperty("y", j);
@@ -200,7 +202,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
     	tileNode.addProperty("x", i);
         tileNode.addProperty("y", j);
                 
-        SelectedObjectTile selection = new SelectedObjectTile(layer);
+        SelectedObjectTile selection = new SelectedObjectTile(layer, layer.getTileSetId());
         
         tileNode.addProperty(JSON_OBJECT_ID, getUniqueObjectId(selection));  
                 
@@ -215,9 +217,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
     		    		
     		objectIds.put(obj, id);
     		uniqueObjectId++;
-            
-            generateTileSetId(obj.getPath());
-            
+                        
             return id;
         }
        
@@ -228,24 +228,14 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
     private int getUniqueId(SelectedTile selectedTile) {
            	
         if(!uniqueIds.containsKey(selectedTile)) {
-        	int id = uniqueId;        	
+        	int id = uniqueId;
             uniqueIds.put(selectedTile, id);
             uniqueId++;
-            
-            generateTileSetId(selectedTile.getPath());
             
             return id;
         }
        
         return uniqueIds.get(selectedTile);
-    }
-       
-    private void generateTileSetId(String path) {
-    	
-    	if(!tileSets.containsKey(path)) {
-        	tileSets.put(path, tileSetId);
-        	tileSetId++;
-        }    	
     }
     
 }
