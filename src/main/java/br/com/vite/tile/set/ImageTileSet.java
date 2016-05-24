@@ -21,19 +21,16 @@ public class ImageTileSet extends TileSet {
 	}
 	
 	public ImageTileSet createTiles() {
-		collision = new CollisionType[rows][columns];
-		
+				
 		for (int j = 0; j < rows; j++) {
 			for (int i = 0; i < columns; i++) {
-				collision[j][i] = CollisionType.FREE;
-				
 				String tileId = generateId();
 				tileIds.put(new PointInt2D(i, j), tileId);
 				
 				int x = i*tileWidth;
 				int y = j*tileHeight;
 				
-				tiles.put(tileId, new SelectedTile(layer.getPath(), x, y, tileWidth, tileHeight));
+				tiles.put(tileId, new SelectedTile(layer.getPath(), x, y, tileWidth, tileHeight, CollisionType.FREE));
 			}
 		}
 		

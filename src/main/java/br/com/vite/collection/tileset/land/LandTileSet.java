@@ -11,38 +11,37 @@ public class LandTileSet extends ImageTileSet {
 		this.id = id;
 		createTiles();
 		
-		collision[0][0] = CollisionType.BLOCK;
-		collision[0][1] = CollisionType.UPPER;
-		collision[0][2] = CollisionType.BLOCK;
+		tiles.get(getIndex(0, 0)).setCollision(CollisionType.BLOCK);
+		tiles.get(getIndex(1, 0)).setCollision(CollisionType.UPPER);
+		tiles.get(getIndex(2, 0)).setCollision(CollisionType.BLOCK);
 		
-		collision[1][0] = CollisionType.BLOCK;
-		collision[1][1] = CollisionType.FREE;
-		collision[1][2] = CollisionType.BLOCK;
+		tiles.get(getIndex(0, 1)).setCollision(CollisionType.BLOCK);
+		tiles.get(getIndex(1, 1)).setCollision(CollisionType.FREE);
+		tiles.get(getIndex(2, 1)).setCollision(CollisionType.BLOCK);
 		
-		collision[2][0] = CollisionType.BLOCK;
-		collision[2][1] = CollisionType.BLOCK;
-		collision[2][2] = CollisionType.BLOCK;
+		tiles.get(getIndex(0, 2)).setCollision(CollisionType.BLOCK);
+		tiles.get(getIndex(1, 2)).setCollision(CollisionType.BLOCK);
+		tiles.get(getIndex(2, 2)).setCollision(CollisionType.BLOCK);
 		
 		//
-		collision[0][3] = CollisionType.UPPER_LEFT;
-		collision[0][4] = CollisionType.UPPER_RIGHT;
+		tiles.get(getIndex(3, 0)).setCollision(CollisionType.UPPER_LEFT);
+		tiles.get(getIndex(4, 0)).setCollision(CollisionType.UPPER_RIGHT);
 		
-		collision[1][3] = CollisionType.FREE;
-		collision[1][4] = CollisionType.FREE;
+		tiles.get(getIndex(3, 1)).setCollision(CollisionType.FREE);
+		tiles.get(getIndex(4, 1)).setCollision(CollisionType.FREE);
 		
-		collision[2][3] = CollisionType.LOWER_LEFT;
-		collision[2][4] = CollisionType.LOWER_RIGHT;
+		tiles.get(getIndex(3, 2)).setCollision(CollisionType.LOWER_LEFT);
+		tiles.get(getIndex(4, 2)).setCollision(CollisionType.LOWER_RIGHT);
 		
-		collision[0][5] = CollisionType.UPPER_LEFT;
-		collision[0][6] = CollisionType.UPPER_RIGHT;
+		tiles.get(getIndex(5, 0)).setCollision(CollisionType.UPPER_LEFT);
+		tiles.get(getIndex(6, 0)).setCollision(CollisionType.UPPER_RIGHT);
 		
-		collision[1][5] = CollisionType.BLOCK;
-		collision[1][6] = CollisionType.BLOCK;
-		
-		collision[7][0] = CollisionType.BLOCK;
-		collision[7][1] = CollisionType.BLOCK;
-		collision[7][2] = CollisionType.BLOCK;
-		
+		tiles.get(getIndex(5, 1)).setCollision(CollisionType.BLOCK);
+		tiles.get(getIndex(6, 1)).setCollision(CollisionType.BLOCK);
+
+		tiles.get(getIndex(7, 0)).setCollision(CollisionType.BLOCK);
+		tiles.get(getIndex(7, 1)).setCollision(CollisionType.BLOCK);
+		tiles.get(getIndex(7, 2)).setCollision(CollisionType.BLOCK);
 	}
 
 }

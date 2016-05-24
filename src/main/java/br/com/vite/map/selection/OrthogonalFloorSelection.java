@@ -147,13 +147,11 @@ public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 	}
 	
 	private void updateCollisions(ImageTileSet tileSet) {
-		
 		for (int j = 0; j < tileSet.getRows(); j++) {
 			for (int i = 0; i < tileSet.getColumns(); i++) {
-				map.getTiles()[j][i].setCollision(tileSet.getCollision()[j][i]);		
+				map.getTiles()[j][i].setCollision(tileSet.getCollision(i,j));
 			}
 		}
-		
 	}
 
 	public OrthogonalCollisionMap getCollisionMap() {

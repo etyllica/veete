@@ -19,9 +19,7 @@ public class TileSet {
 	protected int rows = 0;
 	
 	private MapType type = MapType.ORTHOGONAL;
-	
-	protected CollisionType[][] collision;
-	
+		
 	protected java.util.Map<PointInt2D, String> tileIds = new HashMap<PointInt2D, String>();
 	protected java.util.Map<String, SelectedTile> tiles = new HashMap<String, SelectedTile>();
 	
@@ -66,8 +64,8 @@ public class TileSet {
 		return rows;
 	}
 
-	public CollisionType[][] getCollision() {
-		return collision;
+	public CollisionType getCollision(int index) {
+		return tiles.get(index).getCollision();
 	}
 
 	public String getId() {
@@ -85,7 +83,10 @@ public class TileSet {
 	public SelectedTile getTile(String index) {
 		return tiles.get(index);
 	}
-	
+
+	public CollisionType getCollision(int column, int row) {
+		return tiles.get(getIndex(column, row)).getCollision();
+	}
 
 	protected String generateId() {
 		String tileSetId = this.id; 
@@ -93,5 +94,5 @@ public class TileSet {
 		count++;
 		return id;
 	}
-	
+		
 }
