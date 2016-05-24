@@ -178,6 +178,17 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		lastSelectedTile.setCollision(selectedTile.getCollision());
 	}
 	
+	public void writeFloorTile(int x, int y, String tileSetId, String tileId) {
+		
+		Tile tile = map.getTiles()[y][x];
+		TileSet tileSet = tilesets.get(tileSetId);
+		
+		ImageTileFloor selectedTile = tileSet.getTileFloor(tileId);
+				
+		tile.setLayer(selectedTile);
+		tile.setCollision(selectedTile.getCollision());
+	}
+	
 	private void eraseTile(Tile lastSelectedTile) {
 		notifyEraseTile(lastSelectedTile);
 		lastSelectedTile.setLayer(null);
@@ -240,8 +251,8 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		return map.getColumns();
 	}
 
-	public int getLines() {
-		return map.getLines();
+	public int getRows() {
+		return map.getRows();
 	}
 
 	public Tile[][] getTiles() {
@@ -258,6 +269,14 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 
 	public void addTileSet(TileSet tileSet) {
 		this.tilesets.put(tileSet.getId(), tileSet);
+	}
+
+	public EditorListener getListener() {
+		return listener;
+	}
+
+	public void setListener(EditorListener listener) {
+		this.listener = listener;
 	}
 
 }

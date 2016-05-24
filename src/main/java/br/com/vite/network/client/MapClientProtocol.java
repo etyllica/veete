@@ -31,5 +31,9 @@ public class MapClientProtocol extends StringClientProtocol {
 	public void sendWriteTile(int x, int y, String id) {
 		sendTCP(PREFIX_ADD_TILE+" "+id+" "+x+" "+y);
 	}
+
+	public void sendEraseTile(int x, int y) {
+		sendTCP(PREFIX_REMOVE_TILE+" "+x+" "+y);
+	}
 	
 }

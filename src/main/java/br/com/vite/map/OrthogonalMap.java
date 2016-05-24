@@ -40,8 +40,8 @@ public class OrthogonalMap extends Map {
 		
 		if(line < 0)
 			line = 0;
-		else if(line >= lines)
-			line = lines-1;
+		else if(line >= rows)
+			line = rows-1;
 		else
 			overLine = true;
 		

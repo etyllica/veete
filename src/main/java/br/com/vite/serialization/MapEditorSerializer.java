@@ -24,7 +24,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
 	public static final String JSON_VERSION = "version";
 	public static final String JSON_TYPE = "type";
 	public static final String JSON_COLUMNS = "columns";
-	public static final String JSON_LINES = "lines";
+	public static final String JSON_ROWS = "rows";
 	public static final String JSON_TILE_WIDTH = "tile_width";
 	public static final String JSON_TILE_HEIGHT = "tile_height";
 	
@@ -34,6 +34,9 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
 	public static final String JSON_MAP = "map";
 	public static final String JSON_SET = "set";
 	public static final String JSON_ID = "id";
+	public static final String JSON_PATH = "path";
+	public static final String JSON_X = "x";
+	public static final String JSON_Y = "y";
 	public static final String JSON_FLOOR_ID = "floor_id";
 	public static final String JSON_OBJECT_ID = "obj_id";
 	
@@ -52,7 +55,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
     public JsonElement serialize(MapEditor editor, Type type,
             JsonSerializationContext context) {
 
-        final int lines = editor.getLines();
+        final int rows = editor.getRows();
         final int columns = editor.getColumns();
        
         JsonObject element = new JsonObject();
@@ -60,7 +63,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
         element.add(JSON_VERSION, new JsonPrimitive(MAP_VERSION));
         element.add(JSON_TYPE, context.serialize(editor.getType()));
         element.add(JSON_COLUMNS, context.serialize(columns));
-        element.add(JSON_LINES, context.serialize(lines));
+        element.add(JSON_ROWS, context.serialize(rows));
         element.add(JSON_TILE_WIDTH, context.serialize(editor.getTileWidth()));
         element.add(JSON_TILE_HEIGHT, context.serialize(editor.getTileHeight()));
                
@@ -92,10 +95,12 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
         	JsonObject tilesetNode = new JsonObject();
         	
         	tilesetNode.addProperty(JSON_ID, tileset.getId());
-        	tilesetNode.addProperty("path", tileset.getPath());
-        	tilesetNode.addProperty("tileWidth", tileset.getTileWidth());
-        	tilesetNode.addProperty("tileHeight", tileset.getTileHeight());
-        	tilesetNode.addProperty("type", tileset.getType().toString());
+        	tilesetNode.addProperty(JSON_PATH, tileset.getPath());
+        	tilesetNode.addProperty(JSON_ROWS, tileset.getRows());
+        	tilesetNode.addProperty(JSON_COLUMNS, tileset.getColumns());
+        	tilesetNode.addProperty(JSON_TILE_WIDTH, tileset.getTileWidth());
+        	tilesetNode.addProperty(JSON_TILE_HEIGHT, tileset.getTileHeight());
+        	tilesetNode.addProperty(JSON_TYPE, tileset.getType().toString());
 
         	array.add(tilesetNode);
         }
@@ -181,8 +186,8 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
         
          SelectedTile selection = new SelectedTile(tile.getLayer().getId(), tile.getLayer().getTileSetId(), tile.getLayer().getX(), tile.getLayer().getY(), tile.getCollision());
         
-         tileNode.addProperty("x", i);
-         tileNode.addProperty("y", j);
+         tileNode.addProperty(JSON_X, i);
+         tileNode.addProperty(JSON_Y, j);
          tileNode.addProperty(JSON_FLOOR_ID, getUniqueId(selection));
                  
          return tileNode;
@@ -199,8 +204,8 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
     	    	
     	ImageTileObject layer = tile.getObjectLayer();
     	
-    	tileNode.addProperty("x", i);
-        tileNode.addProperty("y", j);
+    	tileNode.addProperty(JSON_X, i);
+        tileNode.addProperty(JSON_Y, j);
                 
         SelectedObjectTile selection = new SelectedObjectTile(layer, layer.getTileSetId());
         
@@ -217,7 +222,7 @@ public class MapEditorSerializer implements JsonSerializer<MapEditor> {
     		    		
     		objectIds.put(obj, id);
     		uniqueObjectId++;
-                        
+            
             return id;
         }
        

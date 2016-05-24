@@ -39,7 +39,7 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     	JsonObject object = element.getAsJsonObject();
     	
     	int columns = object.get(MapEditorSerializer.JSON_COLUMNS).getAsInt();
-    	int lines = object.get(MapEditorSerializer.JSON_LINES).getAsInt();
+    	int lines = object.get(MapEditorSerializer.JSON_ROWS).getAsInt();
     	int tileWidth = object.get(MapEditorSerializer.JSON_TILE_WIDTH).getAsInt();
     	int tileHeight = object.get(MapEditorSerializer.JSON_TILE_HEIGHT).getAsInt();
     	
@@ -59,6 +59,10 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     	
     	JsonArray mapNode = object.getAsJsonArray(MapEditorSerializer.JSON_MAP);
     	deserializeMap(editor, mapNode);
+    	    	
+    	for (TileSet tileSet:tileSets.values()) {
+    		editor.addTileSet(tileSet);
+    	}
     	
 		return editor;
 	}
@@ -84,13 +88,16 @@ public class MapEditorDeserializer implements JsonDeserializer<MapEditor> {
     		String id = node.get("id").getAsString();
     		String path = node.get("path").getAsString();
     		
-    		int tileWidth = node.get("tileWidth").getAsInt();
-    		int tileHeight = node.get("tileHeight").getAsInt();
-    		MapType type = MapType.valueOf(node.get("type").getAsString());
+    		int rows = node.get(MapEditorSerializer.JSON_ROWS).getAsInt();
+    		int columns = node.get(MapEditorSerializer.JSON_COLUMNS).getAsInt();
+    		int tileWidth = node.get(MapEditorSerializer.JSON_TILE_WIDTH).getAsInt();
+    		int tileHeight = node.get(MapEditorSerializer.JSON_TILE_HEIGHT).getAsInt();
+    		MapType type = MapType.valueOf(node.get(MapEditorSerializer.JSON_TYPE).getAsString());
     		
-    		TileSet set = new TileSet(tileWidth, tileHeight, type);
+    		TileSet set = new TileSet(rows, columns, tileWidth, tileHeight, type);
     		set.setPath(path);
     		set.setId(id);
+    		set.createTiles();
     		
     		tileSets.put(id, set);
     	}

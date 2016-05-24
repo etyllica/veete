@@ -5,12 +5,10 @@ import br.com.etyllica.core.context.UpdateIntervalListener;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
-import br.com.vite.editor.EditorListener;
 import br.com.vite.editor.MapEditor;
-import br.com.vite.tile.Tile;
 import br.com.vite.tile.layer.ImageTileObject;
 
-public abstract class MapApplication extends Application implements UpdateIntervalListener, EditorListener {
+public abstract class MapApplication extends Application implements UpdateIntervalListener {
 		
 	protected MapEditor editor;
 	
@@ -86,7 +84,6 @@ public abstract class MapApplication extends Application implements UpdateInterv
 	
 	@Override
 	public void timeUpdate(long now) {
-		
 		editor.update(now);
 		
 		if(upArrowPressed) {
@@ -110,18 +107,6 @@ public abstract class MapApplication extends Application implements UpdateInterv
 	@Override
 	public void draw(Graphic g) {
 		editor.draw(g);
-	}
-	
-	@Override
-	public void writeTile(Tile lastSelectedTile, String id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void eraseTile(Tile lastSelectedTile) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

@@ -5,6 +5,7 @@ import br.com.etyllica.core.event.Action;
 import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.gui.Button;
 import br.com.etyllica.gui.label.ImageLabel;
+import br.com.vite.editor.MapEditor;
 import br.com.vite.tool.SharingTool;
 
 public class Toolbar {
@@ -12,10 +13,11 @@ public class Toolbar {
 	private SharingTool sharingTool;
 	private Button shareButton;
 	
-	public Toolbar(Application activity) {
+	public Toolbar(Application activity, MapEditor editor) {
 		super();
 		
 		sharingTool = new SharingTool();
+		editor.setListener(sharingTool);
 		
 		shareButton = new Button(16, 42, 64, 64);
 		shareButton.setLabel(new ImageLabel("ui/icons/share.png"));

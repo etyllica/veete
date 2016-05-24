@@ -14,7 +14,7 @@ public abstract class Map {
 	protected int x;
 	protected int y;
 	
-	protected int lines;
+	protected int rows;
 	protected int columns;
 
 	protected int tileWidth;
@@ -37,14 +37,14 @@ public abstract class Map {
 	public Map(int columns, int lines) {
 		super();
 
-		this.lines = lines;
+		this.rows = lines;
 		this.columns = columns;
 	}
 
 	public Map(int columns, int lines, int tileWidth, int tileHeight) {
 		super();
 
-		this.lines = lines;
+		this.rows = lines;
 		this.columns = columns;
 
 		this.tileWidth = tileWidth;
@@ -53,9 +53,9 @@ public abstract class Map {
 
 	public void createTiles() {
 
-		tiles = new Tile[lines][columns]; 
+		tiles = new Tile[rows][columns]; 
 
-		for(int j = 0; j < lines; j++) {
+		for(int j = 0; j < rows; j++) {
 
 			for(int i = 0; i < columns; i++) {
 
@@ -150,11 +150,11 @@ public abstract class Map {
 	 * @param y - offset in y axis
 	 */
 	public void draw(Graphic g, int x, int y) {
-		draw(g, 0, 0, columns, lines, x, y);
+		draw(g, 0, 0, columns, rows, x, y);
 	}
 
 	public void drawRect(Graphic g, int x, int y) {
-		draw(g, x, y, columns, lines, 0, 0);
+		draw(g, x, y, columns, rows, 0, 0);
 	}
 
 	public void draw(Graphic g, int x, int y, int columns, int lines, int offsetX, int offsetY) {
@@ -190,8 +190,8 @@ public abstract class Map {
 		g.setAlpha(100);
 	}
 
-	public int getLines() {
-		return lines;
+	public int getRows() {
+		return rows;
 	}
 
 	public int getColumns() {

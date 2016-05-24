@@ -7,7 +7,7 @@ import br.com.vite.tile.set.ImageTileSet;
 public class LandTileSet extends ImageTileSet {
 	
 	public LandTileSet(String id) {
-		super(10, 8, 16, 16, MapType.ORTHOGONAL, "platform/land.png");
+		super(8, 10, 16, 16, MapType.ORTHOGONAL, "platform/land.png");
 		this.id = id;
 		createTiles();
 		

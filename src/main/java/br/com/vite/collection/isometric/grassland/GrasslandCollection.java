@@ -29,7 +29,7 @@ public class GrasslandCollection extends TileSet implements TileCollection, Obje
 	private List<ImageTileFloor> objects;
 
 	public GrasslandCollection(String id) {
-		super(64, 32, MapType.ISOMETRIC);
+		super(10, 10, 64, 32, MapType.ISOMETRIC);
 		this.id = id;
 		
 		tiles = new ArrayList<ImageTileFloor>();
