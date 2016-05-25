@@ -4,8 +4,8 @@ import br.com.vite.tile.layer.ImageTileFloor;
 
 public class FirewoodNW extends ImageTileFloor {
 
-	public FirewoodNW() {
-		super("grassland/grassland.png");
+	public FirewoodNW(String tileSetId) {
+		super("grassland/grassland.png", tileSetId);
 
 		this.setLayerBounds(5*64, 8*32, 64, 64);
 	}

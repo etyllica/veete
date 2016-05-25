@@ -19,7 +19,7 @@ public abstract class PathFinder {
 		super();
 		
 		this.columns = map.getColumns();
-		this.rows = map.getLines();
+		this.rows = map.getRows();
 		this.map = map;
 	}
 	

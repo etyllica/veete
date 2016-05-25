@@ -18,17 +18,20 @@ import br.com.vite.collection.isometric.grassland.objects.crate.CrateOpenedNW;
 import br.com.vite.collection.isometric.grassland.objects.wood.Fireplace;
 import br.com.vite.collection.isometric.grassland.objects.wood.FirewoodNE;
 import br.com.vite.collection.isometric.grassland.objects.wood.FirewoodNW;
+import br.com.vite.map.MapType;
 import br.com.vite.tile.layer.ImageTileFloor;
+import br.com.vite.tile.set.TileSet;
 
-public class GrasslandCollection implements TileCollection, ObjectCollection{
-
+public class GrasslandCollection extends TileSet implements TileCollection, ObjectCollection{
+	
 	private List<ImageTileFloor> tiles;
 
 	private List<ImageTileFloor> objects;
 
-	public GrasslandCollection(){
-		super();
-
+	public GrasslandCollection(String id) {
+		super(10, 10, 64, 32, MapType.ISOMETRIC);
+		this.id = id;
+		
 		tiles = new ArrayList<ImageTileFloor>();
 		
 		loadTiles();
@@ -43,49 +46,46 @@ public class GrasslandCollection implements TileCollection, ObjectCollection{
 		
 		//Load Grass
 		for(int i = 0; i < 16; i++) {
-			tiles.add(new Grass(i));	
+			tiles.add(new Grass(id, i));
 		}
 
 		//Load Grass with Bricks
 		for(int i = 0; i < 16; i++) {
-			tiles.add(new GrassWithBricks(i));	
+			tiles.add(new GrassWithBricks(id, i));	
 		}
 
 		//Load Marble
 		for(int i = 0; i < 16; i++) {
-			tiles.add(new Marble(i));
+			tiles.add(new Marble(id, i));
 		}
 	}
 	
 	private void loadObjects(){
 		
 		//Graves
-		objects.add(new GraveNE());
+		objects.add(new GraveNE(id));
 		
-		objects.add(new GraveNW());
+		objects.add(new GraveNW(id));
 		
 		//Crates
-		objects.add(new CrateClosedNW());
-		objects.add(new CrateOpenedNW());
-		objects.add(new CrateClosedNE());
-		objects.add(new CrateOpenedNE());
+		objects.add(new CrateClosedNW(id));
+		objects.add(new CrateOpenedNW(id));
+		objects.add(new CrateClosedNE(id));
+		objects.add(new CrateOpenedNE(id));
 		
-		objects.add(new FirewoodNW());
-		objects.add(new FirewoodNE());	
-		objects.add(new Fireplace());
-		objects.add(new Anvil());
-		
+		objects.add(new FirewoodNW(id));
+		objects.add(new FirewoodNE(id));
+		objects.add(new Fireplace(id));
+		objects.add(new Anvil(id));
 	}
 
 	@Override
 	public List<ImageTileFloor> getTiles() {
-
 		return tiles;
 	}
 
 	@Override
 	public List<ImageTileFloor> getObjects() {
-		// TODO Auto-generated method stub
 		return objects;
 	}
 	

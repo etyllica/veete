@@ -3,7 +3,6 @@ package br.com.vite;
 import br.com.etyllica.core.context.Application;
 import br.com.etyllica.core.context.UpdateIntervalListener;
 import br.com.etyllica.core.event.KeyEvent;
-import br.com.etyllica.core.event.MouseButton;
 import br.com.etyllica.core.event.PointerEvent;
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.vite.editor.MapEditor;
@@ -21,10 +20,6 @@ public abstract class MapApplication extends Application implements UpdateInterv
 	//Input
 	protected int mx = 0;
 	protected int my = 0;
-
-	protected boolean leftPressed = false;
-	protected boolean rightPressed = false;
-	protected boolean middlePressed = false;
 	
 	protected boolean upArrowPressed = false;
 	protected boolean leftArrowPressed = false;
@@ -84,34 +79,11 @@ public abstract class MapApplication extends Application implements UpdateInterv
 	
 	@Override
 	public void updateMouse(PointerEvent event) {
-				
 		editor.updateMouse(event);
-		
-		my = event.getY();
-		mx = event.getX();
-		
-		if(event.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
-			leftPressed = true;
-		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_LEFT)) {
-			leftPressed = false;
-		}
-		
-		if(event.isButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) {
-			rightPressed = true;
-		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_RIGHT)) {
-			rightPressed = false;
-		}
-		
-		if(event.isButtonDown(MouseButton.MOUSE_BUTTON_MIDDLE)) {
-			middlePressed = true;
-		}else if(event.isButtonUp(MouseButton.MOUSE_BUTTON_MIDDLE)) {
-			middlePressed = false;
-		}
 	}
 	
 	@Override
 	public void timeUpdate(long now) {
-		
 		editor.update(now);
 		
 		if(upArrowPressed) {

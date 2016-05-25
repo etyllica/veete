@@ -2,6 +2,7 @@ package br.com.vite.map.selection;
 
 import br.com.etyllica.core.graphics.Graphic;
 import br.com.vite.editor.OrthogonalMapEditor;
+import br.com.vite.map.MapType;
 import br.com.vite.tile.collision.CollisionTileSet;
 import br.com.vite.tile.collision.CollisionType;
 import br.com.vite.tile.set.ProceduralTileSet;
@@ -17,7 +18,7 @@ public class OrthogonalCollisionMap extends OrthogonalMapEditor {
 	public OrthogonalCollisionMap(int tileWidth, int tileHeight) {
 		super(5, 3, tileWidth, tileHeight);		
 		
-		tileSet = new CollisionTileSet(tileWidth, tileHeight);
+		tileSet = new CollisionTileSet(5, 3, tileWidth, tileHeight, MapType.ORTHOGONAL);
 	}
 	
 	@Override

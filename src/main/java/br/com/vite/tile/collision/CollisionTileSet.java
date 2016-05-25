@@ -4,14 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 
+import br.com.vite.map.MapType;
 import br.com.vite.tile.set.ProceduralTileSet;
 
 public class CollisionTileSet extends ProceduralTileSet {
 
 	private Color color = Color.RED;
 	
-	public CollisionTileSet(int tileWidth, int tileHeight) {
-		super(5, 3, tileWidth, tileHeight);
+	public CollisionTileSet(int rows, int columns, int tileWidth, int tileHeight, MapType type) {
+		super(rows, columns, tileWidth, tileHeight, type);
 		
 		drawTiles();
 	}

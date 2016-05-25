@@ -4,8 +4,8 @@ import br.com.vite.tile.Tile;
 
 public class OrthogonalTileCreator extends TileCreator {
 
-	public OrthogonalTileCreator(int tileSizeX, int tileSizeY) {
-		super(tileSizeX, tileSizeY);
+	public OrthogonalTileCreator(int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 	}
 
 	@Override

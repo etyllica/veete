@@ -4,8 +4,8 @@ import br.com.vite.tile.layer.ImageTileFloor;
 
 public class CrateOpenedNW extends ImageTileFloor {
 
-	public CrateOpenedNW() {
-		super("grassland/grassland.png");
+	public CrateOpenedNW(String tileSetId) {
+		super("grassland/grassland.png", tileSetId);
 
 		this.setLayerBounds(1*64, 8*32, 64, 64);
 	}

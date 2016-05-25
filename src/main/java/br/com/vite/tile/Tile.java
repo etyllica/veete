@@ -17,8 +17,8 @@ public class Tile extends GeometricLayer {
 	
 	protected CollisionType collision = CollisionType.FREE;
 	
-	public Tile(int x, int y, int w, int h){
-		super(x,y,w,h);
+	public Tile (int x, int y, int w, int h) {
+		super(x, y, w, h);
 	}
 
 	public Color getColor() {

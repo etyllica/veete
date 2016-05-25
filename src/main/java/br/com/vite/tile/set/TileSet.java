@@ -6,11 +6,13 @@ import br.com.etyllica.core.linear.PointInt2D;
 import br.com.vite.map.MapType;
 import br.com.vite.map.selection.SelectedTile;
 import br.com.vite.tile.collision.CollisionType;
+import br.com.vite.tile.layer.ImageTileFloor;
 
 public class TileSet {
 	
 	private int count = 0;
 	protected String id;
+	protected String path;
 	
 	protected int tileWidth = 64;
 	protected int tileHeight = 64;
@@ -22,21 +24,12 @@ public class TileSet {
 		
 	protected java.util.Map<PointInt2D, String> tileIds = new HashMap<PointInt2D, String>();
 	protected java.util.Map<String, SelectedTile> tiles = new HashMap<String, SelectedTile>();
-	
-	public TileSet(int tileWidth, int tileHeight) {
+		
+	public TileSet(int rows, int columns, int tileWidth, int tileHeight, MapType type) {
 		super();
 		
 		this.tileWidth = tileWidth;
 		this.tileHeight = tileHeight;
-	}
-	
-	public TileSet(int tileWidth, int tileHeight, MapType type) {
-		this(tileWidth, tileHeight);
-		this.type = type;
-	}
-	
-	public TileSet(int tileWidth, int tileHeight, int columns, int rows, MapType type) {
-		this(tileWidth, tileHeight);
 		this.rows = rows;
 		this.columns = columns;
 		
@@ -76,6 +69,14 @@ public class TileSet {
 		this.id = id;
 	}
 	
+	public String getPath() {
+		return path;
+	}
+	
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
 	public String getIndex(int x, int y) {
 		return tileIds.get(new PointInt2D(x, y));
 	}
@@ -87,6 +88,20 @@ public class TileSet {
 	public CollisionType getCollision(int column, int row) {
 		return tiles.get(getIndex(column, row)).getCollision();
 	}
+	
+	public void createTiles() {
+		for (int j = 0; j < rows; j++) {
+			for (int i = 0; i < columns; i++) {
+				String tileId = generateId();
+				tileIds.put(new PointInt2D(i, j), tileId);
+				
+				int x = i*tileWidth;
+				int y = j*tileHeight;
+				
+				tiles.put(tileId, new SelectedTile(tileId, path, x, y, tileWidth, tileHeight, CollisionType.FREE));
+			}
+		}
+	}
 
 	protected String generateId() {
 		String tileSetId = this.id; 
@@ -94,5 +109,15 @@ public class TileSet {
 		count++;
 		return id;
 	}
+
+	public ImageTileFloor getTileFloor(String tileId) {
+		SelectedTile tile = getTile(tileId);
 		
+		ImageTileFloor tileFloor = new ImageTileFloor(path, id);
+		tileFloor.setLayerBounds(tile.getX(), tile.getY(), tileWidth, tileHeight);
+		tileFloor.setId(tileId);
+		
+		return tileFloor;
+	}
+	
 }

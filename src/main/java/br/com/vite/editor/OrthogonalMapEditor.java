@@ -4,10 +4,10 @@ import br.com.vite.map.OrthogonalMap;
 
 public class OrthogonalMapEditor extends MapEditor {
 	
-	public OrthogonalMapEditor(int columns, int lines, int tileWidth, int tileHeight) {
-		super(columns, lines, tileWidth, tileHeight);
+	public OrthogonalMapEditor(int columns, int rows, int tileWidth, int tileHeight) {
+		super(tileWidth, tileHeight);
 				
-		map = new OrthogonalMap(columns, lines, tileWidth, tileHeight);
+		map = new OrthogonalMap(columns, rows, tileWidth, tileHeight);
 
 		map.createTiles();
 	}

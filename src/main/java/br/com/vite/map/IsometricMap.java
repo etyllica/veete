@@ -48,8 +48,8 @@ public class IsometricMap extends Map {
 		
 		if(line < offset)
 			line = offset;
-		else if (line >= lines)
-			line = lines - offset;
+		else if (line >= rows)
+			line = rows - offset;
 		else
 			overLine = true;
 

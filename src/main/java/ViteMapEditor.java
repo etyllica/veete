@@ -1,3 +1,4 @@
+import examples.CollaborativeMapApplication;
 import examples.HexagonalMapApplication;
 import examples.IsometricMapApplication;
 import examples.OrthogonalMapApplication;
@@ -22,8 +23,9 @@ public class ViteMapEditor extends EtyllicaFrame {
 		initialSetup("../");
 			
 		//return new IsometricMapApplication(w, h);
-		return new OrthogonalMapApplication(w, h);
+		//return new OrthogonalMapApplication(w, h);
 		//return new HexagonalMapApplication(w, h);
+		return new CollaborativeMapApplication(w, h);
 	}
 	
 }

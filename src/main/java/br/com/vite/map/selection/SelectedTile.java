@@ -4,7 +4,9 @@ import br.com.vite.tile.collision.CollisionType;
 
 public class SelectedTile {
 
-	protected String path;
+	protected String id;
+	
+	protected String setId;
 	
 	private int x;
 	
@@ -13,53 +15,46 @@ public class SelectedTile {
 	protected int width;
 	
 	protected int height;
-	
+		
 	protected CollisionType collision = CollisionType.FREE;
 
-	public SelectedTile(String path, int x, int y) {
+	public SelectedTile(String id, String setId, int x, int y) {
 		super();
 		
-		this.path = path;
+		this.id = id;
+		this.setId = setId;
 		this.x = x;
 		this.y = y;
 	}
 	
-	public SelectedTile(String path, int x, int y, CollisionType collision) {
+	public SelectedTile(String id, String setId, int x, int y, CollisionType collision) {
 		super();
 		
-		this.path = path;
+		this.id = id;
+		this.setId = setId;
 		this.x = x;
 		this.y = y;
 		this.collision = collision;
 	}
 	
-	public SelectedTile(String path, int x, int y, int width, int height) {
-		super();
+	public SelectedTile(String id, String setId, int x, int y, int width, int height) {
+		this(id, setId, x, y);
 		
-		this.path = path;
-		this.x = x;
-		this.y = y;
 		this.width = width;
 		this.height = height;
 	}
 	
-	public SelectedTile(String path, int x, int y, int width, int height, CollisionType collision) {
-		super();
-		
-		this.path = path;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+	public SelectedTile(String id, String setId, int x, int y, int width, int height, CollisionType collision) {
+		this(id, setId, x, y, width, height);
 		this.collision = collision;
 	}
 
-	public String getPath() {
-		return path;
+	public String getSetId() {
+		return setId;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setSetId(String setId) {
+		this.setId = setId;
 	}
 
 	public int getX() {
@@ -106,7 +101,7 @@ public class SelectedTile {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((path == null) ? 0 : path.hashCode());
+		result = prime * result + ((setId == null) ? 0 : setId.hashCode());
 		result = prime * result + x;
 		result = prime * result + y;
 		return result;
@@ -121,16 +116,25 @@ public class SelectedTile {
 		if (getClass() != obj.getClass())
 			return false;
 		SelectedTile other = (SelectedTile) obj;
-		if (path == null) {
-			if (other.path != null)
+		if (setId == null) {
+			if (other.setId != null)
 				return false;
-		} else if (!path.equals(other.path))
+		} else if (!setId.equals(other.setId))
 			return false;
 		if (x != other.x)
 			return false;
 		if (y != other.y)
 			return false;
 		return true;
+	}
+	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }
