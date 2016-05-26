@@ -1,6 +1,6 @@
 package br.com.vite.map;
 
-import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.graphics.Graphics;
 import br.com.etyllica.core.linear.PointInt2D;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.colider.TileCollider;
@@ -139,7 +139,7 @@ public abstract class Map {
 		this.filler = filler;
 	}
 
-	public void draw(Graphic g) {
+	public void draw(Graphics g) {
 		drawRect(g, 0, 0);
 	}
 	
@@ -149,15 +149,15 @@ public abstract class Map {
 	 * @param x - offset in x axis
 	 * @param y - offset in y axis
 	 */
-	public void draw(Graphic g, int x, int y) {
+	public void draw(Graphics g, int x, int y) {
 		draw(g, 0, 0, columns, rows, x, y);
 	}
 
-	public void drawRect(Graphic g, int x, int y) {
+	public void drawRect(Graphics g, int x, int y) {
 		draw(g, x, y, columns, rows, 0, 0);
 	}
 
-	public void draw(Graphic g, int x, int y, int columns, int lines, int offsetX, int offsetY) {
+	public void draw(Graphics g, int x, int y, int columns, int lines, int offsetX, int offsetY) {
 
 		for(int j = y; j < lines; j++) {
 
@@ -170,21 +170,21 @@ public abstract class Map {
 		}
 	}
 
-	public void drawTileFiller(Graphic g) {
+	public void drawTileFiller(Graphics g) {
 		drawTileFiller(g, getLastTarget());
 	}
 
-	public void drawTileFiller(Graphic g, Tile target) {
+	public void drawTileFiller(Graphics g, Tile target) {
 		g.setAlpha(50);
 		filler.drawTileFiller(target, g, x, y);
 		g.setAlpha(100);
 	}
 
-	public void drawObjectFiller(Graphic g) {
+	public void drawObjectFiller(Graphics g) {
 		drawObjectFiller(g, getLastTarget());
 	}
 
-	public void drawObjectFiller(Graphic g, Tile target) {
+	public void drawObjectFiller(Graphics g, Tile target) {
 		g.setAlpha(50);
 		filler.drawObjectFiller(target, g, x, y);
 		g.setAlpha(100);

@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 
-import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.graphics.Graphics;
 import br.com.etyllica.layer.BufferedLayer;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.collision.CollisionType;
@@ -44,7 +44,7 @@ public class IsometricTileDrawer extends TileDrawer {
 	}
 
 	@Override
-	protected void drawGrid(Tile tile, Graphic g, int offsetX, int offsetY) {
+	protected void drawGrid(Tile tile, Graphics g, int offsetX, int offsetY) {
 		
 		int tx = tile.getX()+offsetX;
 		int ty = tile.getY()+offsetY;
@@ -53,7 +53,7 @@ public class IsometricTileDrawer extends TileDrawer {
 	}
 
 	@Override
-	protected void drawCollision(Tile tile, Graphic g, int offsetX, int offsetY) {
+	protected void drawCollision(Tile tile, Graphics g, int offsetX, int offsetY) {
 
 		int tx = tile.getX()+offsetX;
 		int ty = tile.getY()+offsetY;

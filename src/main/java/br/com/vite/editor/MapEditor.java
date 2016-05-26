@@ -7,7 +7,7 @@ import br.com.etyllica.core.event.GUIEvent;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.MouseButton;
 import br.com.etyllica.core.event.PointerEvent;
-import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.graphics.Graphics;
 import br.com.vite.map.Map;
 import br.com.vite.map.MapType;
 import br.com.vite.map.selection.SelectionMapListener;
@@ -79,11 +79,11 @@ public abstract class MapEditor implements Drawable, SelectionMapListener {
 		map.getFiller().setObjectTile(obj);
 	}
 
-	public void draw(Graphic g) {
+	public void draw(Graphics g) {
 		this.draw(g, 0, 0);
 	}
 	
-	public void draw(Graphic g, int x, int y) {
+	public void draw(Graphics g, int x, int y) {
 		map.draw(g, x, y);
 
 		if (drawCurrentTile) {

@@ -2,11 +2,11 @@ import examples.CollaborativeMapApplication;
 import examples.HexagonalMapApplication;
 import examples.IsometricMapApplication;
 import examples.OrthogonalMapApplication;
-import br.com.etyllica.EtyllicaFrame;
+import br.com.etyllica.Etyllica;
 import br.com.etyllica.core.context.Application;
 
 
-public class ViteMapEditor extends EtyllicaFrame {
+public class ViteMapEditor extends Etyllica {
 
 	public ViteMapEditor() {
 		super(800, 600);

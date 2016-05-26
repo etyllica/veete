@@ -1,6 +1,6 @@
 package br.com.vite.tile.drawer;
 
-import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.graphics.Graphics;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.TileHelper;
 
@@ -14,7 +14,7 @@ public abstract class TileDrawer extends TileHelper {
 		super(tileWidth, tileHeight);
 	}
 	
-	public void drawTile(Tile tile, Graphic g, int offsetX, int offsetY) {
+	public void drawTile(Tile tile, Graphics g, int offsetX, int offsetY) {
 		
 		drawFloor(tile, g, offsetX, offsetY);
 
@@ -30,11 +30,11 @@ public abstract class TileDrawer extends TileHelper {
 		}
 	}
 	
-	protected abstract void drawGrid(Tile tile, Graphic g, int offsetX, int offsetY);
+	protected abstract void drawGrid(Tile tile, Graphics g, int offsetX, int offsetY);
 	
-	protected abstract void drawCollision(Tile tile, Graphic g, int offsetX, int offsetY);
+	protected abstract void drawCollision(Tile tile, Graphics g, int offsetX, int offsetY);
 	
-	private void drawFloor(Tile tile, Graphic g, int offsetX, int offsetY) {
+	private void drawFloor(Tile tile, Graphics g, int offsetX, int offsetY) {
 		
 		if(tile.getLayer() == null)
 			return;
@@ -45,7 +45,7 @@ public abstract class TileDrawer extends TileHelper {
 		tile.getLayer().draw(g, tx, ty);		
 	}
 	
-	private void drawObject(Tile tile, Graphic g, int offsetX, int offsetY) {
+	private void drawObject(Tile tile, Graphics g, int offsetX, int offsetY) {
 		
 		if(tile.getObjectLayer() == null)
 			return;

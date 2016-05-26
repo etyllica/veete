@@ -2,7 +2,7 @@ package br.com.vite.tile.filler;
 
 import java.awt.Color;
 
-import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.graphics.Graphics;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.TileHelper;
 import br.com.vite.tile.layer.ImageTileFloor;
@@ -20,9 +20,9 @@ public abstract class TileFiller extends TileHelper {
 		super(tileWidth, tileHeight);
 	}
 		
-	public abstract void drawTileFiller(Tile tile, Graphic g, int offsetX, int offsetY);
+	public abstract void drawTileFiller(Tile tile, Graphics g, int offsetX, int offsetY);
 	
-	public abstract void drawObjectFiller(Tile tile, Graphic g, int offsetX, int offsetY);
+	public abstract void drawObjectFiller(Tile tile, Graphics g, int offsetX, int offsetY);
 		
 	public Color getColor() {
 		return color;

@@ -1,6 +1,6 @@
 package br.com.vite.tile.layer;
 
-import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.graphics.Graphics;
 
 public class ImageTileObject extends ImageTileLayer implements DrawableObject { 
 	
@@ -12,7 +12,7 @@ public class ImageTileObject extends ImageTileLayer implements DrawableObject {
 		super(path, tileSetId);
 	}
 		
-	public void draw(Graphic g, int x, int y, int tileWidth, int tileHeight) {
+	public void draw(Graphics g, int x, int y, int tileWidth, int tileHeight) {
 		layer.simpleDraw(g, offsetX+x-tileWidth/2, offsetY+y-layer.getH()+tileHeight);
 	}
 	

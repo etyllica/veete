@@ -3,7 +3,7 @@ package br.com.vite.map.selection;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.graphics.Graphics;
 import br.com.vite.editor.OrthogonalMapEditor;
 import br.com.vite.tile.Tile;
 import br.com.vite.tile.collision.CollisionType;
@@ -132,7 +132,7 @@ public class OrthogonalFloorSelection extends OrthogonalMapEditor {
 	}
 	
 	@Override
-	public void draw(Graphic g) {
+	public void draw(Graphics g) {
 		tileSet.getLayer().simpleDraw(g, map.getX(), map.getY());
 		
 		super.draw(g);

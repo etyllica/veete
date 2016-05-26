@@ -1,6 +1,6 @@
 package br.com.vite.tile.filler;
 
-import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.graphics.Graphics;
 import br.com.vite.tile.Tile;
 
 public class OrthogonalTileFiller extends TileFiller {
@@ -10,7 +10,7 @@ public class OrthogonalTileFiller extends TileFiller {
 	}
 
 	@Override
-	public void drawTileFiller(Tile tile, Graphic g, int offsetX, int offsetY) {
+	public void drawTileFiller(Tile tile, Graphics g, int offsetX, int offsetY) {
 
 		int tx = tile.getX()+offsetX;
 		int ty = tile.getY()+offsetY;
@@ -24,7 +24,7 @@ public class OrthogonalTileFiller extends TileFiller {
 	}
 	
 	@Override
-	public void drawObjectFiller(Tile tile, Graphic g, int offsetX, int offsetY) {
+	public void drawObjectFiller(Tile tile, Graphics g, int offsetX, int offsetY) {
 
 		int tx = tile.getX()+offsetX;
 		int ty = tile.getY()+offsetY;

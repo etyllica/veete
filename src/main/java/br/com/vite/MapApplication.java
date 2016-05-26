@@ -4,7 +4,7 @@ import br.com.etyllica.core.context.Application;
 import br.com.etyllica.core.context.UpdateIntervalListener;
 import br.com.etyllica.core.event.KeyEvent;
 import br.com.etyllica.core.event.PointerEvent;
-import br.com.etyllica.core.graphics.Graphic;
+import br.com.etyllica.core.graphics.Graphics;
 import br.com.vite.editor.MapEditor;
 import br.com.vite.tile.layer.ImageTileObject;
 
@@ -105,7 +105,7 @@ public abstract class MapApplication extends Application implements UpdateInterv
 	}
 	
 	@Override
-	public void draw(Graphic g) {
+	public void draw(Graphics g) {
 		editor.draw(g);
 	}
 	
