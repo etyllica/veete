@@ -84,6 +84,10 @@ public class TileSet {
 	public SelectedTile getTile(String index) {
 		return tiles.get(index);
 	}
+	
+	public SelectedTile getTileByPosition(int x, int y) {
+		return tiles.get(getIndex(x, y));
+	}
 
 	public CollisionType getCollision(int column, int row) {
 		return tiles.get(getIndex(column, row)).getCollision();

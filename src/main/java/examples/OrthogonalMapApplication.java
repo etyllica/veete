@@ -10,7 +10,7 @@ import br.com.vite.collection.tileset.CastleTileSet;
 import br.com.vite.collection.tileset.land.BigGrass;
 import br.com.vite.collection.tileset.land.LandTileSet;
 import br.com.vite.editor.OrthogonalMapEditor;
-import br.com.vite.export.MapExporter;
+import br.com.vite.loader.MapLoader;
 import br.com.vite.map.selection.OrthogonalCollisionMap;
 import br.com.vite.map.selection.OrthogonalFloorSelection;
 
@@ -100,7 +100,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		super.updateKeyboard(event);
 
 		if(event.isKeyDown(KeyEvent.VK_1)) {
-		    MapExporter.export(editor, mapFile);
+		    MapLoader.export(editor, mapFile);
 		}
 		
 		if(event.isKeyDown(KeyEvent.VK_2)) {
@@ -119,7 +119,7 @@ public class OrthogonalMapApplication extends MapApplication {
 		int offsetX = editor.getOffsetX();
 		int offsetY = editor.getOffsetY();
 		
-		editor = MapExporter.load(mapFile);
+		editor = MapLoader.load(mapFile);
 		selectionCastleMap.setListener(editor);
 		selectionPlatformMap.setListener(editor);
 										

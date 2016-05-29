@@ -1,4 +1,4 @@
-package br.com.vite.export;
+package br.com.vite.loader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
-public class MapExporter {
+public class MapLoader {
 
 	private static final String MAP_FOLDER = "maps/";
 	
